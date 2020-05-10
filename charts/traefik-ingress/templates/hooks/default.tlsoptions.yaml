@@ -1,0 +1,12 @@
+{{- if .Values.service.enableTLS -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: {{ include "traefik-ingress.defaultTLSOptionName" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+spec:
+  {{- include "traefik-ingress.tlsOptionSpec" . | nindent 2 }}
+{{- end -}}

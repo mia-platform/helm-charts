@@ -1,0 +1,18 @@
+apiVersion: str()
+name: str()
+version: str()
+kubeVersion: str()
+appVersion: str()
+description: str()
+type: str()
+keywords: list(str())
+home: str()
+sources: list(str())
+maintainers: list(include('maintainer'))
+icon: str()
+deprecated: bool()
+---
+maintainer:
+  name: str()
+  email: str(required=False)
+  url: str(required=False)

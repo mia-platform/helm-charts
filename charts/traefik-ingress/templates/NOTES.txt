@@ -1,0 +1,9 @@
+Deployed Traefik Ingress Controller in namespace "{{ .Release.Namespace }}"
+with name {{ include "traefik-ingress.fullname" . }} and the "{{ .Values.tlsOption }}"
+default TLSOption settings
+
+You can connect to the dashboard running the following command:
+
+kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "traefik-ingress.internalServiceName" . }} 9000
+
+and open the url http://localhost:9000/dashboard/ in you browser

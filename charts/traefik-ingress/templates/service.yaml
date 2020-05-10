@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "traefik-ingress.fullname" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: "LoadBalancer"
+  externalTrafficPolicy: "Local"
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
+  {{- end }}
+  {{- with .Values.service.externalIPs }}
+  externalIPs:
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
+  {{- with .Values.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
+  selector:
+    {{- include "traefik-ingress.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: "web"
+      port: 80
+      targetPort: "web"
+      protocol: "TCP"
+    {{- if .Values.service.enableTLS }}
+    - name: "websecure"
+      port: 443
+      targetPort: "websecure"
+      protocol: "TCP"
+    {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "traefik-ingress.internalServiceName" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: "ClusterIP"
+  clusterIP: "None"
+  selector:
+    {{- include "traefik-ingress.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: "traefik"
+      port: 9000
+      targetPort: "traefik"
+      protocol: "TCP"

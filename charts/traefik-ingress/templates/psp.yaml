@@ -1,0 +1,42 @@
+{{- if .Values.podSecurityPolicyEnabled -}}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ include "traefik-ingress.fullname" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - "ALL"
+  volumes:
+    - "configMap"
+    - "emptyDir"
+    - "projected"
+    - "secret"
+    - "downwardAPI"
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: "MustRunAs"
+    ranges:
+      - min: 10000
+        max: 10000
+  seLinux:
+    rule: "RunAsAny"
+  supplementalGroups:
+    rule: "MustRunAs"
+    ranges:
+      - min: 11000
+        max: 11000
+  fsGroup:
+    rule: "MustRunAs"
+    ranges:
+      - min: 12000
+        max: 12000
+{{- end -}}

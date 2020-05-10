@@ -1,0 +1,34 @@
+{{- if .Values.service.enableTLS -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "traefik-ingress.redirectIngressRouteName" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+spec:
+  entryPoints:
+    - "web"
+  routes:
+    - match: "HostRegexp(`{host:.+}`)"
+      kind: "Rule"
+      middlewares:
+        - name: {{ include "traefik-ingress.redirectIngressRouteName" . | quote }}
+      services:
+        - name: "noop@internal"
+          kind: "TraefikService"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "traefik-ingress.redirectIngressRouteName" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: false
+{{- end -}}

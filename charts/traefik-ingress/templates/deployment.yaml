@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "traefik-ingress.fullname" . | quote }}
+  labels: &Labels
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations: &Annotations
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  selector:
+    matchLabels:
+      {{- include "traefik-ingress.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels: *Labels
+      {{- with .Values.deploy.annotations }}
+      annotations: *Annotations
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "traefik-ingress.serviceAccountName" . | quote }}
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 60
+      {{- with .Values.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "traefik-ingress.fullname" . | quote }}
+          image: {{ include "traefik-ingress.image" . | quote }}
+          args:
+            {{- include "traefik-ingress.argsConfigs" . | nindent  12 }}
+          {{- with .Values.deploy.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: "web"
+              containerPort: 8080
+              protocol: "TCP"
+            {{- if .Values.service.enableTLS }}
+            - name: "websecure"
+              containerPort: 8443
+              protocol: "TCP"
+            {{- end }}
+            - name: "traefik"
+              containerPort: 9000
+              protocol: "TCP"
+          livenessProbe:
+            httpGet:
+              path: "/ping"
+              port: "traefik"
+              scheme: "HTTP"
+            failureThreshold: 1
+            initialDelaySeconds: 2
+            periodSeconds: 4
+            successThreshold: 1
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: "/ping"
+              port: "traefik"
+              scheme: "HTTP"
+            failureThreshold: 3
+            initialDelaySeconds: 31
+            periodSeconds: 4
+            successThreshold: 1
+            timeoutSeconds: 2
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop:
+                - "all"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 11000
+        fsGroup: 12000
+      affinity:
+        {{- include "traefik-ingress.podAffinity" . | nindent 8 }}
+      {{- with .Values.deploy.nodeSelectors }}
+      nodeSelectors:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

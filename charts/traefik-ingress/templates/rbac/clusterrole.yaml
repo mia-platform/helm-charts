@@ -1,0 +1,59 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "traefik-ingress.roleName" . | quote }}
+  labels:
+    {{- include "traefik-ingress.labels" . | nindent 4 }}
+  {{- with .Values.rbac.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "services"
+      - "endpoints"
+      - "secrets"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "ingresses"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "ingresses/status"
+    verbs:
+      - "update"
+  - apiGroups:
+      - "traefik-ingress.containo.us"
+    resources:
+      - "ingressroutes"
+      - "ingressroutetcps"
+      - "ingressrouteudps"
+      - "middlewares"
+      - "tlsoptions"
+      - "tlsstores"
+      - "traefikservices"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+{{- if .Values.podSecurityPolicyEnabled }}
+  - apiGroups:
+      - "policy"
+    resources:
+      - "podsecuritypolicies"
+    verbs:
+      - "use"
+    resourceNames:
+      - {{ include "traefik-ingress.fullname" . }}
+{{- end }}

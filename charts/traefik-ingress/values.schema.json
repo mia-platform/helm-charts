@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Values",
+  "type": "object",
+  "properties": {
+    "nameOverride": {
+      "description": "Override the default name of traefik-ingress",
+      "type": "string"
+    },
+    "fullnameOverride": {
+      "description": "Unique name to override the generated one",
+      "type": "string"
+    },
+    "applicationName": {
+      "description": "Value for app.kubernetes.io/part-of label metadata",
+      "type": "string"
+    },
+    "logLevel": {
+      "description": "The log level for traefik executable",
+      "type": "string",
+      "enum": ["DEBUG", "PANIC", "FATAL", "ERROR", "WARN", "INFO"]
+    },
+    "tlsOption": {
+      "description": "The default TLSOption attached to the websecure entrypoint",
+      "type": "string",
+      "enum": ["intermediate", "old"]
+    },
+    "podSecurityPolicyEnabled": {
+      "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",
+      "type": "boolean"
+    },
+    "image": {
+      "description": "Container Image",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Docker image name",
+          "type": "string"
+        },
+        "version": {
+          "description": "Dcker image tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "deploy": {
+      "description": "Traefik deployment values",
+      "type": "object",
+      "properties": {
+        "replicas": {
+          "description": "The number of replicas for the deployment",
+          "type": "integer",
+          "minimum": 1
+        },
+        "annotations": {
+          "description": "Custom annotations to add to the deployment",
+          "type": "object"
+        },
+        "imagePullSecrets": {
+          "description": "Name of kuberntes secrets to use for repository authentication",
+          "type": "array"
+        },
+        "nodeSelectors": {
+          "description": "Node selectors to add to the deployment",
+          "type": "object"
+        },
+        "tolerations": {
+          "description": "Tolerations to add to the deployment",
+          "type": "array"
+        }
+      },
+      "required": [
+        "replicas"
+      ]
+    },
+    "service": {
+      "enableTLS": {
+        "description": "Enable websecure entrypoint and default redirect to https",
+        "type": "boolean"
+      },
+      "annotation": {
+        "description": "Custom annotations to add to the public service",
+        "type": "object"
+      },
+      "loadBalancerIP": {
+        "description": "The IP that will be exposed from the loadbalancer attached to the service",
+        "type": "string"
+      },
+      "externalIPs": {
+        "description": "The IPs of the external loadbalancer",
+        "type": "array"
+      },
+      "loadBalancerSourceRanges": {
+        "description": "The ip ranges that are allowed to call the loadbalancer",
+        "type": "array"
+      },
+      "required": [
+        "enableTLS"
+      ]
+    },
+    "rbac": {
+      "annotations": {
+        "description": "Custom annotations to add to the rbac resources",
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "logLevel",
+    "tlsOption",
+    "podSecurityPolicyEnabled",
+    "image",
+    "deploy",
+    "service",
+    "rbac"
+  ]
+}
