@@ -34,7 +34,7 @@ rules:
     verbs:
       - "update"
   - apiGroups:
-      - "traefik-ingress.containo.us"
+      - "traefik.containo.us"
     resources:
       - "ingressroutes"
       - "ingressroutetcps"
