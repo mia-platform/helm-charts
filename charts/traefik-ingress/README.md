@@ -20,11 +20,17 @@ satisfy every need you can have for x509 certificates and can be setup to work s
 
 ### TLSOption
 
-With the `tlsOption` value you can switch between the two available default configuration for the default `TLSOption`
-resource supported cipher suites. The two options follow the `intermediate` and `old` recommended configurations in the
-[Mozilla wiki].  
+The chart will deploy four different preconfigured `TLSOption`, plus a fourth one named `default`.
+The three main options follow the `modern`, `intermediate` and `old` configurations that you can find
+in the [Mozilla wiki].  
+With the `tlsOption` value you can switch the `default` one between the three available configurations and it will be
+the one that Traefik will apply to all the route registered under the `websecure` entrypoint.  
 The `intermediate` configuration is optimal for gaining the `A+` rating on the [SSLLabs] test, the `old` configuration
-is best to use if you cannot drop support for TLS 1.0 clients.
+can be used if you cannot drop support for TLS 1.0 clients, and the `modern` configuration is best suited if you
+can drop support for older clients and can expose only **TLS1.3** configurations.
+
+You can always assign one of the others or a custom configuration with the appropriate section fo the
+`IngressRoute` resource.
 
 ### Kubernetes CRDs
 

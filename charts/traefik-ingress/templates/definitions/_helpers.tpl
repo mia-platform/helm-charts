@@ -42,11 +42,31 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
-Create a default fully qualified treafik default tlsoption name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+Create treafik default tlsoption name.
 */}}
 {{- define "traefik-ingress.defaultTLSOptionName" -}}
-{{- printf "%s-%s-tls" .Release.Name .Values.tlsOption | trunc 63 | trimSuffix "-" -}}
+{{- printf "default" }}
+{{- end -}}
+
+{{/*
+Create treafik modern tlsoption name.
+*/}}
+{{- define "traefik-ingress.modernTLSOptionName" -}}
+{{- printf "%s-modern-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create treafik intermediate tlsoption name.
+*/}}
+{{- define "traefik-ingress.intermediateTLSOptionName" -}}
+{{- printf "%s-intermediate-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create treafik old tlsoption name.
+*/}}
+{{- define "traefik-ingress.oldTLSOptionName" -}}
+{{- printf "%s-old-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*

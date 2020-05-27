@@ -18,7 +18,6 @@ Create the args passed to the Traefik pod.
 - "--entryPoints.websecure.transport.lifecycle.gracetimeout=30"
 - "--entrypoints.websecure.transport.lifecycle.requestacceptgracetimeout=29"
 - "--entrypoints.websecure.http.tls=true"
-- "--entrypoints.websecure.http.tls.options={{ .Release.Namespace }}-{{ include "traefik-ingress.defaultTLSOptionName" . }}"
 {{- end }}
 - "--entryPoints.traefik.address=:9000"
 - "--entryPoints.traefik.transport.lifecycle.gracetimeout=1"

@@ -23,7 +23,7 @@
     "tlsOption": {
       "description": "The default TLSOption attached to the websecure entrypoint",
       "type": "string",
-      "enum": ["intermediate", "old"]
+      "enum": ["modern", "intermediate", "old"]
     },
     "podSecurityPolicyEnabled": {
       "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",

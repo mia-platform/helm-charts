@@ -6,7 +6,7 @@ fullnameOverride: ""
 applicationName: ""
 # Use this variable for changing the log level of traefik
 logLevel: "WARN"
-# Select the default TLSOptions to deploy, accept only "intermediate" or "old" value
+# Select the default TLSOptions to deploy, accept only "modern", "intermediate" or "old" value
 tlsOption: "intermediate"
 # Enable the Pod Security Policy for allowing the execution of the traefik pods
 podSecurityPolicyEnabled: false
