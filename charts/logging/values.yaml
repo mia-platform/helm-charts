@@ -1,0 +1,89 @@
+# Use this variable to override the default name "logging"
+nameOverride: ""
+# Use this variable to provide an unique name to override the generated one
+fullnameOverride: ""
+# Use this variable to add a app.kubernetes.io/part-of label to all resources
+applicationName: ""
+# Enable the Pod Security Policy for allowing the execution of the traefik pods
+podSecurityPolicyEnabled: false
+
+image:
+  # Override the default Docker image name if you use a custom image or a repository mirror
+  name: "banzaicloud/logging-operator"
+  # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+  # version: 3.2.0
+
+# Customize the deployment of the Logging Operator image
+deploy:
+  # Override this value to choose how many replicas of the operator you want.
+  replicas: 1
+  # Use this variable to add custom annotations
+  annotations: {}
+  # If you use a custom image that is hosted on a repository that require authentication specify the
+  # the list of secret name of type kubernetes.io/dockerconfigjson
+  imagePullSecrets: []
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+  #   requests:
+  #     cpu: "100m"
+  #     memory: "128Mi"
+  #   limits:
+  #     cpu: "100m"
+  #     memory: "128Mi"
+
+  # If you wanto to add pod affinity rules for the logging operator pods fill this variable
+  affinity: {}
+  # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that logging operator will run fill
+  # this variable
+  tolerations: []
+
+# Customize the service that expose Traefik
+service:
+  # Use this variable to add custom annotations
+  annotations: {}
+
+# Use this variable to add custom annotations to the generated RBAC resources
+rbac:
+  annotations: {}
+
+defaultLogging:
+  # Set to false to disable default logging stack
+  enabled: true
+  # Override this value with a secret of your choice
+  sharedKey: ""
+
+  fluentbit:
+    # Override this value to change where the logs are saved on the cluster nodes
+    logFilesPattern: "/var/log/containers/*.log"
+    # Use this variable to add custom annotations to the generated fluentbit pods
+    annotations: {}
+    # You are encouraged to setup the resources that the application can use via this
+    # property or at least via a LimitRange resource in the namespace
+    # resources:
+    #   requests:
+    #     cpu: "100m"
+    #     memory: "128Mi"
+    #   limits:
+    #     cpu: "100m"
+    #     memory: "128Mi"
+
+  fluentd:
+    # Override this value to choose how many replicas of fluentd you want.
+    replicas: 1
+    # Use this variable to add custom annotations to the generated fluentd pods
+    annotations: {}
+    # Change this value to increase or decrease the volume dimension dedicated to the buffer
+    bufferStorage: "20Gi"
+    # You are encouraged to setup the resources that the application can use via this
+    # property or at least via a LimitRange resource in the namespace
+    # resources:
+    #   requests:
+    #     cpu: "100m"
+    #     memory: "128Mi"
+    #   limits:
+    #     cpu: "100m"
+    #     memory: "128Mi"

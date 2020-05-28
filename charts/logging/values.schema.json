@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Values",
+  "type": "object",
+  "properties": {
+    "nameOverride": {
+      "description": "Override the default name of traefik-ingress",
+      "type": "string"
+    },
+    "fullnameOverride": {
+      "description": "Unique name to override the generated one",
+      "type": "string"
+    },
+    "applicationName": {
+      "description": "Value for app.kubernetes.io/part-of label metadata",
+      "type": "string"
+    },
+    "podSecurityPolicyEnabled": {
+      "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",
+      "type": "boolean"
+    },
+    "image": {
+      "description": "Container Image",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Docker image name",
+          "type": "string"
+        },
+        "version": {
+          "description": "Dcker image tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "deploy": {
+      "description": "Traefik deployment values",
+      "type": "object",
+      "properties": {
+        "replicas": {
+          "description": "The number of replicas for the deployment",
+          "type": "integer",
+          "minimum": 1
+        },
+        "annotations": {
+          "description": "Custom annotations to add to the deployment",
+          "type": "object"
+        },
+        "imagePullSecrets": {
+          "description": "Name of kuberntes secrets to use for repository authentication",
+          "type": "array"
+        },
+        "affinity": {
+          "description": "Pod affinity to add to the deployment",
+          "type": "object"
+        },
+        "nodeSelectors": {
+          "description": "Node selectors to add to the deployment",
+          "type": "object"
+        },
+        "tolerations": {
+          "description": "Tolerations to add to the deployment",
+          "type": "array"
+        }
+      },
+      "required": [
+        "replicas"
+      ]
+    },
+    "service": {
+      "annotations": {
+        "description": "Custom annotations to add to the service",
+        "type": "object"
+      }
+    },
+    "rbac": {
+      "annotations": {
+        "description": "Custom annotations to add to the rbac resources",
+        "type": "object"
+      }
+    },
+    "defaultLogging": {
+      "enabled": {
+        "description": "Toogle the release of the default logging stack",
+        "type": "boolean"
+      },
+      "sharedKey": {
+        "description": "Shared key for fluentd authentication",
+        "type": "string"
+      },
+      "fluentbit": {
+        "logFilesPattern": {
+          "description": "Where the logs are saved on the cluster nodes",
+          "type": "string"
+        },
+        "annotations": {
+          "description": "Custom annotations to add to the generated fluentbit pods",
+          "type": "object"
+        }
+      },
+      "fluentd": {
+        "replicas": {
+          "description": "The number of replicas for the deployment",
+          "type": "integer",
+          "minimum": 1
+        },
+        "annotations": {
+          "description": "Custom annotations to add to the generated fluentd pods",
+          "type": "object"
+        },
+        "bufferStorage": {
+          "description": "Change this value to increase or decrease the volume dimension dedicated to the buffer",
+          "type": "string"
+        },
+        "required": [
+          "replicas",
+          "bufferStorage"
+        ]
+      },
+      "required": [
+        "enabled",
+        "sharedKey",
+        "fluentbit",
+        "fluentd"
+      ]
+    }
+  },
+  "required": [
+    "podSecurityPolicyEnabled",
+    "image",
+    "deploy",
+    "service",
+    "rbac",
+    "defaultLogging"
+  ]
+}

@@ -1,0 +1,113 @@
+{{- if .Values.defaultLogging.enabled -}}
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: Logging
+metadata:
+  name: {{ include "logging.fullname" . | quote }}
+  labels: &Labels
+    {{- include "logging.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+spec:
+  enableRecreateWorkloadOnImmutableFieldChange: true
+  loggingRef: ""
+  flowConfigCheckDisabled: false
+  flowConfigOverride: ""
+  controlNamespace: {{ .Release.Namespace | quote }}
+  fluentbit:
+    tls:
+      enabled: true
+      secretName: {{ include "logging.fullname" . | quote }}
+      sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
+    labels:
+      {{- include "logging.selectorLabels" . | nindent 6 }}
+    filterKubernetes:
+      Labels: "On"
+      Annotations: "On"
+      K8S-Logging.Exclude: "On"
+    inputTail:
+      Path: {{ .Values.defaultLogging.fluentbit.logFilesPattern | quote }}
+      Mem_Buf_Limit: "10MB"
+      Refresh_Interval: "30"
+      Rotate_Wait: "30"
+    positiondb:
+      hostPath:
+        path: "/var/log/logging-operator"
+    metrics:
+      serviceMonitor: false
+      prometheusAnnotations: false
+      port: 2020
+      path: "/api/v1/metrics/prometheus"
+      timeout: "30s"
+      interval: "15s"
+    {{- with .Values.defaultLogging.fluentbit.resources | quote }}
+    resources:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    security:
+      roleBasedAccessControlCreate: true
+      podSecurityPolicyCreate: {{ .Values.podSecurityPolicyEnabled }}
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        privileged: false
+        capabilities:
+          drop:
+            - "all"
+      podSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        runAsGroup: 101
+        fsGroup: 101
+    {{- with .Values.defaultLogging.fluentbit.annotations }}
+    annotations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  fluentd:
+    tls:
+      enabled: true
+      secretName: {{ include "logging.fullname" . | quote }}
+      sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
+    labels:
+      {{- include "logging.selectorLabels" . | nindent 6 }}
+    {{- with .Values.defaultLogging.fluentd.resources | quote }}
+    scaling:
+      replicas: {{ .Values.defaultLogging.fluentd.replicas | quote }}
+    bufferStorageVolume:
+      pvc:
+        spec:
+          accessModes:
+            - "ReadWriteOnce"
+          resources:
+            requests:
+              storage: {{ .Values.defaultLogging.fluentd.bufferStorage | quote }}
+    livenessDefaultCheck: true
+    metrics:
+     serviceMonitor: false
+     prometheusAnnotations: false
+     port: 24231
+     path: "/metrics"
+     timeout: "30s"
+     interval: "15s"
+    resources:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    security:
+      roleBasedAccessControlCreate: true
+      podSecurityPolicyCreate: {{ .Values.podSecurityPolicyEnabled }}
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: false
+        privileged: false
+        capabilities:
+          drop:
+            - "all"
+      podSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        runAsGroup: 101
+        fsGroup: 101
+    {{- with .Values.defaultLogging.fluentd.annotations }}
+    annotations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+{{- end -}}
