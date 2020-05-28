@@ -3,6 +3,27 @@ entries:
   traefik-ingress:
   - apiVersion: v2
     appVersion: 2.2.1
+    created: "2020-05-28T09:11:29.693359143Z"
+    description: A Kubernetes Ingress Controller based on Traefik
+    digest: 76d4cf45fd6db7ab6603e7b890fe07a8d7e5f2d59603c8111a9621c85235a47f
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://docs.traefik.io/assets/img/traefik.logo.png
+    keywords:
+    - traefik
+    - ingress
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    name: traefik-ingress
+    sources:
+    - https://github.com/containous/traefik
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.9.0/traefik-ingress-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
+    appVersion: 2.2.1
     created: "2020-05-26T15:30:11.889202022Z"
     description: A Kubernetes Ingress Controller based on Traefik
     digest: a902a553764ee3a6d764cb715fbf3fa38eb652a6cada0b7ebe525068fdde22e1
