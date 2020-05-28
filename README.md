@@ -13,9 +13,9 @@ that in the future we will move the support forward in step with the evolution o
 To use our helm charts you have to add the helm repository and select the chart you want to use:
 
 ```bash
-$ helm repo add mia-platform https://mia-platform.github.io/helm-charts
-$ helm search repo mia-platform
-$ helm install release-name mia-platform/<chart>
+helm repo add mia-platform https://mia-platform.github.io/helm-charts
+helm search repo mia-platform
+helm install release-name mia-platform/<chart>
 ```
 
 [Helm v3]: https://helm.sh/docs/intro/install/ (Link for installation guide of Helm v3)
