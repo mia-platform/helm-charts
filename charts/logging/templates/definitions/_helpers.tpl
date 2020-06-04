@@ -53,7 +53,7 @@ Common labels
 helm.sh/chart: {{ include "logging.chart" . | quote }}
 {{ include "logging.selectorLabels" . }}
 app.kubernetes.io/version: {{ include "logging.version" . | quote }}
-app.kubernetes.io/component: "ingress"
+app.kubernetes.io/component: "logging"
 {{- if .Values.applicationName }}
 app.kubernetes.io/part-of: {{ .Values.applicationName | quote }}
 {{- end }}
