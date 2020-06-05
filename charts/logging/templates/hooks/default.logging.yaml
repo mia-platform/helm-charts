@@ -102,9 +102,9 @@ spec:
             - "all"
       podSecurityContext:
         runAsNonRoot: true
-        runAsUser: 10000
-        runAsGroup: 11000
-        fsGroup: 12000
+        runAsUser: 100
+        runAsGroup: 101
+        fsGroup: 101
     {{- with .Values.defaultLogging.fluentd.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
