@@ -59,6 +59,8 @@ defaultLogging:
   fluentbit:
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
+    # Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root
+    runAsRoot: false
     # Use this variable to add custom annotations to the generated fluentbit pods
     annotations: {}
     # You are encouraged to setup the resources that the application can use via this

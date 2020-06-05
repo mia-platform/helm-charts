@@ -29,3 +29,16 @@ Default stack status for NOTES
 {{- printf "disabled" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Fluentbit user id config
+*/}}
+{{- define "logging.fluentbitUserId" -}}
+{{- if .Values.defaultLogging.fluentbit.runAsRoot -}}
+runAsNonRoot: false
+runAsUser: 0
+{{- else -}}
+runAsNonRoot: true
+runAsUser: 10000
+{{- end -}}
+{{- end -}}

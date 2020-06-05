@@ -54,10 +54,9 @@ spec:
           drop:
             - "all"
       podSecurityContext:
-        runAsNonRoot: true
-        runAsUser: 100
-        runAsGroup: 101
-        fsGroup: 101
+        {{- include "logging.fluentbitUserId" . | nindent 8 }}
+        runAsGroup: 11000
+        fsGroup: 12000
     {{- with .Values.defaultLogging.fluentbit.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
@@ -103,9 +102,9 @@ spec:
             - "all"
       podSecurityContext:
         runAsNonRoot: true
-        runAsUser: 100
-        runAsGroup: 101
-        fsGroup: 101
+        runAsUser: 10000
+        runAsGroup: 11000
+        fsGroup: 12000
     {{- with .Values.defaultLogging.fluentd.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
