@@ -21,6 +21,7 @@ spec:
     labels:
       {{- include "logging.selectorLabels" . | nindent 6 }}
     filterKubernetes:
+      Merge_Log: "Off"
       Labels: "On"
       Annotations: "On"
       K8S-Logging.Exclude: "On"
