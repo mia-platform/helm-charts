@@ -38,7 +38,7 @@
           "type": "string"
         },
         "version": {
-          "description": "Dcker image tag",
+          "description": "Docker image tag",
           "type": "string"
         }
       },
@@ -81,7 +81,7 @@
         "description": "Enable websecure entrypoint and default redirect to https",
         "type": "boolean"
       },
-      "annotation": {
+      "annotations": {
         "description": "Custom annotations to add to the public service",
         "type": "object"
       },

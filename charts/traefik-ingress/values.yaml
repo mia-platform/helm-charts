@@ -49,7 +49,7 @@ service:
   # Enable websecure entrypoint and default redirect to https
   enableTLS: true
   # Use this variable to add custom annotations
-  annotation: {}
+  annotations: {}
   # Explicitly set the IP of the load balancer, if the cloud vendor support this
   loadBalancerIP: ""
   # Enable this resources in case where you have to manually attach an external loadbalancer
