@@ -57,6 +57,9 @@ defaultLogging:
   sharedKey: ""
 
   fluentbit:
+    # image:
+      # name: "fluent/fluent-bit"
+      # version: 1.4.4
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
     # Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root
@@ -74,12 +77,15 @@ defaultLogging:
     #     memory: "128Mi"
 
   fluentd:
+    # image:
+      # name: "banzaicloud/fluentd"
+      # version: v1.10.3-alpine-2
     # Override this value to choose how many replicas of fluentd you want.
     replicas: 1
-    # Use this variable to add custom annotations to the generated fluentd pods
-    annotations: {}
     # Change this value to increase or decrease the volume dimension dedicated to the buffer
     bufferStorage: "20Gi"
+    # Use this variable to add custom annotations to the generated fluentd pods
+    annotations: {}
     # You are encouraged to setup the resources that the application can use via this
     # property or at least via a LimitRange resource in the namespace
     # resources:

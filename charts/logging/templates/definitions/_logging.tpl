@@ -42,3 +42,37 @@ runAsNonRoot: true
 runAsUser: 10000
 {{- end -}}
 {{- end -}}
+
+{{/*
+Fluentbit custom image
+*/}}
+{{- define "logging.fluentbitImageName" -}}
+{{- $image := .Values.defaultLogging.fluentbit.image -}}
+{{- if $image -}}
+{{- default "" $image.name -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "logging.fluentbitImageVersion" -}}
+{{- $image := .Values.defaultLogging.fluentbit.image -}}
+{{- if $image -}}
+{{- default "" $image.version -}}
+{{- end -}}
+{{- end -}}
+
+{{/*xw
+Fluentd custom image
+*/}}
+{{- define "logging.fluentdImageName" -}}
+{{- $image := .Values.defaultLogging.fluentd.image -}}
+{{- if $image -}}
+{{- default "" $image.name -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "logging.fluentdImageVersion" -}}
+{{- $image := .Values.defaultLogging.fluentd.image -}}
+{{- if $image -}}
+{{- default "" $image.version -}}
+{{- end -}}
+{{- end -}}

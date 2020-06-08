@@ -28,7 +28,7 @@
           "type": "string"
         },
         "version": {
-          "description": "Dcker image tag",
+          "description": "Docker image tag",
           "type": "string"
         }
       },
@@ -92,6 +92,20 @@
         "type": "string"
       },
       "fluentbit": {
+        "image": {
+          "description": "Container Image for fluentbit",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "Docker image name for fluentbit",
+              "type": "string"
+            },
+            "version": {
+              "description": "Docker image tag for fluentbit",
+              "type": "string"
+            }
+          }
+        },
         "logFilesPattern": {
           "description": "Where the logs are saved on the cluster nodes",
           "type": "string"
@@ -110,18 +124,32 @@
         ]
       },
       "fluentd": {
+        "image": {
+          "description": "Container Image for fluentd",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "Docker image name for fluentd",
+              "type": "string"
+            },
+            "version": {
+              "description": "Docker image tag for fluentd",
+              "type": "string"
+            }
+          }
+        },
         "replicas": {
           "description": "The number of replicas for the deployment",
           "type": "integer",
           "minimum": 1
         },
-        "annotations": {
-          "description": "Custom annotations to add to the generated fluentd pods",
-          "type": "object"
-        },
         "bufferStorage": {
           "description": "Change this value to increase or decrease the volume dimension dedicated to the buffer",
           "type": "string"
+        },
+        "annotations": {
+          "description": "Custom annotations to add to the generated fluentd pods",
+          "type": "object"
         },
         "required": [
           "replicas",

@@ -20,6 +20,9 @@ spec:
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
       {{- include "logging.selectorLabels" . | nindent 6 }}
+    image:
+      repository: {{ include "logging.fluentbitImageName" . | quote }}
+      tag: {{ include "logging.fluentbitImageVersion" . | quote }}
     filterKubernetes:
       Merge_Log: "Off"
       Labels: "On"
@@ -69,7 +72,9 @@ spec:
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
       {{- include "logging.selectorLabels" . | nindent 6 }}
-    {{- with .Values.defaultLogging.fluentd.resources | quote }}
+    image:
+      repository: {{ include "logging.fluentdImageName" . | quote }}
+      tag: {{ include "logging.fluentdImageVersion" . | quote }}
     scaling:
       replicas: {{ .Values.defaultLogging.fluentd.replicas | quote }}
     bufferStorageVolume:
@@ -88,6 +93,7 @@ spec:
      path: "/metrics"
      timeout: "30s"
      interval: "15s"
+    {{- with .Values.defaultLogging.fluentd.resources | quote }}
     resources:
       {{- toYaml . | nindent 6 }}
     {{- end }}
