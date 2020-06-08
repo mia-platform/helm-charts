@@ -43,7 +43,7 @@ spec:
       path: "/api/v1/metrics/prometheus"
       timeout: "30s"
       interval: "15s"
-    {{- with .Values.defaultLogging.fluentbit.resources | quote }}
+    {{- with .Values.defaultLogging.fluentbit.resources }}
     resources:
       {{- toYaml . | nindent 6 }}
     {{- end }}
@@ -76,7 +76,7 @@ spec:
       repository: {{ include "logging.fluentdImageName" . | quote }}
       tag: {{ include "logging.fluentdImageVersion" . | quote }}
     scaling:
-      replicas: {{ .Values.defaultLogging.fluentd.replicas | quote }}
+      replicas: {{ .Values.defaultLogging.fluentd.replicas }}
     bufferStorageVolume:
       pvc:
         spec:
@@ -93,7 +93,7 @@ spec:
      path: "/metrics"
      timeout: "30s"
      interval: "15s"
-    {{- with .Values.defaultLogging.fluentd.resources | quote }}
+    {{- with .Values.defaultLogging.fluentd.resources }}
     resources:
       {{- toYaml . | nindent 6 }}
     {{- end }}
