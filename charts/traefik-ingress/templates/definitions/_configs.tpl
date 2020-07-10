@@ -22,6 +22,7 @@ Create the args passed to the Traefik pod.
 - "--entryPoints.traefik.address=:9000"
 - "--entryPoints.traefik.transport.lifecycle.gracetimeout=1"
 - "--entrypoints.traefik.transport.lifecycle.requestacceptgracetimeout=0"
+- "--providers.kubernetesingress"
 - "--providers.kubernetescrd"
 - "--providers.kubernetescrd.labelselector={{ include "traefik-ingress.crdLabelSelector" . }}"
 - "--metrics=true"
