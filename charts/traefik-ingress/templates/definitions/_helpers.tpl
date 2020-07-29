@@ -34,7 +34,7 @@ We start from the default fully qulified app name, truncate some more and add -d
 {{- end -}}
 
 {{/*
-Create a default fully qualified treafik dashboard ingressroute name.
+Create a default fully qualified traefik dashboard ingressroute name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "traefik-ingress.dashboardIngressRouteName" -}}
@@ -42,35 +42,35 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
-Create treafik default tlsoption name.
+Create traefik default tlsoption name.
 */}}
 {{- define "traefik-ingress.defaultTLSOptionName" -}}
 {{- printf "default" }}
 {{- end -}}
 
 {{/*
-Create treafik modern tlsoption name.
+Create traefik modern tlsoption name.
 */}}
 {{- define "traefik-ingress.modernTLSOptionName" -}}
 {{- printf "%s-modern-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
-Create treafik intermediate tlsoption name.
+Create traefik intermediate tlsoption name.
 */}}
 {{- define "traefik-ingress.intermediateTLSOptionName" -}}
 {{- printf "%s-intermediate-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
-Create treafik old tlsoption name.
+Create traefik old tlsoption name.
 */}}
 {{- define "traefik-ingress.oldTLSOptionName" -}}
 {{- printf "%s-old-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
-Create a default fully qualified treafik http to https redirection ingressroute name.
+Create a default fully qualified traefik http to https redirection ingressroute name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "traefik-ingress.redirectIngressRouteName" -}}
