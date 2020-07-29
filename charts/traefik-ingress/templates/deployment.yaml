@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "traefik-ingress.fullname" . | quote }}
-  labels: &Labels
+  labels:
     {{- include "traefik-ingress.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations: &Annotations
@@ -11,7 +11,7 @@ metadata:
 spec:
   replicas: {{ .Values.deploy.replicas }}
   selector:
-    matchLabels:
+    matchLabels: &Labels
       {{- include "traefik-ingress.selectorLabels" . | nindent 6 }}
   strategy:
     type: "RollingUpdate"
