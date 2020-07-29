@@ -15,7 +15,7 @@ image:
   # Override the default Docker image name if you use a custom image or a repository mirror
   name: "traefik"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-  # version: 2.2.1
+  # version: 2.2.8
 
 # Customize the deployment of Traefik image
 deploy:
