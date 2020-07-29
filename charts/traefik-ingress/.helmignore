@@ -23,5 +23,4 @@
 .vscode/
 # Repository specific ignores
 .helmignore
-CHANGELOG.md
 README.md
