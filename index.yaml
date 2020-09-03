@@ -3,6 +3,29 @@ entries:
   logging:
   - apiVersion: v2
     appVersion: 3.6.0
+    created: "2020-09-03T10:33:22.924983596Z"
+    description: A Kubernetes logging stack based on Logging Operator
+    digest: 19aed1b01dc598fdde8c0db3d161827967d772e7840c1bcbfc15088704946e6d
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
+    keywords:
+    - logging
+    - logging-operator
+    - fluentd
+    - fluent-bit
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    name: logging
+    sources:
+    - https://github.com/banzaicloud/logging-operator
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/logging-1.0.2/logging-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 3.6.0
     created: "2020-09-03T09:35:33.656193814Z"
     description: A Kubernetes logging stack based on Logging Operator
     digest: c026df57c8fe359f3f90444cf2e810e953a7e25affb48f4949e5561bedfafa79
