@@ -7,19 +7,6 @@ Fluentd name
 {{- end -}}
 
 {{/*
-Logging secret tls data
-*/}}
-{{- define "logging.loggingSecretData" -}}
-{{- $ca := genCA "svc-cat-ca" 3650 -}}
-{{- $cn := printf "%s.%s.svc.cluster.local" (include "logging.loggingFluentdName" .) .Release.Namespace -}}
-{{- $server := genSignedCert $cn nil nil 365 $ca -}}
-{{- $client := genSignedCert "" nil nil 365 $ca -}}
-ca.crt: {{ b64enc $ca.Cert | quote }}
-tls.crt: {{ b64enc $server.Cert | quote }}
-tls.key: {{ b64enc $server.Key | quote }}
-{{- end -}}
-
-{{/*
 Default stack status for NOTES
 */}}
 {{- define "logging.defautLoggingStatus" -}}
@@ -60,7 +47,7 @@ Fluentbit custom image
 {{- end -}}
 {{- end -}}
 
-{{/*xw
+{{/*
 Fluentd custom image
 */}}
 {{- define "logging.fluentdImageName" -}}
@@ -75,4 +62,18 @@ Fluentd custom image
 {{- if $image -}}
 {{- default "" $image.version -}}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Fluentd TLS secret name
+*/}}
+{{- define "logging.loggingFluentdSecretName" -}}
+{{ printf "%s-secret" (include "logging.loggingFluentdName" .) }}
+{{- end -}}
+
+{{/*
+Fluentbit TLS secret name
+*/}}
+{{- define "logging.loggingFluentbitSecretName" -}}
+{{ printf "%s-fluentbit-secret" (include "logging.fullname" .) }}
 {{- end -}}

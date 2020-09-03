@@ -16,7 +16,7 @@ spec:
   fluentbit:
     tls:
       enabled: true
-      secretName: {{ include "logging.fullname" . | quote }}
+      secretName: {{ include "logging.loggingFluentbitSecretName" . | quote }}
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
       {{- include "logging.selectorLabels" . | nindent 6 }}
@@ -68,7 +68,7 @@ spec:
   fluentd:
     tls:
       enabled: true
-      secretName: {{ include "logging.fullname" . | quote }}
+      secretName: {{ include "logging.loggingFluentdSecretName" . | quote }}
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
       {{- include "logging.selectorLabels" . | nindent 6 }}
