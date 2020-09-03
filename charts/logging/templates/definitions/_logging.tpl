@@ -7,6 +7,13 @@ Fluentd name
 {{- end -}}
 
 {{/*
+Fluentbit name
+*/}}
+{{- define "logging.loggingFluentbitName" -}}
+{{ printf "%s-fluentbit" (include "logging.fullname" .) }}
+{{- end -}}
+
+{{/*
 Default stack status for NOTES
 */}}
 {{- define "logging.defautLoggingStatus" -}}
@@ -75,5 +82,5 @@ Fluentd TLS secret name
 Fluentbit TLS secret name
 */}}
 {{- define "logging.loggingFluentbitSecretName" -}}
-{{ printf "%s-fluentbit-secret" (include "logging.fullname" .) }}
+{{ printf "%s-secret" (include "logging.loggingFluentbitName" .) }}
 {{- end -}}

@@ -170,5 +170,7 @@ rules:
     verbs:
       - "use"
     resourceNames:
-      - {{ include "logging.fullname" . }}
+      - {{ include "logging.fullname" . | quote }}
+      - {{ include "logging.loggingFluendName" . | quote }}
+      - {{ include "logging.loggingFluentbitName" . | quote }}
 {{- end }}
