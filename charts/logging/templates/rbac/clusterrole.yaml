@@ -171,6 +171,6 @@ rules:
       - "use"
     resourceNames:
       - {{ include "logging.fullname" . | quote }}
-      - {{ include "logging.loggingFluendName" . | quote }}
-      - {{ include "logging.loggingFluentbitName" . | quote }}
+      - {{ include "logging.loggingFluentdName" . | quote }}
+      - {{ include "logging.loggingFluentbitName" . | quote }}
 {{- end }}
