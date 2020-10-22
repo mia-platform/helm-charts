@@ -10,6 +10,8 @@ logLevel: "WARN"
 tlsOption: "intermediate"
 # Enable the Pod Security Policy for allowing the execution of the traefik pods
 podSecurityPolicyEnabled: false
+# Set as default ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
+defaultIngressClass: false
 
 image:
   # Override the default Docker image name if you use a custom image or a repository mirror
