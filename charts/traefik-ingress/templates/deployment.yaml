@@ -54,8 +54,8 @@ spec:
               containerPort: 9000
               protocol: "TCP"
           volumeMounts:
-          - name: "tmp"
-            mountPath: "/tmp"
+            - name: "tmp"
+              mountPath: "/tmp"
           livenessProbe:
             httpGet:
               path: "/ping"
