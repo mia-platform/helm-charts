@@ -15,7 +15,7 @@ Create the args passed to the Traefik pod.
 - "--entrypoints.web.transport.lifecycle.requestacceptgracetimeout=29"
 {{- if .Values.service.enableTLS }}
 - "--entrypoints.web.http.redirections.entryPoint.to=:443"
-- "--entrypoints.web.http.redirections.entryPoint.scheme=https
+- "--entrypoints.web.http.redirections.entryPoint.scheme=https"
 - "--entryPoints.websecure.address=:8443/tcp"
 - "--entryPoints.websecure.transport.lifecycle.gracetimeout=30"
 - "--entrypoints.websecure.transport.lifecycle.requestacceptgracetimeout=29"
