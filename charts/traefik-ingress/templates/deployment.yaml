@@ -61,9 +61,9 @@ spec:
               path: "/ping"
               port: "traefik"
               scheme: "HTTP"
-            failureThreshold: 1
-            initialDelaySeconds: 2
-            periodSeconds: 4
+            failureThreshold: 3
+            initialDelaySeconds: 11
+            periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 2
           readinessProbe:
@@ -71,9 +71,9 @@ spec:
               path: "/ping"
               port: "traefik"
               scheme: "HTTP"
-            failureThreshold: 3
-            initialDelaySeconds: 31
-            periodSeconds: 4
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 2
           securityContext:
