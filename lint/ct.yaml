@@ -1,7 +1,11 @@
-chart-dirs:
-  - charts
-remote: origin
-target-branch: master
-debug: true
-check-version-increment: false
+remote: "origin"
+target-branch: "master"
+lint-conf: "./lint/lintconf.yaml"
+chart-yaml-schema: "./lint/chart_schema.yaml"
 validate-maintainers: false
+validate-chart-schema: true
+validate-yaml: true
+check-version-increment: false
+chart-dirs:
+  - "charts"
+debug: true
