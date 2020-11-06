@@ -14,11 +14,8 @@ spec:
   requiredDropCapabilities:
     - "ALL"
   volumes:
-    - "configMap"
     - "emptyDir"
-    - "projected"
     - "secret"
-    - "downwardAPI"
   hostNetwork: false
   hostIPC: false
   hostPID: false
