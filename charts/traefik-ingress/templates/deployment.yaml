@@ -53,6 +53,9 @@ spec:
             - name: "traefik"
               containerPort: 9000
               protocol: "TCP"
+          volumeMounts:
+          - name: "tmp"
+            mountPath: "/tmp"
           livenessProbe:
             httpGet:
               path: "/ping"
@@ -80,6 +83,9 @@ spec:
             capabilities:
               drop:
                 - "all"
+      volumes:
+        - name: "tmp"
+          emptyDir: {}
       securityContext:
         runAsNonRoot: true
         runAsUser: 10000
