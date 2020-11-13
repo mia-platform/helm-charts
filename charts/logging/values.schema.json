@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "nameOverride": {
-      "description": "Override the default name of traefik-ingress",
+      "description": "Override the default name of logging",
       "type": "string"
     },
     "fullnameOverride": {
@@ -16,7 +16,7 @@
       "type": "string"
     },
     "podSecurityPolicyEnabled": {
-      "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",
+      "description": "Enable the Pod Security Policy for allowing the execution of the loggings pods",
       "type": "boolean"
     },
     "image": {
@@ -37,7 +37,7 @@
       ]
     },
     "deploy": {
-      "description": "Traefik deployment values",
+      "description": "Logging Operator deployment values",
       "type": "object",
       "properties": {
         "replicas": {

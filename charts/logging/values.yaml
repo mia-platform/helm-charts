@@ -4,7 +4,7 @@ nameOverride: ""
 fullnameOverride: ""
 # Use this variable to add a app.kubernetes.io/part-of label to all resources
 applicationName: ""
-# Enable the Pod Security Policy for allowing the execution of the traefik pods
+# Enable the Pod Security Policy for allowing the execution of the loggings pods
 podSecurityPolicyEnabled: false
 
 image:
@@ -41,7 +41,7 @@ deploy:
   # this variable
   tolerations: []
 
-# Customize the service that expose Traefik
+# Customize the service that expose the Logging Operator
 service:
   # Use this variable to add custom annotations
   annotations: {}
