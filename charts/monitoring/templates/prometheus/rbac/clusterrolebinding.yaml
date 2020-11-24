@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "monitoring.prometheus.roleName" . | quote }}
+  name: {{ include "mia-monitoring.prometheus.roleName" . | quote }}
   labels:
-    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.prometheus.labels" . | nindent 4 }}
   {{- with .Values.rbac.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -11,8 +11,8 @@ metadata:
 roleRef:
   apiGroup: "rbac.authorization.k8s.io"
   kind: "ClusterRole"
-  name: {{ include "monitoring.prometheus.roleName" . | quote }}
+  name: {{ include "mia-monitoring.prometheus.roleName" . | quote }}
 subjects:
   - kind: "ServiceAccount"
-    name: {{ include "monitoring.prometheus.serviceAccountName" . | quote }}
+    name: {{ include "mia-monitoring.prometheus.serviceAccountName" . | quote }}
     namespace: {{ .Release.Namespace | quote }}

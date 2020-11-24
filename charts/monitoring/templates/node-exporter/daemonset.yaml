@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: {{ include "monitoring.nodeExporter.fullname" . | quote }}
+  name: {{ include "mia-monitoring.nodeExporter.fullname" . | quote }}
   labels:
-    {{- include "monitoring.nodeExporter.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.nodeExporter.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations: &Annotations
     {{- toYaml . | nindent 4 }}
@@ -11,7 +11,7 @@ metadata:
 spec:
   selector:
     matchLabels: &Labels
-      {{- include "monitoring.nodeExporter.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.nodeExporter.selectorLabels" . | nindent 6 }}
   updateStrategy:
     type: "RollingUpdate"
     rollingUpdate:
@@ -23,7 +23,7 @@ spec:
       annotations: *Annotations
       {{- end }}
     spec:
-      serviceAccountName: {{ include "monitoring.nodeExporter.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "mia-monitoring.nodeExporter.serviceAccountName" . | quote }}
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       {{- with .Values.deploy.imagePullSecrets }}
@@ -31,8 +31,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "monitoring.nodeExporter.name" . | quote }}
-          image: {{ include "monitoring.nodeExporter.image" . | quote }}
+        - name: {{ include "mia-monitoring.nodeExporter.name" . | quote }}
+          image: {{ include "mia-monitoring.nodeExporter.image" . | quote }}
           args:
             - "--log.level={{ .Values.logLevel }}"
             - "--log.format=json"

@@ -2,9 +2,9 @@
 apiVersion: logging.banzaicloud.io/v1beta1
 kind: Logging
 metadata:
-  name: {{ include "logging.fullname" . | quote }}
+  name: {{ include "mia-logging.fullname" . | quote }}
   labels: &Labels
-    {{- include "logging.labels" . | nindent 4 }}
+    {{- include "mia-logging.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:
@@ -16,13 +16,13 @@ spec:
   fluentbit:
     tls:
       enabled: true
-      secretName: {{ include "logging.loggingFluentbitSecretName" . | quote }}
+      secretName: {{ include "mia-logging.loggingFluentbitSecretName" . | quote }}
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
-      {{- include "logging.selectorLabels" . | nindent 6 }}
+      {{- include "mia-logging.selectorLabels" . | nindent 6 }}
     image:
-      repository: {{ include "logging.fluentbitImageName" . | quote }}
-      tag: {{ include "logging.fluentbitImageVersion" . | quote }}
+      repository: {{ include "mia-logging.fluentbitImageName" . | quote }}
+      tag: {{ include "mia-logging.fluentbitImageVersion" . | quote }}
     filterKubernetes:
       Merge_Log: "Off"
       Labels: "On"
@@ -58,7 +58,7 @@ spec:
           drop:
             - "all"
       podSecurityContext:
-        {{- include "logging.fluentbitUserId" . | nindent 8 }}
+        {{- include "mia-logging.fluentbitUserId" . | nindent 8 }}
         runAsGroup: 11000
         fsGroup: 12000
     {{- with .Values.defaultLogging.fluentbit.annotations }}
@@ -68,13 +68,13 @@ spec:
   fluentd:
     tls:
       enabled: true
-      secretName: {{ include "logging.loggingFluentdSecretName" . | quote }}
+      secretName: {{ include "mia-logging.loggingFluentdSecretName" . | quote }}
       sharedKey: {{ .Values.defaultLogging.sharedKey | quote }}
     labels:
-      {{- include "logging.selectorLabels" . | nindent 6 }}
+      {{- include "mia-logging.selectorLabels" . | nindent 6 }}
     image:
-      repository: {{ include "logging.fluentdImageName" . | quote }}
-      tag: {{ include "logging.fluentdImageVersion" . | quote }}
+      repository: {{ include "mia-logging.fluentdImageName" . | quote }}
+      tag: {{ include "mia-logging.fluentdImageVersion" . | quote }}
     scaling:
       replicas: {{ .Values.defaultLogging.fluentd.replicas }}
     bufferStorageVolume:

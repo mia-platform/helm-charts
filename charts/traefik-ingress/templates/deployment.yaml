@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "traefik-ingress.fullname" . | quote }}
+  name: {{ include "mia-traefik-ingress.fullname" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations: &Annotations
     {{- toYaml . | nindent 4 }}
@@ -12,7 +12,7 @@ spec:
   replicas: {{ .Values.deploy.replicas }}
   selector:
     matchLabels: &Labels
-      {{- include "traefik-ingress.selectorLabels" . | nindent 6 }}
+      {{- include "mia-traefik-ingress.selectorLabels" . | nindent 6 }}
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
@@ -25,7 +25,7 @@ spec:
       annotations: *Annotations
       {{- end }}
     spec:
-      serviceAccountName: {{ include "traefik-ingress.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "mia-traefik-ingress.serviceAccountName" . | quote }}
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       {{- with .Values.deploy.imagePullSecrets }}
@@ -33,10 +33,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "traefik-ingress.fullname" . | quote }}
-          image: {{ include "traefik-ingress.image" . | quote }}
+        - name: {{ include "mia-traefik-ingress.fullname" . | quote }}
+          image: {{ include "mia-traefik-ingress.image" . | quote }}
           args:
-            {{- include "traefik-ingress.argsConfigs" . | nindent  12 }}
+            {{- include "mia-traefik-ingress.argsConfigs" . | nindent  12 }}
           {{- with .Values.deploy.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -92,7 +92,7 @@ spec:
         runAsGroup: 11000
         fsGroup: 12000
       affinity:
-        {{- include "traefik-ingress.podAffinity" . | nindent 8 }}
+        {{- include "mia-traefik-ingress.podAffinity" . | nindent 8 }}
       {{- with .Values.deploy.nodeSelectors }}
       nodeSelectors:
         {{- toYaml . | nindent 8 }}

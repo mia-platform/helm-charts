@@ -1,3 +1,3 @@
 Deployed Logging Operator in namespace "{{ .Release.Namespace }}"
-with name {{ include "logging.fullname" . }} and the default
-logging stack {{ include "logging.defautLoggingStatus" . }}
+with name {{ include "mia-logging.fullname" . }} and the default
+logging stack {{ include "mia-logging.defautLoggingStatus" . }}

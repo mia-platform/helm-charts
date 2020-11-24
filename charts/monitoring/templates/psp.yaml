@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ include "monitoring.fullname" . | quote }}
+  name: {{ include "mia-monitoring.fullname" . | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"

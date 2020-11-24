@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "traefik-ingress.name" -}}
+{{- define "mia-traefik-ingress.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "traefik-ingress.fullname" -}}
+{{- define "mia-traefik-ingress.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -28,8 +28,8 @@ If release name contains chart name it will be used as a full name.
 Create a default fully qualified internal service name.
 We start from the default fully qulified app name, truncate some more and add -dashboard to it
 */}}
-{{- define "traefik-ingress.internalServiceName" -}}
-{{- $name:= include "traefik-ingress.fullname" . | trunc 53 | trimSuffix "-" -}}
+{{- define "mia-traefik-ingress.internalServiceName" -}}
+{{- $name:= include "mia-traefik-ingress.fullname" . | trunc 53 | trimSuffix "-" -}}
 {{- printf "%s-dashboard" $name -}}
 {{- end -}}
 
@@ -37,35 +37,35 @@ We start from the default fully qulified app name, truncate some more and add -d
 Create a default fully qualified traefik dashboard ingressroute name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "traefik-ingress.dashboardIngressRouteName" -}}
+{{- define "mia-traefik-ingress.dashboardIngressRouteName" -}}
 {{- printf "%s-traefik-dashboard" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create traefik default tlsoption name.
 */}}
-{{- define "traefik-ingress.defaultTLSOptionName" -}}
+{{- define "mia-traefik-ingress.defaultTLSOptionName" -}}
 {{- printf "default" }}
 {{- end -}}
 
 {{/*
 Create traefik modern tlsoption name.
 */}}
-{{- define "traefik-ingress.modernTLSOptionName" -}}
+{{- define "mia-traefik-ingress.modernTLSOptionName" -}}
 {{- printf "%s-modern-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create traefik intermediate tlsoption name.
 */}}
-{{- define "traefik-ingress.intermediateTLSOptionName" -}}
+{{- define "mia-traefik-ingress.intermediateTLSOptionName" -}}
 {{- printf "%s-intermediate-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create traefik old tlsoption name.
 */}}
-{{- define "traefik-ingress.oldTLSOptionName" -}}
+{{- define "mia-traefik-ingress.oldTLSOptionName" -}}
 {{- printf "%s-old-tls" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -73,39 +73,39 @@ Create traefik old tlsoption name.
 Create a default fully qualified traefik http to https redirection ingressroute name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "traefik-ingress.redirectIngressRouteName" -}}
+{{- define "mia-traefik-ingress.redirectIngressRouteName" -}}
 {{- printf "%s-https-redirect" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create Traefik version from Chart file and override
 */}}
-{{- define "traefik-ingress.version" -}}
+{{- define "mia-traefik-ingress.version" -}}
 {{- default .Chart.AppVersion .Values.image.version -}}
 {{- end -}}
 
 {{/*
 Create Traefik image url from default or user override
 */}}
-{{- define "traefik-ingress.image" -}}
-{{ $version := include "traefik-ingress.version" . }}
+{{- define "mia-traefik-ingress.image" -}}
+{{ $version := include "mia-traefik-ingress.version" . }}
 {{- printf "%s:%s" .Values.image.name $version -}}
 {{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "traefik-ingress.chart" -}}
+{{- define "mia-traefik-ingress.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "traefik-ingress.labels" -}}
-helm.sh/chart: {{ include "traefik-ingress.chart" . | quote }}
-{{ include "traefik-ingress.selectorLabels" . }}
-app.kubernetes.io/version: {{ include "traefik-ingress.version" . | quote }}
+{{- define "mia-traefik-ingress.labels" -}}
+helm.sh/chart: {{ include "mia-traefik-ingress.chart" . | quote }}
+{{ include "mia-traefik-ingress.selectorLabels" . }}
+app.kubernetes.io/version: {{ include "mia-traefik-ingress.version" . | quote }}
 app.kubernetes.io/component: "ingress"
 {{- if .Values.applicationName }}
 app.kubernetes.io/part-of: {{ .Values.applicationName | quote }}
@@ -116,37 +116,37 @@ app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 {{/*
 Selector labels
 */}}
-{{- define "traefik-ingress.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "traefik-ingress.name" . | quote }}
+{{- define "mia-traefik-ingress.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mia-traefik-ingress.name" . | quote }}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{/*
 Traefik ingress class
 */}}
-{{- define "traefik-ingress.crdLabelSelector" -}}
+{{- define "mia-traefik-ingress.crdLabelSelector" -}}
 {{- printf "app.kubernetes.io/instance=%s" .Release.Name -}}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "traefik-ingress.serviceAccountName" -}}
-{{ include "traefik-ingress.fullname" . }}
+{{- define "mia-traefik-ingress.serviceAccountName" -}}
+{{ include "mia-traefik-ingress.fullname" . }}
 {{- end -}}
 
 {{/*
 Create the name for the cluster role and its binding
 */}}
-{{- define "traefik-ingress.roleName" -}}
-{{ $name := include "traefik-ingress.name" . }}
+{{- define "mia-traefik-ingress.roleName" -}}
+{{ $name := include "mia-traefik-ingress.name" . }}
 {{- printf "helm:%s:%s" .Release.Name $name | trunc 63 | trimSuffix ":" -}}
 {{- end -}}
 
 {{/*
 Kubernetes topology zone label based on kubernetes version
 */}}
-{{- define "traefik-ingress.topologyZoneLabel" -}}
+{{- define "mia-traefik-ingress.topologyZoneLabel" -}}
 {{- if semverCompare "< 1.17" .Capabilities.KubeVersion.GitVersion -}}
 failure-domain.beta.kubernetes.io/zone
 {{- else -}}

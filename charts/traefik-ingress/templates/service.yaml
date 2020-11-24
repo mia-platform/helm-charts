@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "traefik-ingress.fullname" . | quote }}
+  name: {{ include "mia-traefik-ingress.fullname" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -23,7 +23,7 @@ spec:
     {{- toYaml . | nindent 2 }}
   {{- end }}
   selector:
-    {{- include "traefik-ingress.selectorLabels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.selectorLabels" . | nindent 4 }}
   ports:
     - name: "web"
       port: 80
@@ -39,9 +39,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "traefik-ingress.internalServiceName" . | quote }}
+  name: {{ include "mia-traefik-ingress.internalServiceName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -50,7 +50,7 @@ spec:
   type: "ClusterIP"
   clusterIP: "None"
   selector:
-    {{- include "traefik-ingress.selectorLabels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.selectorLabels" . | nindent 4 }}
   ports:
     - name: "traefik"
       port: 9000

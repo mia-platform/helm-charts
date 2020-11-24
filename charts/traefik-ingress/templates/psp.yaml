@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ include "traefik-ingress.fullname" . | quote }}
+  name: {{ include "mia-traefik-ingress.fullname" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"

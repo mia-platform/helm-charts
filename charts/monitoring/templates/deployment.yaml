@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "monitoring.fullname" . | quote }}
+  name: {{ include "mia-monitoring.fullname" . | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations: &Annotations
     {{- toYaml . | nindent 4 }}
@@ -12,7 +12,7 @@ spec:
   replicas: {{ .Values.deploy.replicas }}
   selector:
     matchLabels: &Labels
-      {{- include "monitoring.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.selectorLabels" . | nindent 6 }}
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
@@ -25,7 +25,7 @@ spec:
       annotations: *Annotations
       {{- end }}
     spec:
-      serviceAccountName: {{ include "monitoring.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "mia-monitoring.serviceAccountName" . | quote }}
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       {{- with .Values.deploy.imagePullSecrets }}
@@ -33,10 +33,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "monitoring.fullname" . | quote }}
-          image: {{ include "monitoring.image" . | quote }}
+        - name: {{ include "mia-monitoring.fullname" . | quote }}
+          image: {{ include "mia-monitoring.image" . | quote }}
           args:
-            {{- include "monitoring.argsConfigs" . | nindent  12 }}
+            {{- include "mia-monitoring.argsConfigs" . | nindent  12 }}
           {{- with .Values.deploy.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -60,7 +60,7 @@ spec:
         - name: "tls-certificate"
           secret:
             defaultMode: 420
-            secretName: {{ include "monitoring.tlsSecretName" . | quote }}
+            secretName: {{ include "mia-monitoring.tlsSecretName" . | quote }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 10000

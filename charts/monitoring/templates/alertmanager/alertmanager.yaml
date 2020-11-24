@@ -1,16 +1,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager
 metadata:
-  name: {{ include "monitoring.alertmanager.fullname" . | quote }}
+  name: {{ include "mia-monitoring.alertmanager.fullname" . | quote }}
   labels:
-    {{- include "monitoring.alertmanager.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.alertmanager.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  serviceAccountName: {{ include "monitoring.alertmanager.serviceAccountName" . }}
-  image: {{ include "monitoring.alertmanager.image" . | quote }}
+  serviceAccountName: {{ include "mia-monitoring.alertmanager.serviceAccountName" . }}
+  image: {{ include "mia-monitoring.alertmanager.image" . | quote }}
   {{- with .Values.deploy.imagePullSecrets }}
   imagePullSecrets:
     {{- toYaml . | indent 4 }}
@@ -27,14 +27,14 @@ spec:
     fsGroup: 12000
   logLevel: {{ .Values.logLevel | quote }}
   logFormat: "json"
-  externalUrl: "http://{{ include "monitoring.alertmanager.fullname" . }}.{{ .Release.Namespace }}:9093"
+  externalUrl: "http://{{ include "mia-monitoring.alertmanager.fullname" . }}.{{ .Release.Namespace }}:9093"
   paused: false
   listenLocal: false
   portName: "web"
   retention: "120h"
   routePrefix: "/"
   {{- if .Values.alertmanager.config }}
-  configSecret: {{ include "monitoring.alertmanager.configSecret" . | quote }}
+  configSecret: {{ include "mia-monitoring.alertmanager.configSecret" . | quote }}
   {{- end }}
   alertmanagerConfigSelector: {}
   alertmanagerConfigNamespaceSelector: {}
@@ -44,13 +44,13 @@ spec:
   {{- end }}
   podMetadata:
     labels:
-      {{- include "monitoring.alertmanager.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.alertmanager.selectorLabels" . | nindent 6 }}
     {{- with .Values.deploy.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
     {{- end }}
   affinity:
-    {{- include "monitoring.alertmanager.podAffinity" . | nindent 4 }}
+    {{- include "mia-monitoring.alertmanager.podAffinity" . | nindent 4 }}
   {{- with .Values.alertmanager.nodeSelector }}
   nodeSelector:
     {{- toYaml . | nindent 4 }}

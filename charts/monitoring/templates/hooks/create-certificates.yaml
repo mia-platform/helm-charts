@@ -1,21 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name:  {{ include "monitoring.hooks.fullname" . | quote }}
+  name:  {{ include "mia-monitoring.hooks.fullname" . | quote }}
   annotations:
     helm.sh/hook: "pre-install,pre-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
   labels:
-    {{- include "monitoring.hooks.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.hooks.labels" . | nindent 4 }}
 spec:
   ttlSecondsAfterFinished: 0
   template:
     metadata:
-      name:  {{ include "monitoring.hooks.fullname" . | quote }}
+      name:  {{ include "mia-monitoring.hooks.fullname" . | quote }}
       labels:
-        {{- include "monitoring.hooks.selectorLabels" . | nindent 8 }}
+        {{- include "mia-monitoring.hooks.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "monitoring.hooks.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "mia-monitoring.hooks.serviceAccountName" . | quote }}
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       {{- with .Values.deploy.imagePullSecrets }}
@@ -23,10 +23,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "monitoring.hooks.fullname" . | quote }}
-          image: {{ include "monitoring.hooks.image" . | quote }}
+        - name: {{ include "mia-monitoring.hooks.fullname" . | quote }}
+          image: {{ include "mia-monitoring.hooks.image" . | quote }}
           args:
-            {{- include "monitoring.hooks.createArgs" . | nindent 12 }}
+            {{- include "mia-monitoring.hooks.createArgs" . | nindent 12 }}
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false

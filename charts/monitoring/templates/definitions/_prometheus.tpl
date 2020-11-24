@@ -2,7 +2,7 @@
 {{/*
 Create the name for prometheus.
 */}}
-{{- define "monitoring.prometheus.name" -}}
+{{- define "mia-monitoring.prometheus.name" -}}
 {{ printf "prometheus" }}
 {{- end }}
 
@@ -11,8 +11,8 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "monitoring.prometheus.fullname" -}}
-{{- $name := (include "monitoring.prometheus.name" . ) }}
+{{- define "mia-monitoring.prometheus.fullname" -}}
+{{- $name := (include "mia-monitoring.prometheus.name" . ) }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -23,7 +23,7 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create Prometheus image url from default or user override
 */}}
-{{- define "monitoring.prometheus.image" -}}
+{{- define "mia-monitoring.prometheus.image" -}}
 {{ $image := .Values.prometheus.image }}
 {{- printf "%s:%s" $image.name $image.version -}}
 {{- end -}}
@@ -31,32 +31,32 @@ Create Prometheus image url from default or user override
 {{/*
 Prometheus lables
 */}}
-{{- define "monitoring.prometheus.labels" -}}
-{{ include "monitoring.prometheus.selectorLabels" . }}
+{{- define "mia-monitoring.prometheus.labels" -}}
+{{ include "mia-monitoring.prometheus.selectorLabels" . }}
 app.kubernetes.io/version: {{ .Values.prometheus.image.version | quote }}
-{{ include "monitoring.common.labels" . }}
+{{ include "mia-monitoring.common.labels" . }}
 {{- end -}}
 
 {{/*
 Prometheus Selector labels
 */}}
-{{- define "monitoring.prometheus.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "monitoring.prometheus.name" . | quote }}
+{{- define "mia-monitoring.prometheus.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mia-monitoring.prometheus.name" . | quote }}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use for Prometheus
 */}}
-{{- define "monitoring.prometheus.serviceAccountName" -}}
-{{ include "monitoring.prometheus.fullname" . }}
+{{- define "mia-monitoring.prometheus.serviceAccountName" -}}
+{{ include "mia-monitoring.prometheus.fullname" . }}
 {{- end }}
 
 {{/*
 Create the name for the cluster role and its binding
 */}}
-{{- define "monitoring.prometheus.roleName" -}}
-{{ $name := include "monitoring.prometheus.name" . }}
+{{- define "mia-monitoring.prometheus.roleName" -}}
+{{ $name := include "mia-monitoring.prometheus.name" . }}
 {{- printf "helm:%s:%s" .Release.Name $name | trunc 63 | trimSuffix ":" -}}
 {{- end -}}
 
@@ -64,12 +64,12 @@ Create the name for the cluster role and its binding
 {{/*
 Create the name for the additional scraping config secret
 */}}
-{{- define "monitoring.prometheus.scrapeConfigSecret" -}}
-{{ $name := include "monitoring.prometheus.fullname" . }}
+{{- define "mia-monitoring.prometheus.scrapeConfigSecret" -}}
+{{ $name := include "mia-monitoring.prometheus.fullname" . }}
 {{- printf "%s-scrape" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "monitoring.prometheus.scrapeConfigs" -}}
+{{- define "mia-monitoring.prometheus.scrapeConfigs" -}}
 - job_name: "kubelet"
   scheme: "https"
   metrics_path: "/metrics/cadvisor"
@@ -91,13 +91,13 @@ Create the name for the additional scraping config secret
 {{/*
 Create the pod affinity section for prometheus
 */}}
-{{- define "monitoring.prometheus.podAffinity" -}}
+{{- define "mia-monitoring.prometheus.podAffinity" -}}
 podAntiAffinity:
   preferredDuringSchedulingIgnoredDuringExecution:
     - podAffinityTerm:
         labelSelector:
           matchLabels:
-            {{- include "monitoring.prometheus.selectorLabels" . | nindent 12 }}
+            {{- include "mia-monitoring.prometheus.selectorLabels" . | nindent 12 }}
         {{- if semverCompare "< 1.17" .Capabilities.KubeVersion.GitVersion }}
         topologyKey: "failure-domain.beta.kubernetes.io/zone"
         {{- else }}
@@ -107,7 +107,7 @@ podAntiAffinity:
     - podAffinityTerm:
         labelSelector:
           matchLabels:
-            {{- include "monitoring.prometheus.selectorLabels" . | nindent 12 }}
+            {{- include "mia-monitoring.prometheus.selectorLabels" . | nindent 12 }}
         topologyKey: "kubernetes.io/hostname"
       weight: 50
 {{- end -}}

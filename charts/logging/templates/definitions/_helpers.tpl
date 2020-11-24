@@ -2,8 +2,8 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "logging.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "mia-logging.name" -}}
+{{- default "logging-operator" .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -11,11 +11,11 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "logging.fullname" -}}
+{{- define "mia-logging.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- $name := default "logging-operator" .Values.nameOverride -}}
 {{- if contains $name .Release.Name -}}
 {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,32 +27,32 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create Logging Operator version from Chart file and override
 */}}
-{{- define "logging.version" -}}
+{{- define "mia-logging.version" -}}
 {{- default .Chart.AppVersion .Values.image.version -}}
 {{- end -}}
 
 {{/*
 Create Logging Operator image url from default or user override
 */}}
-{{- define "logging.image" -}}
-{{ $version := include "logging.version" . }}
+{{- define "mia-logging.image" -}}
+{{ $version := include "mia-logging.version" . }}
 {{- printf "%s:%s" .Values.image.name $version -}}
 {{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "logging.chart" -}}
+{{- define "mia-logging.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "logging.labels" -}}
-helm.sh/chart: {{ include "logging.chart" . | quote }}
-{{ include "logging.selectorLabels" . }}
-app.kubernetes.io/version: {{ include "logging.version" . | quote }}
+{{- define "mia-logging.labels" -}}
+helm.sh/chart: {{ include "mia-logging.chart" . | quote }}
+{{ include "mia-logging.selectorLabels" . }}
+app.kubernetes.io/version: {{ include "mia-logging.version" . | quote }}
 app.kubernetes.io/component: "logging"
 {{- if .Values.applicationName }}
 app.kubernetes.io/part-of: {{ .Values.applicationName | quote }}
@@ -63,22 +63,22 @@ app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 {{/*
 Selector labels
 */}}
-{{- define "logging.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "logging.name" . | quote }}
+{{- define "mia-logging.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mia-logging.name" . | quote }}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "logging.serviceAccountName" -}}
-{{ include "logging.fullname" . }}
+{{- define "mia-logging.serviceAccountName" -}}
+{{ include "mia-logging.fullname" . }}
 {{- end -}}
 
 {{/*
 Create the name for the cluster role and its binding
 */}}
-{{- define "logging.roleName" -}}
-{{ $name := include "logging.name" . }}
+{{- define "mia-logging.roleName" -}}
+{{ $name := include "mia-logging.name" . }}
 {{- printf "helm:%s:%s" .Release.Name $name | trunc 63 | trimSuffix ":" -}}
 {{- end -}}

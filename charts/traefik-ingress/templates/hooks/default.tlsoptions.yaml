@@ -2,44 +2,44 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSOption
 metadata:
-  name: {{ include "traefik-ingress.defaultTLSOptionName" . | quote }}
+  name: {{ include "mia-traefik-ingress.defaultTLSOptionName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:
-  {{- include "traefik-ingress.defaultTlsOptionSpec" . | nindent 2 }}
+  {{- include "mia-traefik-ingress.defaultTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSOption
 metadata:
-  name: {{ include "traefik-ingress.oldTLSOptionName" . | quote }}
+  name: {{ include "mia-traefik-ingress.oldTLSOptionName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:
-  {{- include "traefik-ingress.oldTlsOptionSpec" . | nindent 2 }}
+  {{- include "mia-traefik-ingress.oldTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSOption
 metadata:
-  name: {{ include "traefik-ingress.intermediateTLSOptionName" . | quote }}
+  name: {{ include "mia-traefik-ingress.intermediateTLSOptionName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:
-  {{- include "traefik-ingress.intermediateTlsOptionSpec" . | nindent 2 }}
+  {{- include "mia-traefik-ingress.intermediateTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSOption
 metadata:
-  name: {{ include "traefik-ingress.modernTLSOptionName" . | quote }}
+  name: {{ include "mia-traefik-ingress.modernTLSOptionName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:
-  {{- include "traefik-ingress.modernTlsOptionSpec" . | nindent 2 }}
+  {{- include "mia-traefik-ingress.modernTlsOptionSpec" . | nindent 2 }}
 {{- end -}}

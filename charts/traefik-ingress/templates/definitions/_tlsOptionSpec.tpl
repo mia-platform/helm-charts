@@ -2,7 +2,7 @@
 {{/*
 Create the base for the TLSOption that is shared between spec.
 */}}
-{{- define "traefik-ingress.baseTlsOptionSpec" -}}
+{{- define "mia-traefik-ingress.baseTlsOptionSpec" -}}
 sniStrict: true
 curvePreferences:
   - "X25519"
@@ -13,8 +13,8 @@ curvePreferences:
 {{/*
 Create the modern TLSOption spec
 */}}
-{{- define "traefik-ingress.modernTlsOptionSpec" -}}
-{{- include "traefik-ingress.baseTlsOptionSpec" . }}
+{{- define "mia-traefik-ingress.modernTlsOptionSpec" -}}
+{{- include "mia-traefik-ingress.baseTlsOptionSpec" . }}
 preferServerCipherSuites: false
 minVersion: "VersionTLS13"
 cipherSuites:
@@ -26,8 +26,8 @@ cipherSuites:
 {{/*
 Create the intermediate TLSOption spec
 */}}
-{{- define "traefik-ingress.intermediateTlsOptionSpec" -}}
-{{- include "traefik-ingress.baseTlsOptionSpec" . }}
+{{- define "mia-traefik-ingress.intermediateTlsOptionSpec" -}}
+{{- include "mia-traefik-ingress.baseTlsOptionSpec" . }}
 preferServerCipherSuites: false
 minVersion: "VersionTLS12"
 cipherSuites:
@@ -45,8 +45,8 @@ cipherSuites:
 {{/*
 Create the old TLSOption spec
 */}}
-{{- define "traefik-ingress.oldTlsOptionSpec" -}}
-{{- include "traefik-ingress.baseTlsOptionSpec" . }}
+{{- define "mia-traefik-ingress.oldTlsOptionSpec" -}}
+{{- include "mia-traefik-ingress.baseTlsOptionSpec" . }}
 preferServerCipherSuites: true
 minVersion: "VersionTLS10"
 cipherSuites:
@@ -75,13 +75,13 @@ cipherSuites:
 {{/*
 Create the old TLSOption spec
 */}}
-{{- define "traefik-ingress.defaultTlsOptionSpec" -}}
+{{- define "mia-traefik-ingress.defaultTlsOptionSpec" -}}
 {{- if eq .Values.tlsOption "modern" }}
-{{- include "traefik-ingress.modernTlsOptionSpec" . }}
+{{- include "mia-traefik-ingress.modernTlsOptionSpec" . }}
 {{- else if eq .Values.tlsOption "intermediate" }}
-{{- include "traefik-ingress.intermediateTlsOptionSpec" . }}
+{{- include "mia-traefik-ingress.intermediateTlsOptionSpec" . }}
 {{- else if eq .Values.tlsOption "old" }}
-{{- include "traefik-ingress.oldTlsOptionSpec" . }}
+{{- include "mia-traefik-ingress.oldTlsOptionSpec" . }}
 {{- else }}
 {{- fail (printf "You can not choose %s as tlsOption value" .Values.tlsOption) -}}
 {{- end }}

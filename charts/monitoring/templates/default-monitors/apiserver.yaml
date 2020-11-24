@@ -1,9 +1,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "monitoring.apiServer.fullname" . | quote }}
+  name: {{ include "mia-monitoring.apiServer.fullname" . | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:

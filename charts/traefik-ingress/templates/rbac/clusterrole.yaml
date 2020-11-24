@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "traefik-ingress.roleName" . | quote }}
+  name: {{ include "mia-traefik-ingress.roleName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   {{- with .Values.rbac.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -58,5 +58,5 @@ rules:
     verbs:
       - "use"
     resourceNames:
-      - {{ include "traefik-ingress.fullname" . }}
+      - {{ include "mia-traefik-ingress.fullname" . }}
 {{- end }}

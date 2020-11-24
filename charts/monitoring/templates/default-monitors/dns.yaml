@@ -1,9 +1,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: {{ include "monitoring.dns.fullname" . | quote }}
+  name: {{ include "mia-monitoring.dns.fullname" . | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:

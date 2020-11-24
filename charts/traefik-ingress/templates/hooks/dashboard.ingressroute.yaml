@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ include "traefik-ingress.dashboardIngressRouteName" . | quote }}
+  name: {{ include "mia-traefik-ingress.dashboardIngressRouteName" . | quote }}
   labels:
-    {{- include "traefik-ingress.labels" . | nindent 4 }}
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
 spec:

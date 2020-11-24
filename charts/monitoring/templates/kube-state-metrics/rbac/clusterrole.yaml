@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "monitoring.kubeStateMetrics.roleName" . | quote }}
+  name: {{ include "mia-monitoring.kubeStateMetrics.roleName" . | quote }}
   labels:
-    {{- include "monitoring.kubeStateMetrics.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.kubeStateMetrics.labels" . | nindent 4 }}
   {{- with .Values.rbac.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -105,5 +105,5 @@ rules:
     verbs:
       - "use"
     resourceNames:
-      - {{ include "monitoring.kubeStateMetrics.fullname" . | quote }}
+      - {{ include "mia-monitoring.kubeStateMetrics.fullname" . | quote }}
 {{- end -}}

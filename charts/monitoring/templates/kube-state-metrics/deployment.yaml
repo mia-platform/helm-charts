@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "monitoring.kubeStateMetrics.fullname" . | quote }}
+  name: {{ include "mia-monitoring.kubeStateMetrics.fullname" . | quote }}
   labels:
-    {{- include "monitoring.kubeStateMetrics.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.kubeStateMetrics.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations: &Annotations
     {{- toYaml . | nindent 4 }}
@@ -12,7 +12,7 @@ spec:
   replicas: {{ .Values.kubeStateMetrics.replicas }}
   selector:
     matchLabels: &Labels
-      {{- include "monitoring.kubeStateMetrics.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.kubeStateMetrics.selectorLabels" . | nindent 6 }}
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
@@ -25,7 +25,7 @@ spec:
       annotations: *Annotations
       {{- end }}
     spec:
-      serviceAccountName: {{ include "monitoring.kubeStateMetrics.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "mia-monitoring.kubeStateMetrics.serviceAccountName" . | quote }}
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       {{- with .Values.deploy.imagePullSecrets }}
@@ -33,8 +33,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "monitoring.kubeStateMetrics.fullname" . | quote }}
-          image: {{ include "monitoring.kubeStateMetrics.image" . | quote }}
+        - name: {{ include "mia-monitoring.kubeStateMetrics.fullname" . | quote }}
+          image: {{ include "mia-monitoring.kubeStateMetrics.image" . | quote }}
           args:
             - "--collectors=certificatesigningrequests"
             - "--collectors=configmaps"

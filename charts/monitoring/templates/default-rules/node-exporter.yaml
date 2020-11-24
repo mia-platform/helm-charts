@@ -7,7 +7,7 @@ kind: PrometheusRule
 metadata:
   name: {{ printf "%s-node-exporter" .Release.Name | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

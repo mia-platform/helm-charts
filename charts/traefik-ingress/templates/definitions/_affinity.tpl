@@ -2,7 +2,7 @@
 {{/*
 Create the pod affinity section for the traefik deployment
 */}}
-{{- define "traefik-ingress.podAffinity" -}}
+{{- define "mia-traefik-ingress.podAffinity" -}}
 podAntiAffinity:
   preferredDuringSchedulingIgnoredDuringExecution:
     - podAffinityTerm:
@@ -11,12 +11,12 @@ podAntiAffinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - {{ include "traefik-ingress.name" . | quote }}
+                - {{ include "mia-traefik-ingress.name" . | quote }}
             - key: "app.kubernetes.io/instance"
               operator: In
               values:
                 - {{ .Release.Name | quote }}
-        topologyKey: {{ include "traefik-ingress.topologyZoneLabel" . | quote }}
+        topologyKey: {{ include "mia-traefik-ingress.topologyZoneLabel" . | quote }}
       weight: 100
     - podAffinityTerm:
         labelSelector:
@@ -24,7 +24,7 @@ podAntiAffinity:
             - key: "app.kubernetes.io/name"
               operator: In
               values:
-                - {{ include "traefik-ingress.name" . | quote }}
+                - {{ include "mia-traefik-ingress.name" . | quote }}
             - key: "app.kubernetes.io/instance"
               operator: In
               values:

@@ -2,7 +2,7 @@
 {{/*
 Create the args passed to the Prometheus Operator pod.
 */}}
-{{- define "monitoring.argsConfigs" -}}
+{{- define "mia-monitoring.argsConfigs" -}}
 - "--logtostderr=true"
 - "--log-level={{ .Values.logLevel }}"
 - "--log-format=json"

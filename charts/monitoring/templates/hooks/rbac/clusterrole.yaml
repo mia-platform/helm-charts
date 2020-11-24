@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "monitoring.hooks.roleName" . | quote }}
+  name: {{ include "mia-monitoring.hooks.roleName" . | quote }}
   labels:
-    {{- include "monitoring.hooks.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.hooks.labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: "pre-install,pre-upgrade,post-install,post-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
@@ -31,5 +31,5 @@ rules:
     verbs:
       - "use"
     resourceNames:
-      - {{ include "monitoring.hooks.fullname" . | quote }}
+      - {{ include "mia-monitoring.hooks.fullname" . | quote }}
 {{- end -}}

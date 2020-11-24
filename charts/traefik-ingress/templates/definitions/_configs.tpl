@@ -2,7 +2,7 @@
 {{/*
 Create the args passed to the Traefik pod.
 */}}
-{{- define "traefik-ingress.argsConfigs" -}}
+{{- define "mia-traefik-ingress.argsConfigs" -}}
 - "--global.checknewversion=false"
 - "--global.sendanonymoususage=false"
 - "--api.dashboard=true"
@@ -26,7 +26,7 @@ Create the args passed to the Traefik pod.
 - "--entrypoints.traefik.transport.lifecycle.requestacceptgracetimeout=0"
 - "--providers.kubernetesingress"
 - "--providers.kubernetescrd"
-- "--providers.kubernetescrd.labelselector={{ include "traefik-ingress.crdLabelSelector" . }}"
+- "--providers.kubernetescrd.labelselector={{ include "mia-traefik-ingress.crdLabelSelector" . }}"
 - "--metrics=true"
 - "--metrics.prometheus=true"
 {{- end -}}

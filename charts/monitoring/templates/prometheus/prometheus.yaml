@@ -1,16 +1,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
-  name: {{ include "monitoring.prometheus.fullname" . | quote }}
+  name: {{ include "mia-monitoring.prometheus.fullname" . | quote }}
   labels:
-      {{- include "monitoring.prometheus.labels" . | nindent 4 }}
+      {{- include "mia-monitoring.prometheus.labels" . | nindent 4 }}
   {{- with .Values.deploy.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  serviceAccountName: {{ include "monitoring.prometheus.serviceAccountName" . | quote }}
-  image: {{ include "monitoring.prometheus.image" . | quote }}
+  serviceAccountName: {{ include "mia-monitoring.prometheus.serviceAccountName" . | quote }}
+  image: {{ include "mia-monitoring.prometheus.image" . | quote }}
   {{- with .Values.deploy.imagePullSecrets }}
   imagePullSecrets:
     {{- toYaml . | indent 4 }}
@@ -27,7 +27,7 @@ spec:
     fsGroup: 12000
   logLevel: {{ .Values.logLevel | quote }}
   logFormat: "json"
-  externalUrl: "http://{{ include "monitoring.prometheus.fullname" . }}.{{ .Release.Namespace }}:8080"
+  externalUrl: "http://{{ include "mia-monitoring.prometheus.fullname" . }}.{{ .Release.Namespace }}:8080"
   {{- with .Values.prometheus.externalLabels }}
   externalLabels:
     {{ toYaml . | nindent 4}}
@@ -65,13 +65,13 @@ spec:
   {{- end }}
   podMetadata:
     labels:
-      {{- include "monitoring.prometheus.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.prometheus.selectorLabels" . | nindent 6 }}
     {{- with .Values.deploy.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
     {{- end }}
   affinity:
-    {{- include "monitoring.prometheus.podAffinity" . | nindent 4 }}
+    {{- include "mia-monitoring.prometheus.podAffinity" . | nindent 4 }}
   {{- with .Values.prometheus.nodeSelector }}
   nodeSelector:
     {{- toYaml . | nindent 4 }}
@@ -81,13 +81,13 @@ spec:
     {{ toYaml . | indent 4 }}
   {{- end }}
   additionalScrapeConfigs:
-    name: {{ include "monitoring.prometheus.scrapeConfigSecret" . | quote }}
+    name: {{ include "mia-monitoring.prometheus.scrapeConfigSecret" . | quote }}
     key: "additional-scrape-configs.yaml"
     optional: false
   alerting:
     alertmanagers:
       - namespace: {{ .Release.Namespace | quote }}
-        name: {{ include "monitoring.alertmanager.fullname" . | quote }}
+        name: {{ include "mia-monitoring.alertmanager.fullname" . | quote }}
         port: 8080
         pathPrefix: "/"
         apiVersion: "v2"

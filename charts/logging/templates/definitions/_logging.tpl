@@ -2,21 +2,21 @@
 {{/*
 Fluentd name
 */}}
-{{- define "logging.loggingFluentdName" -}}
-{{ printf "%s-fluentd" (include "logging.fullname" .) }}
+{{- define "mia-logging.loggingFluentdName" -}}
+{{ printf "%s-fluentd" (include "mia-logging.fullname" .) }}
 {{- end -}}
 
 {{/*
 Fluentbit name
 */}}
-{{- define "logging.loggingFluentbitName" -}}
-{{ printf "%s-fluentbit" (include "logging.fullname" .) }}
+{{- define "mia-logging.loggingFluentbitName" -}}
+{{ printf "%s-fluentbit" (include "mia-logging.fullname" .) }}
 {{- end -}}
 
 {{/*
 Default stack status for NOTES
 */}}
-{{- define "logging.defautLoggingStatus" -}}
+{{- define "mia-logging.defautLoggingStatus" -}}
 {{- if .Values.defaultLogging.enabled -}}
 {{- printf "enabled" -}}
 {{- else -}}
@@ -27,7 +27,7 @@ Default stack status for NOTES
 {{/*
 Fluentbit user id config
 */}}
-{{- define "logging.fluentbitUserId" -}}
+{{- define "mia-logging.fluentbitUserId" -}}
 {{- if .Values.defaultLogging.fluentbit.runAsRoot -}}
 runAsNonRoot: false
 runAsUser: 0
@@ -40,14 +40,14 @@ runAsUser: 10000
 {{/*
 Fluentbit custom image
 */}}
-{{- define "logging.fluentbitImageName" -}}
+{{- define "mia-logging.fluentbitImageName" -}}
 {{- $image := .Values.defaultLogging.fluentbit.image -}}
 {{- if $image -}}
 {{- default "" $image.name -}}
 {{- end -}}
 {{- end -}}
 
-{{- define "logging.fluentbitImageVersion" -}}
+{{- define "mia-logging.fluentbitImageVersion" -}}
 {{- $image := .Values.defaultLogging.fluentbit.image -}}
 {{- if $image -}}
 {{- default "" $image.version -}}
@@ -57,14 +57,14 @@ Fluentbit custom image
 {{/*
 Fluentd custom image
 */}}
-{{- define "logging.fluentdImageName" -}}
+{{- define "mia-logging.fluentdImageName" -}}
 {{- $image := .Values.defaultLogging.fluentd.image -}}
 {{- if $image -}}
 {{- default "" $image.name -}}
 {{- end -}}
 {{- end -}}
 
-{{- define "logging.fluentdImageVersion" -}}
+{{- define "mia-logging.fluentdImageVersion" -}}
 {{- $image := .Values.defaultLogging.fluentd.image -}}
 {{- if $image -}}
 {{- default "" $image.version -}}
@@ -74,13 +74,13 @@ Fluentd custom image
 {{/*
 Fluentd TLS secret name
 */}}
-{{- define "logging.loggingFluentdSecretName" -}}
-{{ printf "%s-secret" (include "logging.loggingFluentdName" .) }}
+{{- define "mia-logging.loggingFluentdSecretName" -}}
+{{ printf "%s-secret" (include "mia-logging.loggingFluentdName" .) }}
 {{- end -}}
 
 {{/*
 Fluentbit TLS secret name
 */}}
-{{- define "logging.loggingFluentbitSecretName" -}}
-{{ printf "%s-secret" (include "logging.loggingFluentbitName" .) }}
+{{- define "mia-logging.loggingFluentbitSecretName" -}}
+{{ printf "%s-secret" (include "mia-logging.loggingFluentbitName" .) }}
 {{- end -}}

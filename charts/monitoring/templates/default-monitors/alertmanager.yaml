@@ -1,13 +1,13 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: {{ include "monitoring.alertmanager.fullname" . | quote }}
+  name: {{ include "mia-monitoring.alertmanager.fullname" . | quote }}
   labels:
-    {{- include "monitoring.labels" . | nindent 4 }}
+    {{- include "mia-monitoring.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "monitoring.alertmanager.selectorLabels" . | nindent 6 }}
+      {{- include "mia-monitoring.alertmanager.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace | quote }}
