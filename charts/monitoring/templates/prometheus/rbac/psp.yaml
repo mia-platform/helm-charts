@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ include "monitoring.monitoring.fullname" . | quote }}
+  name: {{ include "monitoring.prometheus.fullname" . | quote }}
   labels:
-    {{- include "monitoring.monitoring.labels" . | nindent 4 }}
+    {{- include "monitoring.prometheus.labels" . | nindent 4 }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"
