@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  {{ include "monitoring.hooks.fullname" . | quote }}
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade"
+    helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
+  labels:
+    {{- include "monitoring.hooks.labels" . | nindent 4 }}
+spec:
+  ttlSecondsAfterFinished: 0
+  template:
+    metadata:
+      name:  {{ include "monitoring.hooks.fullname" . | quote }}
+      labels:
+        {{- include "monitoring.hooks.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "monitoring.hooks.serviceAccountName" . | quote }}
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 60
+      {{- with .Values.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "monitoring.hooks.fullname" . | quote }}
+          image: {{ include "monitoring.hooks.image" . | quote }}
+          args:
+            {{- include "monitoring.hooks.patchArgs" . | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop:
+                - "all"
+      restartPolicy: "OnFailure"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 11000
+        fsGroup: 12000
+      {{- with .Values.deploy.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deploy.nodeSelectors }}
+      nodeSelectors:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,26 @@
+{{- /*
+This rules are lifted from the 'node-network.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+We only divide the list in sub resources for better skimming through them
+*/ -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-node-network" .Release.Name | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  groups:
+    - name: node-network
+      rules:
+        - alert: NodeNetworkInterfaceFlapping
+          annotations:
+            message: {{ `Network interface "{{ $labels.device }}" changing it's up status often on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}"` }}
+          expr: |
+            changes(node_network_up{job="node-exporter",device!~"veth.+"}[2m]) > 2
+          for: 2m
+          labels:
+            severity: warning

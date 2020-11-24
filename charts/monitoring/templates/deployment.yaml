@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "monitoring.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations: &Annotations
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  selector:
+    matchLabels: &Labels
+      {{- include "monitoring.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels: *Labels
+      {{- with .Values.deploy.annotations }}
+      annotations: *Annotations
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "monitoring.serviceAccountName" . | quote }}
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 60
+      {{- with .Values.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "monitoring.fullname" . | quote }}
+          image: {{ include "monitoring.image" . | quote }}
+          args:
+            {{- include "monitoring.argsConfigs" . | nindent  12 }}
+          {{- with .Values.deploy.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: "websecure"
+              containerPort: 8443
+              protocol: "TCP"
+          volumeMounts:
+            - name: "tls-certificate"
+              mountPath: "/etc/prometheus-operator/tls"
+              readOnly: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop:
+                - "all"
+      volumes:
+        - name: "tls-certificate"
+          secret:
+            defaultMode: 420
+            secretName: {{ include "monitoring.tlsSecretName" . | quote }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 11000
+        fsGroup: 12000
+      {{- with .Values.deploy.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deploy.nodeSelectors }}
+      nodeSelectors:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

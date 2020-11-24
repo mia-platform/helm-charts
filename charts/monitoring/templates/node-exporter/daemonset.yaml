@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "monitoring.nodeExporter.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.nodeExporter.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations: &Annotations
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels: &Labels
+      {{- include "monitoring.nodeExporter.selectorLabels" . | nindent 6 }}
+  updateStrategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxUnavailable: "25%"
+  template:
+    metadata:
+      labels: *Labels
+      {{- if .Values.deploy.annotations }}
+      annotations: *Annotations
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "monitoring.nodeExporter.serviceAccountName" . | quote }}
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 60
+      {{- with .Values.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "monitoring.nodeExporter.name" . | quote }}
+          image: {{ include "monitoring.nodeExporter.image" . | quote }}
+          args:
+            - "--log.level={{ .Values.logLevel }}"
+            - "--log.format=json"
+            - "--path.procfs=/host/proc"
+            - "--path.sysfs=/host/sys"
+            - "--path.rootfs=/host/root"
+            - "--web.listen-address=0.0.0.0:9100"
+            - "--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)"
+            - "--collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$"
+          {{- with .Values.nodeExporter.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: "metrics"
+              containerPort: 9100
+              protocol: "TCP"
+          volumeMounts:
+            - name: "proc"
+              mountPath: "/host/proc"
+              readOnly: true
+            - name: "sys"
+              mountPath: "/host/sys"
+              readOnly: true
+            - name: "root"
+              mountPath: "/host/root"
+              mountPropagation: "HostToContainer"
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: "metrics"
+            failureThreshold: 3
+            initialDelaySeconds: 11
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: "metrics"
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop:
+                - "all"
+      hostNetwork: true
+      hostPID: true
+      volumes:
+        - name: "proc"
+          hostPath:
+            path: "/proc"
+            type: "Directory"
+        - name: "sys"
+          hostPath:
+            path: "/sys"
+            type: "Directory"
+        - name: "root"
+          hostPath:
+            path: "/"
+            type: "Directory"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 11000
+        fsGroup: 12000
+      {{- with .Values.nodeExporter.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeExporter.nodeSelectors }}
+      nodeSelectors:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeExporter.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

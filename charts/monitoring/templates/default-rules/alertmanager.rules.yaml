@@ -1,0 +1,48 @@
+{{- /*
+This rules are lifted from the 'alertmanager.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+We only divide the list in sub resources for better skimming through them
+*/ -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-alertmanager-rules" .Release.Name | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  groups:
+    - name: alertmanager.rules
+      rules:
+        - alert: AlertmanagerConfigInconsistent
+          annotations:
+            message: |
+              The configuration of the instances of the Alertmanager cluster `{{ `{{` }} $labels.namespace {{ `}}` }}/{{ `{{` }} $labels.service {{ `}}` }}` are out of sync.
+              {{ `{{` }} range printf "alertmanager_config_hash{namespace=\"%s\",service=\"%s\"}" $labels.namespace $labels.service | query {{ `}}` }}
+              Configuration hash for pod {{ `{{` }} .Labels.pod {{ `}}` }} is "{{ `{{` }} printf "%.f" .Value {{ `}}` }}"
+              {{ `{{` }} end {{ `}}` }}
+          expr: |
+            count by(namespace,service) (count_values by(namespace,service) ("config_hash", alertmanager_config_hash{job="alertmanager-main",namespace="monitoring"})) != 1
+          for: 5m
+          labels:
+            severity: critical
+        - alert: AlertmanagerFailedReload
+          annotations:
+            message: {{ `Reloading Alertmanager's configuration has failed for {{ $labels.namespace }}/{{ $labels.pod}}.` }}
+          expr: |
+            alertmanager_config_last_reload_successful{job="alertmanager-main",namespace="monitoring"} == 0
+          for: 10m
+          labels:
+            severity: warning
+        - alert: AlertmanagerMembersInconsistent
+          annotations:
+            message: Alertmanager has not found all other members of the cluster.
+          expr: |
+            alertmanager_cluster_members{job="alertmanager-main",namespace="monitoring"}
+              != on (service) GROUP_LEFT()
+            count by (service) (alertmanager_cluster_members{job="alertmanager-main",namespace="monitoring"})
+          for: 5m
+          labels:
+            severity: critical

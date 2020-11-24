@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "monitoring.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "monitoring.selectorLabels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace | quote }}
+  jobLabel: "app.kubernetes.io/name"
+  endpoints:
+    - port: "websecure"
+      scheme: "https"
+      tlsConfig:
+        serverName: {{ include "monitoring.fullname" . | quote }}
+        ca:
+          secret:
+            name: {{ include "monitoring.tlsSecretName" . | quote }}
+            key: ca
+            optional: false
+      honorLabels: true

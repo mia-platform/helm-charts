@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "monitoring.apiServer.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      component: "apiserver"
+      provider: "kubernetes"
+  namespaceSelector:
+    matchNames:
+      - "default"
+  jobLabel: "component"
+  endpoints:
+    - bearerTokenFile: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      port: "https"
+      scheme: "https"
+      tlsConfig:
+        caFile: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        serverName: "kubernetes"
+        insecureSkipVerify: false

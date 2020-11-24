@@ -1,0 +1,40 @@
+{{- if .Values.podSecurityPolicyEnabled -}}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ include "monitoring.hooks.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.hooks.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "pre-install,pre-upgrade,post-install,post-upgrade"
+    helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - "ALL"
+  volumes:
+    - 'secret'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: "MustRunAs"
+    ranges:
+      - min: 1
+        max: 65535
+  seLinux:
+    rule: "RunAsAny"
+  supplementalGroups:
+    rule: "MustRunAs"
+    ranges:
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: "MustRunAs"
+    ranges:
+      - min: 1
+        max: 65535
+{{- end -}}

@@ -1,0 +1,32 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "monitoring.webhooks.fullname" . | quote }}
+  labels:
+    {{- include "monitoring.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+webhooks:
+  - name: "prometheusrulemutate.monitoring.coreos.com"
+    failurePolicy: "Ignore"
+    rules:
+      - apiGroups:
+          - "monitoring.coreos.com"
+        apiVersions:
+          - "*"
+        resources:
+          - "prometheusrules"
+        operations:
+          - "CREATE"
+          - "UPDATE"
+    clientConfig:
+      service:
+        namespace: {{ .Release.Namespace | quote }}
+        name: {{ include "monitoring.fullname" . | quote }}
+        path: "/admission-prometheusrules/validate"
+    admissionReviewVersions:
+      - "v1"
+      - "v1beta1"
+    sideEffects: "None"

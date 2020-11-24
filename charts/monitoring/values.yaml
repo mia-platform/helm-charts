@@ -1,0 +1,181 @@
+# Use this variable to override the default name "monitoring"
+nameOverride: ""
+# Use this variable to provide an unique name to override the generated one
+fullnameOverride: ""
+# Use this variable to add a app.kubernetes.io/part-of label to all resources
+applicationName: ""
+# Use this variable for changing the log level of traefik
+logLevel: "warn"
+# Enable the Pod Security Policy for allowing the execution of the traefik pods
+podSecurityPolicyEnabled: false
+
+image:
+  # Override the default Docker image name if you use a custom image or a repository mirror
+  name: "quay.io/prometheus-operator/prometheus-operator"
+  # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+  # version: "v0.43.2"
+
+# Customize the deployment of the Prometheus Operator image
+deploy:
+  # Override this value to choose how many replicas of the operator you want.
+  replicas: 1
+  tlsSecretName: ""
+  # Use this variable to add custom annotations
+  annotations: {}
+  # If you use a custom image that is hosted on a repository that require authentication specify the
+  # the list of secret name of type kubernetes.io/dockerconfigjson
+  imagePullSecrets: []
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+  #   requests:
+  #     cpu: "100m"
+  #     memory: "100Mi"
+  #   limits:
+  #     cpu: "200m"
+  #     memory: "200Mi"
+
+  # If you wanto to add pod affinity rules for the prometheus operator pods fill this variable
+  affinity: {}
+  # If you have the necessity to run prometheus operator only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that prometheus operator will run fill
+  # this variable
+  tolerations: []
+
+  # Change configuration for the tls certificate generation for the Prometheus Operator
+  tlsGenerator:
+    image:
+      # Override the default Docker image name if you use a custom image or a repository mirror
+      name: "jettech/kube-webhook-certgen"
+      # Use this value to override the tag of the image
+      version: "v1.5.0"
+
+# Customize the service that expose the Prometheus Operator
+service:
+  # Use this variable to add custom annotations
+  annotations: {}
+
+# Use this variable to add custom annotations to the generated RBAC resources
+rbac:
+  annotations: {}
+
+prometheus:
+  replicas: 1
+  image:
+    # Override the default Docker image name if you use a custom image or a repository mirror
+    name: "quay.io/prometheus/prometheus"
+    # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+    version: "v2.22.1"
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+    # requests:
+    #   cpu: "100m"
+    #   memory: "100Mi"
+    # limits:
+    #   cpu: "200m"
+    #   memory: "200Mi"
+
+  # If you have the necessity to run prometheus only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that prometheus will run fill
+  # this variable
+  tolerations: []
+
+  ## The remote_write spec configuration for Prometheus.
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#remotewritespec
+  remoteWrite: []
+
+  configReloader:
+    image:
+      # Override the default Docker image name if you use a custom image or a repository mirror
+      name: "quay.io/prometheus-operator/prometheus-config-reloader"
+      # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+      version: "v0.43.2"
+
+    resources:
+      cpu: "100m"
+      memory: "25Mi"
+
+alertmanager:
+  replicas: 1
+  image:
+    # Override the default Docker image name if you use a custom image or a repository mirror
+    name: "quay.io/prometheus/alertmanager"
+    # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+    version: "v0.21.0"
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+    # requests:
+    #   cpu: "100m"
+    #   memory: "100Mi"
+    # limits:
+    #   cpu: "200m"
+    #   memory: "200Mi"
+
+  # If you have the necessity to run alertmanager only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that alertmanager will run fill
+  # this variable
+  tolerations: []
+
+  # Additional config for the Alertmanager instance
+  config: {}
+
+nodeExporter:
+  image:
+    # Override the default Docker image name if you use a custom image or a repository mirror
+    name: "quay.io/prometheus/node-exporter"
+    # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+    version: "v1.0.1"
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+    # requests:
+    #   cpu: "100m"
+    #   memory: "100Mi"
+    # limits:
+    #   cpu: "200m"
+    #   memory: "200Mi"
+
+  # If you wanto to add pod affinity rules for the node exporter pods fill this variable
+  affinity: {}
+  # If you have the necessity to run node exporter only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that node exporter will run fill
+  # this variable
+  tolerations:
+    - effect: "NoSchedule"
+      operator: "Exists"
+
+kubeStateMetrics:
+  replicas: 1
+  image:
+    # Override the default Docker image name if you use a custom image or a repository mirror
+    name: "quay.io/coreos/kube-state-metrics"
+    # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+    version: "v1.9.7"
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+    # requests:
+    #   cpu: "100m"
+    #   memory: "100Mi"
+    # limits:
+    #   cpu: "200m"
+    #   memory: "200Mi"
+
+  # If you wanto to add pod affinity rules for the node exporter pods fill this variable
+  affinity: {}
+  # If you have the necessity to run node exporter only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that node exporter will run fill
+  # this variable
+  tolerations: []
