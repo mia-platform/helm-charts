@@ -16,5 +16,9 @@ sources:
 maintainers:
   - name: "Jacopo Andrea Giola"
     url: https://github.com/JGiola
+  - name: "Thomas Bianchi"
+    url: https://github.com/thobianchi
+  - name: "Luca Terracciano"
+    url: https://github.com/lterrac
 icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
 deprecated: false

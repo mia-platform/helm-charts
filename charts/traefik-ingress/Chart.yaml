@@ -14,5 +14,9 @@ sources:
 maintainers:
   - name: "Jacopo Andrea Giola"
     url: https://github.com/JGiola
+  - name: "Thomas Bianchi"
+    url: https://github.com/thobianchi
+  - name: "Luca Terracciano"
+    url: https://github.com/lterrac
 icon: https://docs.traefik.io/assets/img/traefik.logo.png
 deprecated: false
