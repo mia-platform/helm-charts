@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "monitoring.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default "prometheus-operator" .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
