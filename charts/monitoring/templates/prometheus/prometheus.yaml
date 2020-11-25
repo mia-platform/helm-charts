@@ -88,6 +88,6 @@ spec:
     alertmanagers:
       - namespace: {{ .Release.Namespace | quote }}
         name: {{ include "mia-monitoring.alertmanager.fullname" . | quote }}
-        port: 8080
+        port: "web"
         pathPrefix: "/"
         apiVersion: "v2"
