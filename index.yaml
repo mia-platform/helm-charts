@@ -380,6 +380,31 @@ entries:
   monitoring:
   - apiVersion: v2
     appVersion: v0.43.2
+    created: "2020-12-01T08:55:45.3111787Z"
+    description: A Kubernetes monitoring stack based on Prometheus Operator
+    digest: b79eb8d9c8689dd86552e654dd2347508e627757ea7876c625a8b381575b0f7e
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/Documentation/logos/prometheus-operator-logo.png
+    keywords:
+    - operator
+    - prometheus
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    name: monitoring
+    sources:
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/monitoring-0.3.0/monitoring-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: v0.43.2
     created: "2020-11-25T08:55:15.492311791Z"
     description: A Kubernetes monitoring stack based on Prometheus Operator
     digest: 36bdeaa4a0983619deb98f1d0810ea75684e7569a953ad774885d907a080ae0c
