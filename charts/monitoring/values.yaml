@@ -89,6 +89,9 @@ prometheus:
   ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#remotewritespec
   remoteWrite: []
 
+  # Enable the monitor for the DNS metrics
+  enableDNSMonitor: true
+
   configReloader:
     image:
       # Override the default Docker image name if you use a custom image or a repository mirror

@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enableDNSMonitor }}
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
@@ -14,3 +15,4 @@ spec:
   jobLabel: "k8s-app"
   podMetricsEndpoints:
     - port: "metrics"
+{{- end }}
