@@ -3,7 +3,6 @@
 Create the args passed to the Prometheus Operator pod.
 */}}
 {{- define "mia-monitoring.argsConfigs" -}}
-- "--logtostderr=true"
 - "--log-level={{ .Values.logLevel }}"
 - "--log-format=json"
 - "--localhost=127.0.0.1"
