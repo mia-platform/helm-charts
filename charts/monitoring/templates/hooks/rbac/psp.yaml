@@ -8,8 +8,8 @@ metadata:
   annotations:
     helm.sh/hook: "pre-install,pre-upgrade,post-install,post-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
-    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default,runtime/default"
 spec:
   privileged: false
   allowPrivilegeEscalation: false
