@@ -6,8 +6,8 @@ metadata:
   labels:
     {{- include "mia-logging.labels" . | nindent 4 }}
   annotations:
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default"
-    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default"
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  "docker/default,runtime/default"
 spec:
   readOnlyRootFilesystem: true
   privileged: false

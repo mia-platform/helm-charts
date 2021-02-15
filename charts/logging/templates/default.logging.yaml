@@ -5,8 +5,10 @@ metadata:
   name: {{ include "mia-logging.fullname" . | quote }}
   labels: &Labels
     {{- include "mia-logging.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
+  {{- with .Values.deploy.annotations }}
+  annotations: &Annotations
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   enableRecreateWorkloadOnImmutableFieldChange: true
   loggingRef: ""
