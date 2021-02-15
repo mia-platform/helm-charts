@@ -43,6 +43,7 @@ rules:
       - "ingressroutetcps"
       - "ingressrouteudps"
       - "middlewares"
+      - "serverstransports"
       - "tlsoptions"
       - "tlsstores"
       - "traefikservices"
