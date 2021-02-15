@@ -10,10 +10,23 @@ metadata:
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  "runtime/default"
 spec:
   privileged: false
+  readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - "ALL"
   volumes:
     - "secret"
     - "hostPath"
+  allowedHostPaths:
+    - pathPrefix: "/proc"
+      readOnly: true
+    - pathPrefix: "/sys"
+      readOnly: true
+    - pathPrefix: "/"
+      readOnly: true
+  hostPorts:
+  - min: 9100
+    max: 9100
   hostNetwork: true
   hostIPC: false
   hostPID: true
