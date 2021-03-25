@@ -21,7 +21,7 @@ spec:
             description: The API server is burning too much error budget.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
             summary: The API server is burning too much error budget.
-          expr: |
+          expr: |-
             sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
             and
             sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
@@ -35,7 +35,7 @@ spec:
             description: The API server is burning too much error budget.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
             summary: The API server is burning too much error budget.
-          expr: |
+          expr: |-
             sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
             and
             sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
@@ -49,7 +49,7 @@ spec:
             description: The API server is burning too much error budget.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
             summary: The API server is burning too much error budget.
-          expr: |
+          expr: |-
             sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
             and
             sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
@@ -63,7 +63,7 @@ spec:
             description: The API server is burning too much error budget.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
             summary: The API server is burning too much error budget.
-          expr: |
+          expr: |-
             sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
             and
             sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
