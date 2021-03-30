@@ -2,6 +2,8 @@
 This rules are lifted from the 'prometheus-operator.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
+{{- $operatorJob := printf "%s" (include "mia-monitoring.name" .) }}
+{{- $namespace := printf "%s" ( .Release.Namespace ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
