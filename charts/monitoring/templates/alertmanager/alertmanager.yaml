@@ -35,6 +35,8 @@ spec:
   routePrefix: "/"
   {{- if .Values.alertmanager.config }}
   configSecret: {{ include "mia-monitoring.alertmanager.configSecret" . | quote }}
+  {{- else if .Values.alertmanager.configSecretName }}
+  configSecret: {{ .Values.alertmanager.configSecretName | quote }}
   {{- end }}
   alertmanagerConfigSelector: {}
   alertmanagerConfigNamespaceSelector: {}

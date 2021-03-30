@@ -237,6 +237,10 @@
           "description": "Tolerations to add to the deployment",
           "type": "array"
         },
+        "configSecretName": {
+          "description": "Additional config secret name, for user provided secret, alernative to the config key",
+          "type": "string"
+        },
         "config": {
           "description": "Additional config for the Alertmanager instance",
           "type": "object"

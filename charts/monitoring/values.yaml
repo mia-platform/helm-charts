@@ -127,6 +127,10 @@ alertmanager:
   # this variable
   tolerations: []
 
+  # If you provide a secret with a default alertmanager configuration set it up here, the config block
+  # has precedence over this
+  configSecretName: ""
+
   # Additional config for the Alertmanager instance
   config: {}
 
