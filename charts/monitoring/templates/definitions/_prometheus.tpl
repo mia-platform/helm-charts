@@ -85,7 +85,7 @@ Create the name for the additional scraping config secret
     - source_labels:
         - "__address__"
       target_label: "metrics_path"
-      replacement: "/metrics"
+      replacement: "/metrics/cadvisor"
 {{- end -}}
 
 {{/*
