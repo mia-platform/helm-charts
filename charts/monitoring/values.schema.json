@@ -151,6 +151,22 @@
           "description": "The remote write block that can be set on the prometheus CRD",
           "type": "array"
         },
+        "enableDNSMonitor": {
+          "description": "Enabel the DNS service metrics monitor",
+          "type": "boolean"
+        },
+        "data": {
+          "properties": {
+            "retention": {
+              "description": "The retention time for the data in prometheus",
+              "type": "string"
+            },
+            "numberOfShards": {
+              "description": "Number of shards for the metric datas",
+              "type": "integer"
+            }
+          }
+        },
         "configReloader": {
           "properties": {
             "image": {
@@ -198,6 +214,7 @@
       "required": [
         "replicas",
         "image",
+        "data",
         "configReloader"
       ]
     },

@@ -44,7 +44,8 @@ spec:
   disableCompaction: false
   portName: "web"
   enableAdminAPI: false
-  retention: "2h"
+  retention: {{ .Values.prometheus.data.retention | quote }}
+  shards: {{ .Values.prometheus.data.numberOfShards }}
   walCompression: false
   routePrefix: "/"
   serviceMonitorSelector: {}

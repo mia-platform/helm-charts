@@ -92,6 +92,10 @@ prometheus:
   # Enable the monitor for the DNS metrics
   enableDNSMonitor: true
 
+  data:
+   retention: "2h"
+   numberOfShards: 1
+
   configReloader:
     image:
       # Override the default Docker image name if you use a custom image or a repository mirror
