@@ -85,7 +85,16 @@ Create the name for the additional scraping config secret
     - source_labels:
         - "__address__"
       target_label: "metrics_path"
-      replacement: "/metrics/cadvisor"
+      replacement: "/metrics"
+    - source_labels:
+        - "__address__"
+      target_label: __tmp_hash
+      modulus: {{ .Values.prometheus.data.numberOfShards }}
+      action: hashmod
+    - source_labels:
+        - "__tmp_hash"
+      regex: "$(SHARD)"
+      action: "keep"
 {{- end -}}
 
 {{/*
