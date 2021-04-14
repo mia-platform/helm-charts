@@ -1,4 +1,30 @@
 {{- if .Values.defaultLogging.enabled -}}
+{{- $ca := genCA "svc-cat-ca" 3650 -}}
+{{- $cn := printf "%s.%s.svc.cluster.local" (include "mia-logging.loggingFluentdName" .) .Release.Namespace -}}
+{{- $server := genSignedCert $cn nil nil 365 $ca -}}
+{{- $client := genSignedCert "" nil nil 365 $ca -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mia-logging.loggingFluentdSecretName" . }}
+  labels:
+    {{- include "mia-logging.labels" . | nindent 4 }}
+data:
+  ca.crt: {{ b64enc $ca.Cert | quote }}
+  tls.crt: {{ b64enc $server.Cert | quote }}
+  tls.key: {{ b64enc $server.Key | quote }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mia-logging.loggingFluentbitSecretName" . }}
+  labels:
+    {{- include "mia-logging.labels" . | nindent 4 }}
+data:
+  ca.crt: {{ b64enc $ca.Cert | quote }}
+  tls.crt: {{ b64enc $client.Cert | quote }}
+  tls.key: {{ b64enc $client.Key | quote }}
+---
 apiVersion: logging.banzaicloud.io/v1beta1
 kind: Logging
 metadata:
@@ -63,8 +89,9 @@ spec:
         {{- include "mia-logging.fluentbitUserId" . | nindent 8 }}
         runAsGroup: 11000
         fsGroup: 12000
-    {{- with .Values.defaultLogging.fluentbit.annotations }}
     annotations:
+      checksum/config: {{ $client.Cert | sha256sum | quote }}
+    {{- with .Values.defaultLogging.fluentbit.annotations }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
   fluentd:
@@ -114,8 +141,9 @@ spec:
         runAsUser: 100
         runAsGroup: 101
         fsGroup: 101
-    {{- with .Values.defaultLogging.fluentd.annotations }}
     annotations:
+      checksum/config: {{ $server.Cert | sha256sum | quote }}
+    {{- with .Values.defaultLogging.fluentd.annotations }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
 {{- end -}}
