@@ -153,3 +153,9 @@ failure-domain.beta.kubernetes.io/zone
 topology.kubernetes.io/zone
 {{- end -}}
 {{- end -}}
+
+{{/*
+Trusted ips
+*/}}
+{{- define "mia-traefik-ingress.trustedIps" -}}
+{{- end -}}
