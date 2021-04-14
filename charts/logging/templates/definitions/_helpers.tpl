@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "mia-logging.name" -}}
-{{- default "logging-operator" .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*

@@ -1,8 +1,8 @@
 apiVersion: v2
-name: logging
+name: logging-operator
 version: 2.0.2
 kubeVersion: ">= 1.16.0-0"
-appVersion: 3.9.1
+appVersion: 3.9.4
 description: "A Kubernetes logging stack based on Logging Operator"
 type: application
 keywords:
