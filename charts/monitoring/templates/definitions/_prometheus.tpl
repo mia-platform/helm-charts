@@ -120,3 +120,12 @@ podAntiAffinity:
         topologyKey: "kubernetes.io/hostname"
       weight: 50
 {{- end -}}
+
+{{- define "mia-monitoring.prometheus.remotewrite" -}}
+{{- range .Values.prometheus.remoteWrite }}
+- {{ . }}
+{{- end }}
+- {{ if .Values.cortexProxy.enabled }}
+- http://cortex-tenant:8080/push
+{{- end }}
+{{- end -}}

@@ -54,10 +54,8 @@ spec:
   podMonitorNamespaceSelector: {}
   probeSelector: {}
   probeNamespaceSelector: {}
-  {{- with .Values.prometheus.remoteWrite }}
   remoteWrite:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- include "mia-monitoring.prometheus.remotewrite" . | nindent 4 }}
   ruleNamespaceSelector: {}
   ruleSelector: {}
   {{- with .Values.prometheus.storageSpec }}
