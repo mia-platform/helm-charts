@@ -195,7 +195,8 @@ cortexProxy:
   enabled: false
   replicas: 1
   image:
-    name: "ghcr.io/mia-platform/cortex-proxy:latest"
+    name: "ghcr.io/mia-platform/cortex-proxy"
+    # version: ""
   remoteWriteUrl: ""
   logLevel: "info"
   namespaceLabel: "tenant"

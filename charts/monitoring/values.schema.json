@@ -367,5 +367,58 @@
     "alertmanager",
     "nodeExporter",
     "kubeStateMetrics"
-  ]
+  ],
+  "cortexProxy": {
+    "properties": {
+      "enabled": {
+        "description": "Enable Cortex Prometheus proxy",
+        "type": "boolean"
+      },
+      "logLevel": {
+        "description": "",
+        "type": "string",
+        "enum": ["debug", "info", "warn", "error"]
+      },
+      "replicas": {
+        "description": "The number of replicas for the deployment",
+        "type": "integer",
+        "minimum": 1
+      },
+      "image": {
+        "description": "Container Image",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Docker image name",
+            "type": "string"
+          },
+          "version": {
+            "description": "Docker image tag",
+            "type": "string"
+          }
+        }
+      },
+      "remoteWriteUrl": {
+        "description": "Url for Cortex Cluster ingesters",
+        "type": "string"
+      },
+      "namespaceLabel": {
+        "description": "Label on namespace to determine the tenant",
+        "type": "string"
+      },
+      "defaultTenant": {
+        "description": "Default tenant where put labels",
+        "type": "string"
+      },
+      "queryInterval": {
+        "description": "Api-server query interval for namespace labels",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "enabled",
+      "replicas",
+      "image"
+    ]
+  }
 }
