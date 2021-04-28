@@ -126,6 +126,6 @@ podAntiAffinity:
 - {{ . }}
 {{- end }}
 - {{ if .Values.cortexProxy.enabled }}
-- http://cortex-tenant:8080/push
+- http://cortex-proxy:8080/push
 {{- end }}
 {{- end -}}
