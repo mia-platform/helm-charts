@@ -20,7 +20,7 @@ spec:
       - name: nexus-gcloud
       containers:
       - name: cortex-proxy
-        image: {{ .Values.cortexProxy.image.name | quote }}
+        image: {{ include "mia-monitoring.cortexProxy.image" . | quote }}
         command: ["/app/main"]
         args: ["-config", "/conf/cortex-proxy.yml"]
         ports:
