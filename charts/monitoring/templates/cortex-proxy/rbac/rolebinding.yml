@@ -1,18 +1,4 @@
 {{- if .Values.cortexProxy.enabled }}
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: cortex
----
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: cortex-list-namespaces
-rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["namespaces"]
-  verbs: ["get", "watch", "list"]
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
