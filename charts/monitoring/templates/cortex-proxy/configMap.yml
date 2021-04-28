@@ -10,9 +10,9 @@ data:
     # Profiling API, remove to disable
     listen_pprof: 0.0.0.0:7008
     # Where to send the modified requests (Cortex)
-    target: {{- .Values.cortexProxy.remoteWriteUrl }}
+    target: {{ .Values.cortexProxy.remoteWriteUrl }}
     # Log level
-    log_level: {{- .Values.cortexProxy.logLevel }}
+    log_level: {{ .Values.cortexProxy.logLevel }}
     # HTTP request timeout
     timeout: 10s
     # Timeout to wait on shutdown to allow load balancers detect that we're going away.
@@ -23,13 +23,13 @@ data:
     tenant:
       # Instead if defined looks for the following namespace label for determine the tenant
       # if defined label and label_remove will be ignored
-      namespace_label: {{- .Values.cortexProxy.namespaceLabel }}
+      namespace_label: {{ .Values.cortexProxy.namespaceLabel }}
       # Update interval query for ns label in seconds
-      query_interval: {{- .Values.cortexProxy.queryInterval }}
+      query_interval: {{ .Values.cortexProxy.queryInterval }}
       # To which header to add the tenant ID
       header: X-Scope-OrgId
       # Which tenant ID to use if the label is missing in any of the timeseries
       # If this is not set or empty then the write request with missing tenant label
       # will be rejected with HTTP code 400
-      default: {{- .Values.cortexProxy.defaultTenant -}}
+      default: {{ .Values.cortexProxy.defaultTenant -}}
 {{- end }}
