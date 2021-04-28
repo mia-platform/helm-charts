@@ -190,3 +190,14 @@ kubeStateMetrics:
   # If you have to ignore particular taints on nodes where you want that node exporter will run fill
   # this variable
   tolerations: []
+
+cortexProxy:
+  enabled: false
+  replicas: 1
+  image:
+    name: ""
+  remoteWriteUrl: ""
+  logLevel: "info"
+  namespaceLabel: "tenant"
+  defaultTenant: "default"
+  queryInterval: 60

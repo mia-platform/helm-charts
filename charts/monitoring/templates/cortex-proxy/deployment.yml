@@ -1,0 +1,35 @@
+{{- if .Values.cortexProxy.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cortex-proxy
+  labels:
+    app: cortex-proxy
+spec:
+  replicas: {{ .Values.cortexProxy.replicas }}
+  selector:
+    matchLabels:
+      app: cortex-proxy
+  template:
+    metadata:
+      labels:
+        app: cortex-proxy
+    spec:
+      serviceAccountName: cortex
+      imagePullSecrets:
+      - name: nexus-gcloud
+      containers:
+      - name: cortex-proxy
+        image: {{ .Values.cortexProxy.image.name | quote }}
+        command: ["/app/main"]
+        args: ["-config", "/conf/cortex-proxy.yml"]
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: config-volume
+          mountPath: /conf
+      volumes:
+      - name: config-volume
+        configMap:
+          name: cortex-proxy
+{{- end }}

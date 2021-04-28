@@ -1,0 +1,13 @@
+{{- if .Values.cortexProxy.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: cortex-proxy
+spec:
+  selector:
+    app: cortex-proxy
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+{{- end }}

@@ -1,0 +1,35 @@
+{{- if .Values.cortexProxy.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cortex-proxy
+data:
+  cortex-proxy.yml: |
+    # Where to listen for incoming write requests from Prometheus
+    listen: 0.0.0.0:8080
+    # Profiling API, remove to disable
+    listen_pprof: 0.0.0.0:7008
+    # Where to send the modified requests (Cortex)
+    target: {{- .Values.cortexProxy.remoteWriteUrl -}}
+    # Log level
+    log_level: {{- .Values.cortexProxy.logLevel -}}
+    # HTTP request timeout
+    timeout: 10s
+    # Timeout to wait on shutdown to allow load balancers detect that we're going away.
+    # During this period after the shutdown command the /alive endpoint will reply with HTTP 503.
+    # Set to 0s to disable.
+    timeout_shutdown: 10s
+
+    tenant:
+      # Instead if defined looks for the following namespace label for determine the tenant
+      # if defined label and label_remove will be ignored
+      namespace_label: {{- .Values.cortexProxy.namespaceLabel -}}
+      # Update interval query for ns label in seconds
+      query_interval: {{- .Values.cortexProxy.queryInterval -}}
+      # To which header to add the tenant ID
+      header: X-Scope-OrgId
+      # Which tenant ID to use if the label is missing in any of the timeseries
+      # If this is not set or empty then the write request with missing tenant label
+      # will be rejected with HTTP code 400
+      default: {{- .Values.cortexProxy.defaultTenant -}}
+{{- end }}
