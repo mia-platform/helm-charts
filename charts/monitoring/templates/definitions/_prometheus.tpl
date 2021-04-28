@@ -122,10 +122,10 @@ podAntiAffinity:
 {{- end -}}
 
 {{- define "mia-monitoring.prometheus.remotewrite" -}}
-{{- range .Values.prometheus.remoteWrite }}
-- {{ . }}
+{{- range .Values.prometheus.remoteWrite -}}
+- {{ .url }}
 {{- end }}
-- {{ if .Values.cortexProxy.enabled }}
+{{- if .Values.cortexProxy.enabled }}
 - http://cortex-proxy:8080/push
 {{- end }}
 {{- end -}}

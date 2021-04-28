@@ -196,7 +196,7 @@ cortexProxy:
   replicas: 1
   image:
     name: "ghcr.io/mia-platform/cortex-proxy"
-    # version: ""
+    version: "latest"
   remoteWriteUrl: ""
   logLevel: "info"
   namespaceLabel: "tenant"
