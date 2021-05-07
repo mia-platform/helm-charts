@@ -6,6 +6,8 @@ fullnameOverride: ""
 applicationName: ""
 # Enable the Pod Security Policy for allowing the execution of the loggings pods
 podSecurityPolicyEnabled: false
+# Enable the ServiceMonitor resource creation
+enableServiceMonitor: false
 
 image:
   # Override the default Docker image name if you use a custom image or a repository mirror
@@ -75,11 +77,18 @@ defaultLogging:
     #   limits:
     #     cpu: "100m"
     #     memory: "128Mi"
+    # If you wanto to add pod affinity rules for the logging operator pods fill this variable
+    affinity: {}
+    # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
+    nodeSelectors: {}
+    # If you have to ignore particular taints on nodes where you want that logging operator will run fill
+    # this variable
+    tolerations: []
 
   fluentd:
     # image:
       # name: "ghcr.io/banzaicloud/fluentd"
-      # version: v1.11.5-alpine-12
+      # version: v1.11.5-alpine-18
     # Override this value to choose how many replicas of fluentd you want.
     replicas: 1
     # Change this value to increase or decrease the volume dimension dedicated to the buffer
@@ -95,3 +104,10 @@ defaultLogging:
     #   limits:
     #     cpu: "100m"
     #     memory: "128Mi"
+    # If you wanto to add pod affinity rules for the logging operator pods fill this variable
+    affinity: {}
+    # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
+    nodeSelectors: {}
+    # If you have to ignore particular taints on nodes where you want that logging operator will run fill
+    # this variable
+    tolerations: []

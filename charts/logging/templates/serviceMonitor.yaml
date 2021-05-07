@@ -1,0 +1,22 @@
+{{- if .Values.enableServiceMonitor }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "mia-logging.fullname" . | quote }}
+  labels:
+    {{- include "mia-logging.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "mia-logging.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: http
+    path: /metrics
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace | quote }}
+{{- end }}
