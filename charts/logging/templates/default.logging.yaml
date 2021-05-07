@@ -69,8 +69,8 @@ spec:
       prometheusAnnotations: false
       port: 2020
       path: "/api/v1/metrics/prometheus"
-      timeout: "30s"
-      interval: "15s"
+      timeout: "15s"
+      interval: "30s"
     {{- with .Values.defaultLogging.fluentbit.resources }}
     resources:
       {{- toYaml . | nindent 6 }}
@@ -132,8 +132,8 @@ spec:
      prometheusAnnotations: false
      port: 24231
      path: "/metrics"
-     timeout: "30s"
-     interval: "15s"
+     timeout: "15s"
+     interval: "30s"
     {{- with .Values.defaultLogging.fluentd.resources }}
     resources:
       {{- toYaml . | nindent 6 }}
