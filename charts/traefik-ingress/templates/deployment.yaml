@@ -94,7 +94,7 @@ spec:
       affinity:
         {{- include "mia-traefik-ingress.podAffinity" . | nindent 8 }}
       {{- with .Values.deploy.nodeSelectors }}
-      nodeSelectors:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.deploy.tolerations }}
