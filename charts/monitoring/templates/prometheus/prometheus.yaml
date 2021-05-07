@@ -30,7 +30,7 @@ spec:
   externalUrl: "http://{{ include "mia-monitoring.prometheus.fullname" . }}.{{ .Release.Namespace }}:8080"
   {{- with .Values.prometheus.externalLabels }}
   externalLabels:
-    {{ toYaml . | nindent 4}}
+    {{- toYaml . | nindent 4}}
   {{- end }}
   {{- if lt (int .Values.prometheus.replicas) 2 }}
   prometheusExternalLabelName: ""
@@ -79,7 +79,7 @@ spec:
   {{- end }}
   {{- with .Values.prometheus.tolerations }}
   tolerations:
-    {{ toYaml . | indent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   additionalScrapeConfigs:
     name: {{ include "mia-monitoring.prometheus.scrapeConfigSecret" . | quote }}
