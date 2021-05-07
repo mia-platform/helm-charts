@@ -99,7 +99,7 @@ spec:
       {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.defaultLogging.fluentbit.nodeSelectors }}
-    nodeSelectors:
+    nodeSelector:
       {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.defaultLogging.fluentbit.tolerations }}
@@ -163,7 +163,7 @@ spec:
       {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.defaultLogging.fluentd.nodeSelectors }}
-    nodeSelectors:
+    nodeSelector:
       {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.defaultLogging.fluentd.tolerations }}

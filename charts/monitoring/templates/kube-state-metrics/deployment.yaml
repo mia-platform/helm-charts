@@ -101,7 +101,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.kubeStateMetrics.nodeSelectors }}
-      nodeSelectors:
+      nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.kubeStateMetrics.tolerations }}
