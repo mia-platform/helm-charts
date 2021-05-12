@@ -95,6 +95,9 @@ Create the name for the additional scraping config secret
         - "__tmp_hash"
       regex: "$(SHARD)"
       action: "keep"
+  metric_relabel_configs:
+    - action: labeldrop
+      regex: "id"
 {{- end -}}
 
 {{/*
