@@ -155,6 +155,10 @@
           "description": "Enabel the DNS service metrics monitor",
           "type": "boolean"
         },
+        "enableApiServerMonitor": {
+          "description": "Kubernetes api server scrape config personalizations",
+          "type": "boolean"
+        },
         "data": {
           "properties": {
             "retention": {

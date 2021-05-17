@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enableApiServerMonitor }}
 {{- /*
 This rules are lifted from the 'kube-apiserver-slos.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
 We only divide the list in sub resources for better skimming through them
@@ -72,3 +73,4 @@ spec:
             long: 3d
             severity: warning
             short: 6h
+{{- end }}

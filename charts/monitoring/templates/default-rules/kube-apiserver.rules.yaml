@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enableApiServerMonitor }}
 {{- /*
 This rules are lifted from the 'kube-apiserver.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
 We only divide the list in sub resources for better skimming through them
@@ -347,3 +348,4 @@ spec:
           labels:
             quantile: '0.5'
           record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
+{{- end }}

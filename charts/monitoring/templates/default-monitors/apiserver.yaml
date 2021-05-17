@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enableApiServerMonitor }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -21,3 +22,4 @@ spec:
         caFile: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
         serverName: "kubernetes"
         insecureSkipVerify: false
+{{- end }}

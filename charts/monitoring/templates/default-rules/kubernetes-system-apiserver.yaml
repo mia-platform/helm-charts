@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enableApiServerMonitor }}
 {{- /*
 This rules are lifted from the 'kuberentes-system-apiserver.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
 We only divide the list in sub resources for better skimming through them
@@ -67,3 +68,4 @@ spec:
           for: 5m
           labels:
             severity: warning
+{{- end }}

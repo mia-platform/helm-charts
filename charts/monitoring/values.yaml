@@ -92,6 +92,9 @@ prometheus:
   # Enable the monitor for the DNS metrics
   enableDNSMonitor: true
 
+  # Enable Kubernetes api-server metrics haversting
+  enableApiServerMonitor: false
+
   data:
    retention: "2h"
    numberOfShards: 1
