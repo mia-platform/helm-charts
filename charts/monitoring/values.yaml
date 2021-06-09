@@ -96,8 +96,8 @@ prometheus:
   enableApiServerMonitor: false
 
   data:
-   retention: "2h"
-   numberOfShards: 1
+    retention: "2h"
+    numberOfShards: 1
 
   configReloader:
     image:

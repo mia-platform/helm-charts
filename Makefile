@@ -8,7 +8,7 @@ all: lint
 
 lint: dependencies
 	@echo "==> Linting Charts..."
-	@docker run --rm -t -v $(CURDIR):$(DOCKER_DIR) -w $(DOCKER_DIR) quay.io/helmpack/chart-testing:v3.3.0 $(LINT_CMD)
+	@docker run --rm -t -v $(CURDIR):$(DOCKER_DIR) -w $(DOCKER_DIR) quay.io/helmpack/chart-testing:v3.4.0 $(LINT_CMD)
 
 dependencies:
 	@command -v docker >/dev/null || ( echo "ERROR: Docker binary not found. Exiting." && exit 1)
