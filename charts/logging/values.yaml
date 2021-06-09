@@ -61,7 +61,7 @@ defaultLogging:
   fluentbit:
     # image:
       # name: "fluent/fluent-bit"
-      # version: 1.6.10
+      # version: 1.7.4
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
     # Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root
@@ -88,7 +88,7 @@ defaultLogging:
   fluentd:
     # image:
       # name: "ghcr.io/banzaicloud/fluentd"
-      # version: v1.11.5-alpine-18
+      # version: v1.11.5-alpine-21
     # Override this value to choose how many replicas of fluentd you want.
     replicas: 1
     # Change this value to increase or decrease the volume dimension dedicated to the buffer
