@@ -55,8 +55,6 @@ rbac:
 defaultLogging:
   # Set to false to disable default logging stack
   enabled: true
-  # Override this value with a secret of your choice
-  sharedKey: ""
 
   fluentbit:
     # image:

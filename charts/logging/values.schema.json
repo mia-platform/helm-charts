@@ -87,10 +87,6 @@
         "description": "Toogle the release of the default logging stack",
         "type": "boolean"
       },
-      "sharedKey": {
-        "description": "Shared key for fluentd authentication",
-        "type": "string"
-      },
       "fluentbit": {
         "image": {
           "description": "Container Image for fluentbit",
@@ -158,7 +154,6 @@
       },
       "required": [
         "enabled",
-        "sharedKey",
         "fluentbit",
         "fluentd"
       ]
