@@ -461,6 +461,33 @@ entries:
   logging-operator:
   - apiVersion: v2
     appVersion: 3.10.0
+    created: "2021-06-14T08:01:18.712398075Z"
+    description: A Kubernetes logging stack based on Logging Operator
+    digest: 5dcbb1d449d48ba73cd95fd00932daad1635bb7afb92e63bc39502a95a21d7a5
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
+    keywords:
+    - logging
+    - logging-operator
+    - fluentd
+    - fluent-bit
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    name: logging-operator
+    sources:
+    - https://github.com/banzaicloud/logging-operator
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.3.0/logging-operator-3.3.0.tgz
+    version: 3.3.0
+  - apiVersion: v2
+    appVersion: 3.10.0
     created: "2021-06-09T15:25:15.909685844Z"
     description: A Kubernetes logging stack based on Logging Operator
     digest: 0c968324ea06acda931fb82f5f997ebb4261adb6979294c9e0fc944ea205acf2
@@ -622,6 +649,31 @@ entries:
     - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.0.0/logging-operator-3.0.0.tgz
     version: 3.0.0
   monitoring:
+  - apiVersion: v2
+    appVersion: v0.47.1
+    created: "2021-06-14T08:01:18.931401142Z"
+    description: A Kubernetes monitoring stack based on Prometheus Operator
+    digest: 233e706883f9676dbc081b5fbc34b9b77b430aaad3a3887e73c79282cbe8811c
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/Documentation/logos/prometheus-operator-logo.png
+    keywords:
+    - operator
+    - prometheus
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    name: monitoring
+    sources:
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/monitoring-0.9.2/monitoring-0.9.2.tgz
+    version: 0.9.2
   - apiVersion: v2
     appVersion: v0.47.1
     created: "2021-05-20T09:35:47.58928497Z"
@@ -1721,4 +1773,4 @@ entries:
     urls:
     - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.8.0/traefik-ingress-0.8.0.tgz
     version: 0.8.0
-generated: "2020-05-26T14:12:09.036244929Z"
+generated: "2021-06-14T08:01:18.931824256Z"
