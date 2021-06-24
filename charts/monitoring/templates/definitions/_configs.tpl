@@ -14,10 +14,10 @@ Create the args passed to the Prometheus Operator pod.
 {{- $configImage := $configReloader.image }}
 - "--prometheus-config-reloader={{ $configImage.name }}:{{ $configImage.version }}"
 {{- $configResources := $configReloader.resources }}
-- "--config-reloader-cpu-request={{ $configResource.cpu }}"
-- "--config-reloader-cpu-limit={{ $configResource.cpu }}"
-- "--config-reloader-memory-request={{ $configResource.memory }}"
-- "--config-reloader-memory-limit={{ $configResource.memory }}"
+- "--config-reloader-cpu-request={{ $configResources.cpu }}"
+- "--config-reloader-cpu-limit={{ $configResources.cpu }}"
+- "--config-reloader-memory-request={{ $configResources.memory }}"
+- "--config-reloader-memory-limit={{ $configResources.memory }}"
 - "--prometheus-instance-namespaces={{ .Release.Namespace }}"
 - "--alertmanager-instance-namespaces={{ .Release.Namespace }}"
 - "--thanos-ruler-instance-namespaces={{ .Release.Namespace }}"
