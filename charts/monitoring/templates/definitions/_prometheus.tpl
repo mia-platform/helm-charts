@@ -42,7 +42,7 @@ Prometheus Selector labels
 */}}
 {{- define "mia-monitoring.prometheus.selectorLabels" -}}
 app.kubernetes.io/name: "prometheus"
-app.kubernetes.io/instance: {{ include "mia-monitoring.prometheus.name" . | quote }}
+app.kubernetes.io/instance: {{ include "mia-monitoring.prometheus.fullname" . | quote }}
 {{- end }}
 
 {{/*

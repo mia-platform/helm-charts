@@ -42,7 +42,7 @@ Alertmanager Selector labels
 */}}
 {{- define "mia-monitoring.alertmanager.selectorLabels" -}}
 app.kubernetes.io/name: "alertmanager"
-app.kubernetes.io/instance: {{ include "mia-monitoring.alertmanager.name" . | quote }}
+app.kubernetes.io/instance: {{ include "mia-monitoring.alertmanager.fullname" . | quote }}
 {{- end }}
 
 {{/*
