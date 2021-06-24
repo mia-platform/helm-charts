@@ -13,7 +13,7 @@ image:
   # Override the default Docker image name if you use a custom image or a repository mirror
   name: "quay.io/prometheus-operator/prometheus-operator"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-  # version: "v0.47.1"
+  # version: "v0.48.1"
 
 # Customize the deployment of the Prometheus Operator image
 deploy:
@@ -50,7 +50,7 @@ deploy:
       # Override the default Docker image name if you use a custom image or a repository mirror
       name: "jettech/kube-webhook-certgen"
       # Use this value to override the tag of the image
-      version: "v1.5.0"
+      version: "v1.5.2"
 
 # Customize the service that expose the Prometheus Operator
 service:
@@ -67,7 +67,7 @@ prometheus:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "quay.io/prometheus/prometheus"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v2.26.0"
+    version: "v2.27.1"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace
@@ -104,7 +104,7 @@ prometheus:
       # Override the default Docker image name if you use a custom image or a repository mirror
       name: "quay.io/prometheus-operator/prometheus-config-reloader"
       # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-      version: "v0.47.1"
+      version: "v0.48.1"
 
     resources:
       cpu: "100m"
@@ -116,7 +116,7 @@ alertmanager:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "quay.io/prometheus/alertmanager"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v0.21.0"
+    version: "v0.22.2"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace

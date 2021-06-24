@@ -65,8 +65,6 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   podMetadata:
-    labels:
-      {{- include "mia-monitoring.prometheus.selectorLabels" . | nindent 6 }}
     {{- with .Values.deploy.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}

@@ -45,8 +45,6 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   podMetadata:
-    labels:
-      {{- include "mia-monitoring.alertmanager.selectorLabels" . | nindent 6 }}
     {{- with .Values.deploy.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}

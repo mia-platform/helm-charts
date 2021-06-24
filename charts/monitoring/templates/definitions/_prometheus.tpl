@@ -41,8 +41,8 @@ app.kubernetes.io/version: {{ .Values.prometheus.image.version | quote }}
 Prometheus Selector labels
 */}}
 {{- define "mia-monitoring.prometheus.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "mia-monitoring.prometheus.name" . | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
+app.kubernetes.io/name: "prometheus"
+app.kubernetes.io/instance: {{ include "mia-monitoring.prometheus.name" . | quote }}
 {{- end }}
 
 {{/*
