@@ -64,11 +64,11 @@ spec:
   storage:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- with .Values.deploy.annotations }}
   podMetadata:
-    {{- with .Values.deploy.annotations }}
     annotations:
       {{- toYaml . | nindent 6 }}
-    {{- end }}
+  {{- end }}
   affinity:
     {{- include "mia-monitoring.prometheus.podAffinity" . | nindent 4 }}
   {{- with .Values.prometheus.nodeSelector }}
