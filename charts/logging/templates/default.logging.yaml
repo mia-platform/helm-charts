@@ -36,6 +36,7 @@ spec:
     positiondb:
       hostPath:
         path: "/var/log/logging-operator"
+    enableUpstream: {{ include "mia-logging.fluentbitEnableUpstream" . }}
     metrics:
       serviceMonitor: {{ .Values.enableServiceMonitor }}
       prometheusAnnotations: false
@@ -86,7 +87,7 @@ spec:
       repository: {{ include "mia-logging.fluentdImageName" . | quote }}
       tag: {{ include "mia-logging.fluentdImageVersion" . | quote }}
     scaling:
-      replicas: {{ .Values.defaultLogging.fluentd.replicas }}
+      replicas: {{ include "mia-logging.fluentdReplicas" . }}
     bufferStorageVolume:
       pvc:
         spec:

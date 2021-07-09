@@ -37,6 +37,18 @@ runAsUser: 10000
 {{- end -}}
 {{- end -}}
 
+{{- define "mia-logging.fluentdReplicas" -}}
+{{- default 0 .Values.defaultLogging.fluentd.replicas -}}
+{{- end -}}
+
+{{- define "mia-logging.fluentbitEnableUpstream" -}}
+{{- if gt (int ( include "mia-logging.fluentdReplicas" . )) 1 -}}
+{{- print true -}}
+{{- else -}}
+{{- print false -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Fluentbit custom image
 */}}
@@ -69,18 +81,4 @@ Fluentd custom image
 {{- if $image -}}
 {{- default "" $image.version -}}
 {{- end -}}
-{{- end -}}
-
-{{/*
-Fluentd TLS secret name
-*/}}
-{{- define "mia-logging.loggingFluentdSecretName" -}}
-{{ printf "%s-secret" (include "mia-logging.loggingFluentdName" .) }}
-{{- end -}}
-
-{{/*
-Fluentbit TLS secret name
-*/}}
-{{- define "mia-logging.loggingFluentbitSecretName" -}}
-{{ printf "%s-secret" (include "mia-logging.loggingFluentbitName" .) }}
 {{- end -}}
