@@ -24,13 +24,18 @@ rules:
       - "watch"
   - apiGroups:
       - ""
+      - "events.k8s.io"
     resources:
       - "events"
     verbs:
       - "create"
+      - "get"
+      - "list"
+      - "watch"
   - apiGroups:
       - ""
     resources:
+      - "endpoints"
       - "namespaces"
       - "nodes"
     verbs:
@@ -56,6 +61,7 @@ rules:
       - "apps"
     resources:
       - "daemonsets"
+      - "replicasets"
       - "statefulsets"
     verbs:
       - "create"
@@ -78,6 +84,24 @@ rules:
       - "patch"
       - "update"
       - "watch"
+  - apiGroups:
+      - "batch"
+    resources:
+      - "jobs"
+    verbs:
+      - "create"
+      - "delete"
+      - "get"
+      - "list"
+      - "patch"
+      - "update"
+      - "watch"
+  - apiGroups:
+      - "coordination.k8s.io"
+    resources:
+      - "leases"
+    verbs:
+      - "*"
   - apiGroups:
       - "extensions"
       - "networking.k8s.io"
