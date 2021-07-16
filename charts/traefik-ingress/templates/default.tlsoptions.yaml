@@ -5,8 +5,6 @@ metadata:
   name: {{ include "mia-traefik-ingress.defaultTLSOptionName" . | quote }}
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
 spec:
   {{- include "mia-traefik-ingress.defaultTlsOptionSpec" . | nindent 2 }}
 ---
@@ -16,8 +14,6 @@ metadata:
   name: {{ include "mia-traefik-ingress.oldTLSOptionName" . | quote }}
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
 spec:
   {{- include "mia-traefik-ingress.oldTlsOptionSpec" . | nindent 2 }}
 ---
@@ -27,8 +23,6 @@ metadata:
   name: {{ include "mia-traefik-ingress.intermediateTLSOptionName" . | quote }}
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
 spec:
   {{- include "mia-traefik-ingress.intermediateTlsOptionSpec" . | nindent 2 }}
 ---
@@ -38,8 +32,6 @@ metadata:
   name: {{ include "mia-traefik-ingress.modernTLSOptionName" . | quote }}
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
 spec:
   {{- include "mia-traefik-ingress.modernTlsOptionSpec" . | nindent 2 }}
 {{- end -}}

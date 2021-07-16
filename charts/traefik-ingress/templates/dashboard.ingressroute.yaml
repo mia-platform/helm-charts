@@ -4,8 +4,6 @@ metadata:
   name: {{ include "mia-traefik-ingress.dashboardIngressRouteName" . | quote }}
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade"
 spec:
   entryPoints:
     - "traefik"
