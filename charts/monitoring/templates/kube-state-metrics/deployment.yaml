@@ -36,34 +36,9 @@ spec:
         - name: {{ include "mia-monitoring.kubeStateMetrics.fullname" . | quote }}
           image: {{ include "mia-monitoring.kubeStateMetrics.image" . | quote }}
           args:
-            - "--collectors=certificatesigningrequests"
-            - "--collectors=configmaps"
-            - "--collectors=cronjobs"
-            - "--collectors=daemonsets"
-            - "--collectors=deployments"
-            - "--collectors=endpoints"
-            - "--collectors=horizontalpodautoscalers"
-            - "--collectors=ingresses"
-            - "--collectors=jobs"
-            - "--collectors=limitranges"
-            - "--collectors=mutatingwebhookconfigurations"
-            - "--collectors=namespaces"
-            - "--collectors=networkpolicies"
-            - "--collectors=nodes"
-            - "--collectors=persistentvolumeclaims"
-            - "--collectors=persistentvolumes"
-            - "--collectors=poddisruptionbudgets"
-            - "--collectors=pods"
-            - "--collectors=replicasets"
-            - "--collectors=replicationcontrollers"
-            - "--collectors=resourcequotas"
-            - "--collectors=secrets"
-            - "--collectors=services"
-            - "--collectors=statefulsets"
-            - "--collectors=storageclasses"
-            - "--collectors=validatingwebhookconfigurations"
-            - "--collectors=volumeattachments"
             - "--port=8080"
+            - "--telemetry-port=8081"
+            - "--resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments"
           {{- with .Values.kubeStateMetrics.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -72,16 +47,19 @@ spec:
             - name: "web"
               containerPort: 8080
               protocol: "TCP"
+            - name: "metrics"
+              containerPort: 8081
+              protocol: "TCP"
           livenessProbe:
             httpGet:
               path: "/healthz"
-              port: 8080
+              port: "web"
             initialDelaySeconds: 5
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: "/"
-              port: 8080
+              port: "web"
             initialDelaySeconds: 5
             timeoutSeconds: 5
           securityContext:

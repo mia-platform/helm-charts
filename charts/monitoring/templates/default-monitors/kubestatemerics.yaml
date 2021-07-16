@@ -15,3 +15,5 @@ spec:
   podMetricsEndpoints:
     - port: "web"
       honorLabels: true
+    - port: "metrics"
+      honorLabels: true

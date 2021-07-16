@@ -1,8 +1,8 @@
 apiVersion: v2
 name: monitoring
 version: 0.10.3
-kubeVersion: ">= 1.16.0-0"
-appVersion: "v0.48.1"
+kubeVersion: ">= 1.17.0-0"
+appVersion: "v0.49.0"
 description: "A Kubernetes monitoring stack based on Prometheus Operator"
 type: application
 keywords:
