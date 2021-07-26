@@ -24,10 +24,16 @@ spec:
       repository: {{ include "mia-logging.fluentbitImageName" . | quote }}
       tag: {{ include "mia-logging.fluentbitImageVersion" . | quote }}
     filterKubernetes:
+      Buffer_Size: "0"
       Merge_Log: "Off"
       Labels: "On"
       Annotations: "On"
       K8S-Logging.Exclude: "On"
+    network:
+      connectTimeout: 15
+      keepalive: true
+      keepaliveIdleTimeout: 10
+      keepaliveMaxRecycle: 50
     inputTail:
       Path: {{ .Values.defaultLogging.fluentbit.logFilesPattern | quote }}
       Mem_Buf_Limit: "10MB"
