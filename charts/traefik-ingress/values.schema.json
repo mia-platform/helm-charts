@@ -33,6 +33,14 @@
       "description": "Set as default ingressClass of the cluster, setting it up only in kubernetes >= 1.18 and if the traefik version is >= 2.3",
       "type": "boolean"
     },
+    "allowCrossNamespaceResources": {
+      "description": "Enable the definition of the kubernetes resources outside the one where Traefik is deployed",
+      "type": "boolean"
+    },
+    "allowExternalNameServices": {
+      "description": "Enable the usage of ExternalName services",
+      "type": "boolean"
+    },
     "image": {
       "description": "Container Image",
       "type": "object",

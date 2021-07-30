@@ -12,12 +12,16 @@ tlsOption: "intermediate"
 podSecurityPolicyEnabled: false
 # Set as default ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
 defaultIngressClass: false
+# Enable the definition of the kubernetes resources outside the one where Traefik is deployed
+allowCrossNamespaceResources: true
+# Enable the usage of ExternalName services
+allowExternalNameServices: false
 
 image:
   # Override the default Docker image name if you use a custom image or a repository mirror
   name: "traefik"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-  # version: 2.4.8
+  # version: 2.4.12
 
 # Customize the deployment of Traefik image
 deploy:

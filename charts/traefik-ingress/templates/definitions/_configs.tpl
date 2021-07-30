@@ -25,8 +25,12 @@ Create the args passed to the Traefik pod.
 - "--entryPoints.traefik.transport.lifecycle.gracetimeout=1"
 - "--entrypoints.traefik.transport.lifecycle.requestacceptgracetimeout=0"
 - "--providers.kubernetesingress"
+- "--providers.kubernetesingress.allowexternalnameservices={{ .Values.allowExternalNameServices }}"
+- "--providers.kubernetesingress.ingressclass={{ include "mia-traefik-ingress.fullname" . | quote }}"
 - "--providers.kubernetescrd"
 - "--providers.kubernetescrd.labelselector={{ include "mia-traefik-ingress.crdLabelSelector" . }}"
+- "--providers.kubernetescrd.allowcrossnamespace={{ .Values.allowCrossNamespaceResources }}"
+- "--providers.kubernetescrd.allowexternalnameservices={{ .Values.allowExternalNameServices }}"
 - "--metrics=true"
 - "--metrics.prometheus=true"
 {{- end -}}
