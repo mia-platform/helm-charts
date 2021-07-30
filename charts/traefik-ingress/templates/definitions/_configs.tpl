@@ -6,6 +6,7 @@ Create the args passed to the Traefik pod.
 - "--global.checknewversion=false"
 - "--global.sendanonymoususage=false"
 - "--api.dashboard=true"
+- "--pilot.dashboard=false"
 - "--ping=true"
 - "--log.format=json"
 - "--accesslog.format=json"
@@ -16,6 +17,7 @@ Create the args passed to the Traefik pod.
 {{- if .Values.service.enableTLS }}
 - "--entrypoints.web.http.redirections.entryPoint.to=:443"
 - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+- "--entrypoints.web.http.redirections.entrypoint.priority=0"
 - "--entryPoints.websecure.address=:8443/tcp"
 - "--entryPoints.websecure.transport.lifecycle.gracetimeout=30"
 - "--entrypoints.websecure.transport.lifecycle.requestacceptgracetimeout=29"
