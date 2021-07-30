@@ -1180,6 +1180,28 @@ spec:
                     type: string
                   disableKubernetesFilter:
                     type: boolean
+                  dnsConfig:
+                    properties:
+                      nameservers:
+                        items:
+                          type: string
+                        type: array
+                      options:
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          type: object
+                        type: array
+                      searches:
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  dnsPolicy:
+                    type: string
                   enableUpstream:
                     type: boolean
                   envVars:
@@ -1351,6 +1373,8 @@ spec:
                         type: string
                       Time_as_Integer:
                         type: boolean
+                      storage.total_limit_size:
+                        type: string
                     type: object
                   grace:
                     format: int32
@@ -1384,6 +1408,8 @@ spec:
                       Docker_Mode:
                         type: string
                       Docker_Mode_Flush:
+                        type: string
+                      Docker_Mode_Parser:
                         type: string
                       Exclude_Path:
                         type: string
@@ -2669,6 +2695,25 @@ spec:
                     additionalProperties:
                       type: string
                     type: object
+                  configCheckResources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
                   configReloaderImage:
                     properties:
                       imagePullSecrets:
@@ -2685,8 +2730,49 @@ spec:
                       tag:
                         type: string
                     type: object
+                  configReloaderResources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
                   disablePvc:
                     type: boolean
+                  dnsConfig:
+                    properties:
+                      nameservers:
+                        items:
+                          type: string
+                        type: array
+                      options:
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          type: object
+                        type: array
+                      searches:
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  dnsPolicy:
+                    type: string
                   envVars:
                     items:
                       properties:
@@ -3117,6 +3203,34 @@ spec:
                   port:
                     format: int32
                     type: integer
+                  readinessDefaultCheck:
+                    properties:
+                      bufferFileNumber:
+                        type: boolean
+                      bufferFileNumberMax:
+                        format: int32
+                        type: integer
+                      bufferFreeSpace:
+                        type: boolean
+                      bufferFreeSpaceThreshold:
+                        format: int32
+                        type: integer
+                      failureThreshold:
+                        format: int32
+                        type: integer
+                      initialDelaySeconds:
+                        format: int32
+                        type: integer
+                      periodSeconds:
+                        format: int32
+                        type: integer
+                      successThreshold:
+                        format: int32
+                        type: integer
+                      timeoutSeconds:
+                        format: int32
+                        type: integer
+                    type: object
                   readinessProbe:
                     properties:
                       exec:
@@ -7350,6 +7464,8 @@ spec:
                               type: string
                             Time_as_Integer:
                               type: boolean
+                            storage.total_limit_size:
+                              type: string
                           type: object
                         grace:
                           format: int32
@@ -7367,6 +7483,8 @@ spec:
                             Docker_Mode:
                               type: string
                             Docker_Mode_Flush:
+                              type: string
+                            Docker_Mode_Parser:
                               type: string
                             Exclude_Path:
                               type: string
@@ -9089,6 +9207,28 @@ spec:
                     type: string
                   disableKubernetesFilter:
                     type: boolean
+                  dnsConfig:
+                    properties:
+                      nameservers:
+                        items:
+                          type: string
+                        type: array
+                      options:
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          type: object
+                        type: array
+                      searches:
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  dnsPolicy:
+                    type: string
                   enableUpstream:
                     type: boolean
                   envVars:
@@ -9260,6 +9400,8 @@ spec:
                         type: string
                       Time_as_Integer:
                         type: boolean
+                      storage.total_limit_size:
+                        type: string
                     type: object
                   grace:
                     format: int32
@@ -9293,6 +9435,8 @@ spec:
                       Docker_Mode:
                         type: string
                       Docker_Mode_Flush:
+                        type: string
+                      Docker_Mode_Parser:
                         type: string
                       Exclude_Path:
                         type: string
@@ -10578,6 +10722,25 @@ spec:
                     additionalProperties:
                       type: string
                     type: object
+                  configCheckResources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
                   configReloaderImage:
                     properties:
                       imagePullSecrets:
@@ -10594,8 +10757,49 @@ spec:
                       tag:
                         type: string
                     type: object
+                  configReloaderResources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
                   disablePvc:
                     type: boolean
+                  dnsConfig:
+                    properties:
+                      nameservers:
+                        items:
+                          type: string
+                        type: array
+                      options:
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          type: object
+                        type: array
+                      searches:
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  dnsPolicy:
+                    type: string
                   envVars:
                     items:
                       properties:
@@ -11026,6 +11230,34 @@ spec:
                   port:
                     format: int32
                     type: integer
+                  readinessDefaultCheck:
+                    properties:
+                      bufferFileNumber:
+                        type: boolean
+                      bufferFileNumberMax:
+                        format: int32
+                        type: integer
+                      bufferFreeSpace:
+                        type: boolean
+                      bufferFreeSpaceThreshold:
+                        format: int32
+                        type: integer
+                      failureThreshold:
+                        format: int32
+                        type: integer
+                      initialDelaySeconds:
+                        format: int32
+                        type: integer
+                      periodSeconds:
+                        format: int32
+                        type: integer
+                      successThreshold:
+                        format: int32
+                        type: integer
+                      timeoutSeconds:
+                        format: int32
+                        type: integer
+                    type: object
                   readinessProbe:
                     properties:
                       exec:
@@ -15259,6 +15491,8 @@ spec:
                               type: string
                             Time_as_Integer:
                               type: boolean
+                            storage.total_limit_size:
+                              type: string
                           type: object
                         grace:
                           format: int32
@@ -15276,6 +15510,8 @@ spec:
                             Docker_Mode:
                               type: string
                             Docker_Mode_Flush:
+                              type: string
+                            Docker_Mode_Parser:
                               type: string
                             Exclude_Path:
                               type: string
