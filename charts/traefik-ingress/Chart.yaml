@@ -1,6 +1,6 @@
 apiVersion: v2
 name: traefik-ingress
-version: 1.2.2
+version: 1.2.3
 kubeVersion: ">= 1.17.0-0"
 appVersion: 2.4.12
 description: "A Kubernetes Ingress Controller based on Traefik"
