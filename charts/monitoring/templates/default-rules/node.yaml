@@ -1,5 +1,5 @@
 {{- /*
-This rules are lifted from the 'node.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+This rules are lifted from the 'node.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kubernetes-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
 apiVersion: monitoring.coreos.com/v1
@@ -16,20 +16,20 @@ spec:
   groups:
     - name: node.rules
       rules:
-        - expr: |-
+        - expr: |
             topk by(namespace, pod) (1,
               max by (node, namespace, pod) (
                 label_replace(kube_pod_info{job="kube-state-metrics",node!=""}, "pod", "$1", "pod", "(.*)")
             ))
           record: 'node_namespace_pod:kube_pod_info:'
-        - expr: |-
+        - expr: |
             count by (cluster, node) (sum by (node, cpu) (
               node_cpu_seconds_total{job="node-exporter"}
             * on (namespace, pod) group_left(node)
-              node_namespace_pod:kube_pod_info:
+              topk by(namespace, pod) (1, node_namespace_pod:kube_pod_info:)
             ))
           record: node:node_num_cpu:sum
-        - expr: |-
+        - expr: |
             sum(
               node_memory_MemAvailable_bytes{job="node-exporter"} or
               (

@@ -1,5 +1,5 @@
 {{- /*
-This rules are lifted from the 'kubelet.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+This rules are lifted from the 'kubelet.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kubernetes-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
 apiVersion: monitoring.coreos.com/v1
@@ -16,15 +16,18 @@ spec:
   groups:
     - name: kubelet.rules
       rules:
-        - expr: histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+        - expr: |
+            histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
           labels:
-            quantile: '0.99'
+            quantile: "0.99"
           record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
-        - expr: histogram_quantile(0.9, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+        - expr: |
+            histogram_quantile(0.9, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
           labels:
-            quantile: '0.9'
+            quantile: "0.9"
           record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
-        - expr: histogram_quantile(0.5, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+        - expr: |
+            histogram_quantile(0.5, sum(rate(kubelet_pleg_relist_duration_seconds_bucket[5m])) by (instance, le) * on(instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"})
           labels:
-            quantile: '0.5'
+            quantile: "0.5"
           record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile

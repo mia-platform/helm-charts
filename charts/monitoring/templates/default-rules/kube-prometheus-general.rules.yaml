@@ -1,5 +1,5 @@
 {{- /*
-This rules are lifted from the 'kube-prometheus-general.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+This rules are lifted from the 'kube-prometheus-general.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kube-prometheus-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
 apiVersion: monitoring.coreos.com/v1

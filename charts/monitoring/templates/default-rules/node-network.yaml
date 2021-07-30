@@ -1,5 +1,5 @@
 {{- /*
-This rules are lifted from the 'node-network.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+This rules are lifted from the 'node-network' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kube-prometheus-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
 apiVersion: monitoring.coreos.com/v1
@@ -18,8 +18,11 @@ spec:
       rules:
         - alert: NodeNetworkInterfaceFlapping
           annotations:
-            message: Network interface "{{`{{`}} $labels.device {{`}}`}}" changing it's up status often on node-exporter {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}}"
-          expr: changes(node_network_up{job="node-exporter",device!~"veth.+"}[2m]) > 2
+            description: Network interface "{{`{{`}} $labels.device {{`}}`}}" changing it's up status often on node-exporter {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}}
+            runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/nodenetworkinterfaceflapping
+            summary: Network interface is often changin it's status
+          expr: |
+            changes(node_network_up{job="node-exporter",device!~"veth.+"}[2m]) > 2
           for: 2m
           labels:
             severity: warning

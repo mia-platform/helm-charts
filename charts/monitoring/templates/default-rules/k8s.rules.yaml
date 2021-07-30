@@ -1,5 +1,5 @@
 {{- /*
-This rules are lifted from the 'k8s.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/master/manifests/prometheus-rules.yaml
+This rules are lifted from the 'k8s.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kubernetes-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
 apiVersion: monitoring.coreos.com/v1
@@ -16,60 +16,106 @@ spec:
   groups:
     - name: k8s.rules
       rules:
-        - expr: |-
+        - expr: |
             sum by (cluster, namespace, pod, container) (
-              rate(container_cpu_usage_seconds_total{job="kubelet", metrics_path="/metrics", image!="", container!="POD"}[5m])
+              irate(container_cpu_usage_seconds_total{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}[5m])
             ) * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
               1, max by(cluster, namespace, pod, node) (kube_pod_info{node!=""})
             )
-          record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate
-        - expr: |-
-            container_memory_working_set_bytes{job="kubelet", metrics_path="/metrics", image!=""}
+          record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate
+        - expr: |
+            container_memory_working_set_bytes{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}
             * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
               max by(namespace, pod, node) (kube_pod_info{node!=""})
             )
           record: node_namespace_pod_container:container_memory_working_set_bytes
-        - expr: |-
-            container_memory_rss{job="kubelet", metrics_path="/metrics", image!=""}
+        - expr: |
+            container_memory_rss{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}
             * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
               max by(namespace, pod, node) (kube_pod_info{node!=""})
             )
           record: node_namespace_pod_container:container_memory_rss
-        - expr: |-
-            container_memory_cache{job="kubelet", metrics_path="/metrics", image!=""}
+        - expr: |
+            container_memory_cache{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}
             * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
               max by(namespace, pod, node) (kube_pod_info{node!=""})
             )
           record: node_namespace_pod_container:container_memory_cache
-        - expr: |-
-            container_memory_swap{job="kubelet", metrics_path="/metrics", image!=""}
+        - expr: |
+            container_memory_swap{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}
             * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
               max by(namespace, pod, node) (kube_pod_info{node!=""})
             )
           record: node_namespace_pod_container:container_memory_swap
-        - expr: |-
-            sum by (namespace) (
-                sum by (namespace, pod) (
-                    max by (namespace, pod, container) (
-                        kube_pod_container_resource_requests_memory_bytes{job="kube-state-metrics"}
-                    ) * on(namespace, pod) group_left() max by (namespace, pod) (
-                        kube_pod_status_phase{phase=~"Pending|Running"} == 1
-                    )
-                )
+        - expr: |
+            kube_pod_container_resource_requests{resource="memory",job="kube-state-metrics"}  * on (namespace, pod, cluster)
+            group_left() max by (namespace, pod) (
+              (kube_pod_status_phase{phase=~"Pending|Running"} == 1)
             )
-          record: namespace:kube_pod_container_resource_requests_memory_bytes:sum
-        - expr: |-
-            sum by (namespace) (
-                sum by (namespace, pod) (
-                    max by (namespace, pod, container) (
-                        kube_pod_container_resource_requests_cpu_cores{job="kube-state-metrics"}
-                    ) * on(namespace, pod) group_left() max by (namespace, pod) (
+          record: cluster:namespace:pod_memory:active:kube_pod_container_resource_requests
+        - expr: |
+            sum by (namespace, cluster) (
+                sum by (namespace, pod, cluster) (
+                    max by (namespace, pod, container, cluster) (
+                      kube_pod_container_resource_requests{resource="memory",job="kube-state-metrics"}
+                    ) * on(namespace, pod, cluster) group_left() max by (namespace, pod) (
                       kube_pod_status_phase{phase=~"Pending|Running"} == 1
                     )
                 )
             )
-          record: namespace:kube_pod_container_resource_requests_cpu_cores:sum
-        - expr: |-
+          record: namespace_memory:kube_pod_container_resource_requests:sum
+        - expr: |
+            kube_pod_container_resource_requests{resource="cpu",job="kube-state-metrics"}  * on (namespace, pod, cluster)
+            group_left() max by (namespace, pod) (
+              (kube_pod_status_phase{phase=~"Pending|Running"} == 1)
+            )
+          record: cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests
+        - expr: |
+            sum by (namespace, cluster) (
+                sum by (namespace, pod, cluster) (
+                    max by (namespace, pod, container, cluster) (
+                      kube_pod_container_resource_requests{resource="cpu",job="kube-state-metrics"}
+                    ) * on(namespace, pod, cluster) group_left() max by (namespace, pod) (
+                      kube_pod_status_phase{phase=~"Pending|Running"} == 1
+                    )
+                )
+            )
+          record: namespace_cpu:kube_pod_container_resource_requests:sum
+        - expr: |
+            kube_pod_container_resource_limits{resource="memory",job="kube-state-metrics"}  * on (namespace, pod, cluster)
+            group_left() max by (namespace, pod) (
+              (kube_pod_status_phase{phase=~"Pending|Running"} == 1)
+            )
+          record: cluster:namespace:pod_memory:active:kube_pod_container_resource_limits
+        - expr: |
+            sum by (namespace, cluster) (
+                sum by (namespace, pod, cluster) (
+                    max by (namespace, pod, container, cluster) (
+                      kube_pod_container_resource_limits{resource="memory",job="kube-state-metrics"}
+                    ) * on(namespace, pod, cluster) group_left() max by (namespace, pod) (
+                      kube_pod_status_phase{phase=~"Pending|Running"} == 1
+                    )
+                )
+            )
+          record: namespace_memory:kube_pod_container_resource_limits:sum
+        - expr: |
+            kube_pod_container_resource_limits{resource="cpu",job="kube-state-metrics"}  * on (namespace, pod, cluster)
+            group_left() max by (namespace, pod) (
+            (kube_pod_status_phase{phase=~"Pending|Running"} == 1)
+            )
+          record: cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits
+        - expr: |
+            sum by (namespace, cluster) (
+                sum by (namespace, pod, cluster) (
+                    max by (namespace, pod, container, cluster) (
+                      kube_pod_container_resource_limits{resource="cpu",job="kube-state-metrics"}
+                    ) * on(namespace, pod, cluster) group_left() max by (namespace, pod) (
+                      kube_pod_status_phase{phase=~"Pending|Running"} == 1
+                    )
+                )
+            )
+          record: namespace_cpu:kube_pod_container_resource_limits:sum
+        - expr: |
             max by (cluster, namespace, workload, pod) (
               label_replace(
                 label_replace(
@@ -86,7 +132,7 @@ spec:
           labels:
             workload_type: deployment
           record: namespace_workload_pod:kube_pod_owner:relabel
-        - expr: |-
+        - expr: |
             max by (cluster, namespace, workload, pod) (
               label_replace(
                 kube_pod_owner{job="kube-state-metrics", owner_kind="DaemonSet"},
@@ -96,7 +142,7 @@ spec:
           labels:
             workload_type: daemonset
           record: namespace_workload_pod:kube_pod_owner:relabel
-        - expr: |-
+        - expr: |
             max by (cluster, namespace, workload, pod) (
               label_replace(
                 kube_pod_owner{job="kube-state-metrics", owner_kind="StatefulSet"},
