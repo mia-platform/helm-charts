@@ -61,6 +61,7 @@ spec:
           secret:
             defaultMode: 420
             secretName: {{ include "mia-monitoring.tlsSecretName" . | quote }}
+      hostNetwork: {{ .Values.deploy.hostNetwork }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 10000

@@ -43,6 +43,8 @@ deploy:
   # If you have to ignore particular taints on nodes where you want that prometheus operator will run fill
   # this variable
   tolerations: []
+  # Set this to true to enable the hostNetwork settings for the controller, useful with EKS with custom network plugin
+  hostNetwork: false
 
   # Change configuration for the tls certificate generation for the Prometheus Operator
   tlsGenerator:

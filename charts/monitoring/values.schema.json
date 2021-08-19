@@ -70,6 +70,10 @@
           "description": "Tolerations to add to the deployment",
           "type": "array"
         },
+        "hostNetwork": {
+          "description": "Set this to true to enable the hostNetwork settings for the controller",
+          "type": "boolean"
+        },
         "tlsGenerator": {
           "description": "The configuration for the image of the tls geneartor used by the webhooks",
           "type": "object",
