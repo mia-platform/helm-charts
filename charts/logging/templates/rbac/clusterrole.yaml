@@ -24,16 +24,6 @@ rules:
       - "watch"
   - apiGroups:
       - ""
-      - "events.k8s.io"
-    resources:
-      - "events"
-    verbs:
-      - "create"
-      - "get"
-      - "list"
-      - "watch"
-  - apiGroups:
-      - ""
     resources:
       - "endpoints"
       - "namespaces"
@@ -56,6 +46,16 @@ rules:
       - "list"
       - "patch"
       - "update"
+      - "watch"
+  - apiGroups:
+      - ""
+      - "events.k8s.io"
+    resources:
+      - "events"
+    verbs:
+      - "create"
+      - "get"
+      - "list"
       - "watch"
   - apiGroups:
       - "apps"
@@ -116,6 +116,7 @@ rules:
       - "update"
       - "watch"
   - apiGroups:
+      - "extensions"
       - "policy"
     resources:
       - "podsecuritypolicies"
@@ -158,6 +159,7 @@ rules:
   - apiGroups:
       - "monitoring.coreos.com"
     resources:
+      - "prometheusrules"
       - "servicemonitors"
     verbs:
       - "create"

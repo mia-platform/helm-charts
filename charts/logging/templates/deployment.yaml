@@ -36,6 +36,8 @@ spec:
         - name: {{ include "mia-logging.fullname" . | quote }}
           image: {{ include "mia-logging.image" . | quote }}
           {{- with .Values.deploy.resources }}
+          args:
+            - "-enable-leader-election=true"
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
