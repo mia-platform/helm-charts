@@ -65,3 +65,17 @@ service:
 # Use this variable to add custom annotations to the generated RBAC resources
 rbac:
   annotations: {}
+
+autoscaling:
+  enabled: false
+  # minReplicas: 3
+  # maxReplicas: 10
+  # metrics:
+  # - type: Resource
+  #   resource:
+  #     name: cpu
+  #     targetAverageUtilization: 60
+  # - type: Resource
+  #   resource:
+  #     name: memory
+  #     targetAverageUtilization: 60

@@ -1,0 +1,21 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "mia-traefik-ingress.fullname" . | quote }}
+  labels:
+    {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
+  {{- with .Values.deploy.annotations }}
+  annotations: &Annotations
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "mia-traefik-ingress.fullname" . | quote }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  metrics:
+{{ toYaml .Values.autoscaling.metrics | indent 4 }}
+{{- end }}
