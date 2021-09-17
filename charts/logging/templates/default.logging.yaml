@@ -103,7 +103,8 @@ spec:
             requests:
               storage: {{ .Values.defaultLogging.fluentd.bufferStorage | quote }}
     livenessDefaultCheck: true
-    readinessDefaultCheck: true
+    readinessDefaultCheck:
+      bufferFreeSpaceThreshold: 80
     metrics:
      serviceMonitor: {{ .Values.enableServiceMonitor }}
      prometheusAnnotations: false
