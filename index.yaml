@@ -460,6 +460,33 @@ entries:
     version: 0.5.0
   logging-operator:
   - apiVersion: v2
+    appVersion: 3.15.0
+    created: "2021-10-28T10:53:55.916909349Z"
+    description: A Kubernetes logging stack based on Logging Operator
+    digest: 2d08063de263c84faeed46f9a2042709950277c732a61da03159e1cd346c4cdb
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
+    keywords:
+    - logging
+    - logging-operator
+    - fluentd
+    - fluent-bit
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    name: logging-operator
+    sources:
+    - https://github.com/banzaicloud/logging-operator
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.7.0/logging-operator-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v2
     appVersion: 3.14.0
     created: "2021-09-17T09:55:35.016519398Z"
     description: A Kubernetes logging stack based on Logging Operator
@@ -2339,4 +2366,4 @@ entries:
     urls:
     - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.8.0/traefik-ingress-0.8.0.tgz
     version: 0.8.0
-generated: "2021-10-14T16:08:55.422692191Z"
+generated: "2021-10-28T10:53:55.917562858Z"
