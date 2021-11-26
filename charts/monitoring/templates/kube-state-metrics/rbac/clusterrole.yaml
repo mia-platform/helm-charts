@@ -56,10 +56,13 @@ rules:
       - "autoscaling"
     resources:
       - "horizontalpodautoscalers"
-      - "verticalpodautoscalers"
     verbs:
       - "list"
       - "watch"
+  - apiGroups:
+      - "autoscaling.k8s.io"
+    resources:
+      - "verticalpodautoscalers"
   - apiGroups:
       - "extensions"
       - "networking.k8s.io"
@@ -79,7 +82,7 @@ rules:
   - apiGroups:
       - "networking.k8s.io"
     resources:
-    - networkpolicies
+      - "networkpolicies"
     verbs:
       - "list"
       - "watch"
