@@ -32,7 +32,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[1d]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[1d]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[1d]))
                 )
               )
               +
@@ -42,8 +42,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[1d]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate1d"
+            verb: read
+          record: apiserver_request:burnrate1d
         - expr: |
             (
               (
@@ -59,7 +59,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[1h]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[1h]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[1h]))
                 )
               )
               +
@@ -69,8 +69,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[1h]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate1h"
+            verb: read
+          record: apiserver_request:burnrate1h
         - expr: |
             (
               (
@@ -86,7 +86,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[2h]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[2h]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[2h]))
                 )
               )
               +
@@ -96,8 +96,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[2h]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate2h"
+            verb: read
+          record: apiserver_request:burnrate2h
         - expr: |
             (
               (
@@ -113,7 +113,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[30m]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[30m]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[30m]))
                 )
               )
               +
@@ -123,8 +123,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[30m]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate30m"
+            verb: read
+          record: apiserver_request:burnrate30m
         - expr: |
             (
               (
@@ -140,7 +140,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[3d]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[3d]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[3d]))
                 )
               )
               +
@@ -150,8 +150,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[3d]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate3d"
+            verb: read
+          record: apiserver_request:burnrate3d
         - expr: |
             (
               (
@@ -167,7 +167,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[5m]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[5m]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[5m]))
                 )
               )
               +
@@ -177,8 +177,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[5m]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate5m"
+            verb: read
+          record: apiserver_request:burnrate5m
         - expr: |
             (
               (
@@ -194,7 +194,7 @@ spec:
                   +
                   sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="namespace",le="5"}[6h]))
                   +
-                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="40"}[6h]))
+                  sum by (cluster) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",scope="cluster",le="30"}[6h]))
                 )
               )
               +
@@ -204,8 +204,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[6h]))
           labels:
-            verb: "read"
-          record: "apiserver_request:burnrate6h"
+            verb: read
+          record: apiserver_request:burnrate6h
         - expr: |
             (
               (
@@ -220,8 +220,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[1d]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate1d"
+            verb: write
+          record: apiserver_request:burnrate1d
         - expr: |
             (
               (
@@ -236,8 +236,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[1h]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate1h"
+            verb: write
+          record: apiserver_request:burnrate1h
         - expr: |
             (
               (
@@ -252,8 +252,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[2h]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate2h"
+            verb: write
+          record: apiserver_request:burnrate2h
         - expr: |
             (
               (
@@ -268,8 +268,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[30m]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate30m"
+            verb: write
+          record: apiserver_request:burnrate30m
         - expr: |
             (
               (
@@ -284,8 +284,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[3d]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate3d"
+            verb: write
+          record: apiserver_request:burnrate3d
         - expr: |
             (
               (
@@ -300,8 +300,8 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[5m]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate5m"
+            verb: write
+          record: apiserver_request:burnrate5m
         - expr: |
             (
               (
@@ -316,35 +316,35 @@ spec:
             /
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[6h]))
           labels:
-            verb: "write"
-          record: "apiserver_request:burnrate6h"
-    - name: "kube-apiserver-histogram.rules"
+            verb: write
+          record: apiserver_request:burnrate6h
+    - name: kube-apiserver-histogram.rules
       rules:
         - expr: |
             histogram_quantile(0.99, sum by (cluster, le, resource) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET"}[5m]))) > 0
           labels:
             quantile: "0.99"
-            verb: "read"
-          record: "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
+            verb: read
+          record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
         - expr: |
             histogram_quantile(0.99, sum by (cluster, le, resource) (rate(apiserver_request_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE"}[5m]))) > 0
           labels:
             quantile: "0.99"
-            verb: "write"
-          record: "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
+            verb: write
+          record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
         - expr: |
             histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver",subresource!="log",verb!~"LIST|WATCH|WATCHLIST|DELETECOLLECTION|PROXY|CONNECT"}[5m])) without(instance, pod))
           labels:
             quantile: "0.99"
-          record: "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
+          record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
         - expr: |
             histogram_quantile(0.9, sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver",subresource!="log",verb!~"LIST|WATCH|WATCHLIST|DELETECOLLECTION|PROXY|CONNECT"}[5m])) without(instance, pod))
           labels:
             quantile: "0.9"
-          record: "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
+          record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
         - expr: |
             histogram_quantile(0.5, sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver",subresource!="log",verb!~"LIST|WATCH|WATCHLIST|DELETECOLLECTION|PROXY|CONNECT"}[5m])) without(instance, pod))
           labels:
             quantile: "0.5"
-          record: "cluster_quantile:apiserver_request_duration_seconds:histogram_quantile"
+          record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
 {{- end }}

@@ -15,3 +15,5 @@ spec:
   podMetricsEndpoints:
     - port: "web"
       path: "/metrics"
+    - port: "reloader-web"
+      path: "/metrics"

@@ -17,21 +17,23 @@ spec:
   groups:
     - name: kubernetes-apps
       rules:
-        - alert: "KubePodCrashLooping"
+        - alert: KubePodCrashLooping
           annotations:
-            description: "Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container {{`}}`}}) is in waiting state (reason: \"CrashLoopBackOff\")."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping"
-            summary: "Pod is crash looping."
+            description: 'Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container
+              {{`}}`}}) is in waiting state (reason: "CrashLoopBackOff").'
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodcrashlooping
+            summary: Pod is crash looping.
           expr: |
             max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="{{ $kubeStateMetricsJob }}"}[5m]) >= 1
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubePodNotReady"
+            severity: warning
+        - alert: KubePodNotReady
           annotations:
-            description: "Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} has been in a non-ready state for longer than 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready"
-            summary: "Pod has been in a non-ready state for more than 15 minutes."
+            description: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} has been in a non-ready
+              state for longer than 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodnotready
+            summary: Pod has been in a non-ready state for more than 15 minutes.
           expr: |
             sum by (namespace, pod) (
               max by(namespace, pod) (
@@ -40,26 +42,29 @@ spec:
                 1, max by(namespace, pod, owner_kind) (kube_pod_owner{owner_kind!="Job"})
               )
             ) > 0
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeDeploymentGenerationMismatch"
+            severity: warning
+        - alert: KubeDeploymentGenerationMismatch
           annotations:
-            description: "Deployment generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} does not match, this indicates that the Deployment has failed but has not been rolled back."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch"
-            summary: "Deployment generation mismatch due to possible roll-back"
+            description: Deployment generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment
+              {{`}}`}} does not match, this indicates that the Deployment has failed but has
+              not been rolled back.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentgenerationmismatch
+            summary: Deployment generation mismatch due to possible roll-back
           expr: |
             kube_deployment_status_observed_generation{job="{{ $kubeStateMetricsJob }}"}
               !=
             kube_deployment_metadata_generation{job="{{ $kubeStateMetricsJob }}"}
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeDeploymentReplicasMismatch"
+            severity: warning
+        - alert: KubeDeploymentReplicasMismatch
           annotations:
-            description: "Deployment {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch"
-            summary: "Deployment has not matched the expected number of replicas."
+            description: Deployment {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} has
+              not matched the expected number of replicas for longer than 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentreplicasmismatch
+            summary: Deployment has not matched the expected number of replicas.
           expr: |
             (
               kube_deployment_spec_replicas{job="{{ $kubeStateMetricsJob }}"}
@@ -70,14 +75,15 @@ spec:
                 ==
               0
             )
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeStatefulSetReplicasMismatch"
+            severity: warning
+        - alert: KubeStatefulSetReplicasMismatch
           annotations:
-            description: "StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch"
-            summary: "Deployment has not matched the expected number of replicas."
+            description: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}}
+              has not matched the expected number of replicas for longer than 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetreplicasmismatch
+            summary: Deployment has not matched the expected number of replicas.
           expr: |
             (
               kube_statefulset_status_replicas_ready{job="{{ $kubeStateMetricsJob }}"}
@@ -88,26 +94,29 @@ spec:
                 ==
               0
             )
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeStatefulSetGenerationMismatch"
+            severity: warning
+        - alert: KubeStatefulSetGenerationMismatch
           annotations:
-            description: "StatefulSet generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} does not match, this indicates that the StatefulSet has failed but has not been rolled back."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch"
-            summary: "StatefulSet generation mismatch due to possible roll-back"
+            description: StatefulSet generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset
+              {{`}}`}} does not match, this indicates that the StatefulSet has failed but has
+              not been rolled back.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetgenerationmismatch
+            summary: StatefulSet generation mismatch due to possible roll-back
           expr: |
             kube_statefulset_status_observed_generation{job="{{ $kubeStateMetricsJob }}"}
               !=
             kube_statefulset_metadata_generation{job="{{ $kubeStateMetricsJob }}"}
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeStatefulSetUpdateNotRolledOut"
+            severity: warning
+        - alert: KubeStatefulSetUpdateNotRolledOut
           annotations:
-            description: "StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} update has not been rolled out."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout"
-            summary: "StatefulSet update has not been rolled out."
+            description: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}}
+              update has not been rolled out.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetupdatenotrolledout
+            summary: StatefulSet update has not been rolled out.
           expr: |
             (
               max without (revision) (
@@ -126,14 +135,15 @@ spec:
                 ==
               0
             )
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeDaemonSetRolloutStuck"
+            severity: warning
+        - alert: KubeDaemonSetRolloutStuck
           annotations:
-            description: "DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} has not finished or progressed for at least 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck"
-            summary: "DaemonSet rollout is stuck."
+            description: DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} has
+              not finished or progressed for at least 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetrolloutstuck
+            summary: DaemonSet rollout is stuck.
           expr: |
             (
               (
@@ -158,66 +168,73 @@ spec:
                 ==
               0
             )
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeContainerWaiting"
+            severity: warning
+        - alert: KubeContainerWaiting
           annotations:
-            description: "Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than 1 hour."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting"
-            summary: "Pod container waiting longer than 1 hour"
+            description: pod/{{`{{`}} $labels.pod {{`}}`}} in namespace {{`{{`}} $labels.namespace {{`}}`}} on
+              container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than
+              1 hour.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecontainerwaiting
+            summary: Pod container waiting longer than 1 hour
           expr: |
             sum by (namespace, pod, container) (kube_pod_container_status_waiting_reason{job="{{ $kubeStateMetricsJob }}"}) > 0
-          for: "1h"
+          for: 1h
           labels:
-            severity: "warning"
-        - alert: "KubeDaemonSetNotScheduled"
+            severity: warning
+        - alert: KubeDaemonSetNotScheduled
           annotations:
-            description: "{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are not scheduled."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled"
-            summary: "DaemonSet pods are not scheduled."
+            description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset
+              {{`}}`}} are not scheduled.'
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetnotscheduled
+            summary: DaemonSet pods are not scheduled.
           expr: |
             kube_daemonset_status_desired_number_scheduled{job="{{ $kubeStateMetricsJob }}"}
               -
             kube_daemonset_status_current_number_scheduled{job="{{ $kubeStateMetricsJob }}"} > 0
-          for: "10m"
+          for: 10m
           labels:
-            severity: "warning"
-        - alert: "KubeDaemonSetMisScheduled"
+            severity: warning
+        - alert: KubeDaemonSetMisScheduled
           annotations:
-            description: "{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are running where they are not supposed to run."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled"
-            summary: "DaemonSet pods are misscheduled."
+            description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset
+              {{`}}`}} are running where they are not supposed to run.'
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetmisscheduled
+            summary: DaemonSet pods are misscheduled.
           expr: |
             kube_daemonset_status_number_misscheduled{job="{{ $kubeStateMetricsJob }}"} > 0
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeJobCompletion"
+            severity: warning
+        - alert: KubeJobCompletion
           annotations:
-            description: "Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} is taking more than 12 hours to complete."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobcompletion"
-            summary: "Job did not complete in time"
+            description: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} is taking
+              more than 12 hours to complete.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobcompletion
+            summary: Job did not complete in time
           expr: |
             kube_job_spec_completions{job="{{ $kubeStateMetricsJob }}"} - kube_job_status_succeeded{job="{{ $kubeStateMetricsJob }}"}  > 0
-          for: "12h"
+          for: 12h
           labels:
-            severity: "warning"
-        - alert: "KubeJobFailed"
+            severity: warning
+        - alert: KubeJobFailed
           annotations:
-            description: "Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} failed to complete. Removing failed job after investigation should clear this alert."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed"
-            summary: "Job failed to complete."
+            description: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} failed to
+              complete. Removing failed job after investigation should clear this alert.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobfailed
+            summary: Job failed to complete.
           expr: |
             kube_job_failed{job="{{ $kubeStateMetricsJob }}"}  > 0
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeHpaReplicasMismatch"
+            severity: warning
+        - alert: KubeHpaReplicasMismatch
           annotations:
-            description: "HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.horizontalpodautoscaler  {{`}}`}} has not matched the desired number of replicas for longer than 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch"
-            summary: "HPA has not matched descired number of replicas."
+            description: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.horizontalpodautoscaler  {{`}}`}}
+              has not matched the desired number of replicas for longer than 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpareplicasmismatch
+            summary: HPA has not matched descired number of replicas.
           expr: |
             (kube_horizontalpodautoscaler_status_desired_replicas{job="{{ $kubeStateMetricsJob }}"}
               !=
@@ -232,18 +249,19 @@ spec:
             kube_horizontalpodautoscaler_spec_max_replicas{job="{{ $kubeStateMetricsJob }}"})
               and
             changes(kube_horizontalpodautoscaler_status_current_replicas{job="{{ $kubeStateMetricsJob }}"}[15m]) == 0
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
-        - alert: "KubeHpaMaxedOut"
+            severity: warning
+        - alert: KubeHpaMaxedOut
           annotations:
-            description: "HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.horizontalpodautoscaler  {{`}}`}} has been running at max replicas for longer than 15 minutes."
-            runbook_url: "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout"
-            summary: "HPA is running at max replicas"
+            description: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.horizontalpodautoscaler  {{`}}`}}
+              has been running at max replicas for longer than 15 minutes.
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpamaxedout
+            summary: HPA is running at max replicas
           expr: |
             kube_horizontalpodautoscaler_status_current_replicas{job="{{ $kubeStateMetricsJob }}"}
               ==
             kube_horizontalpodautoscaler_spec_max_replicas{job="{{ $kubeStateMetricsJob }}"}
-          for: "15m"
+          for: 15m
           labels:
-            severity: "warning"
+            severity: warning
