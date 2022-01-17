@@ -1,4 +1,4 @@
-{{- if .Values.podDisruptionBudgetEnabled -}}
+{{- if and (eq .Values.podDisruptionBudget.enabled true) (lt .Values.podDisruptionBudget.minAvailable .Values.deploy.replicas) -}}
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
@@ -6,7 +6,12 @@ metadata:
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
 spec:
-  minAvailable: 1
   selector:
     matchLabels: {{- include "mia-traefik-ingress.selectorLabels" . | nindent 6 }}
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- end }}
+  {{- if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- end }}
 {{- end }}
