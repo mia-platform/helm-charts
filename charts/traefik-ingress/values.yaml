@@ -16,6 +16,11 @@ defaultIngressClass: false
 allowCrossNamespaceResources: true
 # Enable the usage of ExternalName services
 allowExternalNameServices: false
+# Enable PodDisruptionBudget for traefik
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  # maxUnavailable: 1
 
 image:
   # Override the default Docker image name if you use a custom image or a repository mirror

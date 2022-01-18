@@ -29,6 +29,24 @@
       "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",
       "type": "boolean"
     },
+    "podDisruptionBudget": {
+      "description": "PodDisruptionBudget configuration for traefik pods",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "If PodDisruptionBudget must be enabled",
+          "type": "boolean"
+        },
+        "minAvailable": {
+          "description": "Number of pods from that set that must still be available after the eviction",
+          "type": "integer"
+        },
+        "maxUnavailable": {
+          "description": "Number of pods from that set that can be unavailable after the eviction",
+          "type": "integer"
+        }
+      }
+    },
     "defaultIngressClass": {
       "description": "Set as default ingressClass of the cluster, setting it up only in kubernetes >= 1.18 and if the traefik version is >= 2.3",
       "type": "boolean"
