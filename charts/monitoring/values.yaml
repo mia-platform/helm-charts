@@ -96,6 +96,7 @@ prometheus:
 
   # Enable Kubernetes api-server metrics haversting
   enableApiServerMonitor: false
+  enableApiServerAlerts: false
 
   data:
     retention: "2h"

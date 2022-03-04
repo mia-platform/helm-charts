@@ -1,4 +1,4 @@
-{{- if .Values.prometheus.enableApiServerMonitor }}
+{{- if and .Values.prometheus.enableApiServerMonitor .Values.prometheus.enableApiServerAlerts }}
 {{- /*
 This rules are lifted from the 'kube-apiserver-slos' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kubernetes-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
