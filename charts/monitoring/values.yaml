@@ -91,6 +91,8 @@ prometheus:
   ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#remotewritespec
   remoteWrite: []
 
+  additionalScrapeConfigs: ""
+
   # Enable the monitor for the DNS metrics
   enableDNSMonitor: true
 
