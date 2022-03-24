@@ -147,7 +147,7 @@ alertmanager:
 
 defaultRules:
   cpuThrottling:
-    threshold: 20
+    threshold: 25
 
 nodeExporter:
   image:
