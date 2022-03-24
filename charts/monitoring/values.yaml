@@ -145,6 +145,10 @@ alertmanager:
   # Additional config for the Alertmanager instance
   config: {}
 
+defaultRules:
+  cpuThrottling:
+    threshold: 20
+
 nodeExporter:
   image:
     # Override the default Docker image name if you use a custom image or a repository mirror

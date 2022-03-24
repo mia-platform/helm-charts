@@ -276,6 +276,14 @@
         "image"
       ]
     },
+
+    "defaultRules": {
+      "properties": {
+        "cpuThrottling":{
+          "type": "object"
+        }
+      }
+    },
     "nodeExporter": {
       "properties": {
         "image": {
