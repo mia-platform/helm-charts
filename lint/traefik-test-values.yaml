@@ -1,0 +1,88 @@
+# Use this variable to override the default name of traefik-ingress
+nameOverride: ""
+# Use this variable to provide an unique name to override the generated one
+fullnameOverride: ""
+# Use this variable to add a app.kubernetes.io/part-of label to all resources
+applicationName: ""
+# Use this variable for changing the log level of traefik
+logLevel: "WARN"
+# Select the default TLSOptions to deploy, accept only "modern", "intermediate" or "old" value
+tlsOption: "intermediate"
+# Enable the Pod Security Policy for allowing the execution of the traefik pods
+podSecurityPolicyEnabled: false
+# Set as default ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
+defaultIngressClass: false
+# Enable the definition of the kubernetes resources outside the one where Traefik is deployed
+allowCrossNamespaceResources: true
+# Enable the usage of ExternalName services
+allowExternalNameServices: false
+# Enable PodDisruptionBudget for traefik
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  # maxUnavailable: 1
+
+image:
+  # Override the default Docker image name if you use a custom image or a repository mirror
+  name: "traefik"
+  # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
+  # version: 2.6.1
+
+# Customize the deployment of Traefik image
+deploy:
+  # Override this value to choose how many replicas of the ingress you want.
+  # Three is a fine number for having at least some HA.
+  replicas: 3
+  # Use this variable to add custom annotations
+  annotations: {}
+  # If you use a custom image that is hosted on a repository that require authentication specify the
+  # the list of secret name of type kubernetes.io/dockerconfigjson
+  imagePullSecrets: []
+
+  # You are encouraged to setup the resources that the application can use via this
+  # property or at least via a LimitRange resource in the namespace
+  # resources:
+  #   requests:
+  #     cpu: "100m"
+  #     memory: "100Mi"
+  #   limits:
+  #     cpu: "100m"
+  #     memory: "100Mi"
+
+  # If you have the necessity to run traefik only on specific labeled nodes fill this variables
+  nodeSelectors: {}
+  # If you have to ignore particular taints on nodes where you want that traefik will run fill
+  # this variable
+  tolerations: []
+
+# Customize the service that expose Traefik
+service:
+  # Needed to work on Kind
+  type: NodePort
+  # Enable websecure entrypoint and default redirect to https
+  enableTLS: true
+  # Use this variable to add custom annotations
+  annotations: {}
+  # Explicitly set the IP of the load balancer, if the cloud vendor support this
+  loadBalancerIP: ""
+  # Enable this resources in case where you have to manually attach an external loadbalancer
+  externalIPs: []
+  loadBalancerSourceRanges: []
+
+# Use this variable to add custom annotations to the generated RBAC resources
+rbac:
+  annotations: {}
+
+autoscaling:
+  enabled: false
+  # minReplicas: 3
+  # maxReplicas: 10
+  # metrics:
+  # - type: Resource
+  #   resource:
+  #     name: cpu
+  #     targetAverageUtilization: 60
+  # - type: Resource
+  #   resource:
+  #     name: memory
+  #     targetAverageUtilization: 60

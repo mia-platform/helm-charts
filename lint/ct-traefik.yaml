@@ -7,7 +7,6 @@ validate-chart-schema: true
 validate-yaml: true
 check-version-increment: false
 chart-dirs:
-  - "charts"
-excluded-charts:
-  - "traefik-ingress"
+  - "charts/traefik-ingress"
 debug: true
+helm-extra-args: -f lint/traefik-test-values.yaml
