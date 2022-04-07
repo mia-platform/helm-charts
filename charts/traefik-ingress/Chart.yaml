@@ -1,8 +1,8 @@
 apiVersion: v2
 name: traefik-ingress
-version: 1.5.3
+version: 1.5.4
 kubeVersion: ">= 1.17.0-0"
-appVersion: 2.6.1
+appVersion: 2.6.3
 description: "A Kubernetes Ingress Controller based on Traefik"
 type: application
 keywords:
@@ -18,5 +18,7 @@ maintainers:
     url: https://github.com/thobianchi
   - name: "Luca Terracciano"
     url: https://github.com/lterrac
+  - name: "Daniele Della Rocca"
+    url: https://github.com/ddellarocca
 icon: https://docs.traefik.io/assets/img/traefik.logo.png
 deprecated: false
