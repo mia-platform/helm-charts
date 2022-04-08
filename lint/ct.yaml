@@ -1,5 +1,5 @@
 remote: "origin"
-target-branch: "master"
+target-branch: "main"
 lint-conf: "./lint/lintconf.yaml"
 chart-yaml-schema: "./lint/chart_schema.yaml"
 validate-maintainers: false
