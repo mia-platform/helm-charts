@@ -13,7 +13,7 @@ image:
   # Override the default Docker image name if you use a custom image or a repository mirror
   name: "ghcr.io/banzaicloud/logging-operator"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-  # version: 3.15.0
+  # version: 3.17.3
 
 # Customize the deployment of the Logging Operator image
 deploy:
@@ -59,7 +59,7 @@ defaultLogging:
   fluentbit:
     # image:
       # name: "fluent/fluent-bit"
-      # version: 1.8.8
+      # version: 1.8.15
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
     # Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root
@@ -86,7 +86,7 @@ defaultLogging:
   fluentd:
     # image:
       # name: "ghcr.io/banzaicloud/fluentd"
-      # version: v1.13.3-alpine-11
+      # version: v1.14.5-alpine-1
     # Override this value to choose how many replicas of fluentd you want.
     replicas: 1
     # Change this value to increase or decrease the volume dimension dedicated to the buffer
