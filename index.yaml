@@ -460,6 +460,35 @@ entries:
     version: 0.5.0
   logging-operator:
   - apiVersion: v2
+    appVersion: 3.17.3
+    created: "2022-04-08T12:55:15.080597813Z"
+    description: A Kubernetes logging stack based on Logging Operator
+    digest: 52e63955b8a40de5997ddcc81958cb9a6e644e6a32dc57ad406ccb88b86c4581
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
+    keywords:
+    - logging
+    - logging-operator
+    - fluentd
+    - fluent-bit
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    name: logging-operator
+    sources:
+    - https://github.com/banzaicloud/logging-operator
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.8.0/logging-operator-3.8.0.tgz
+    version: 3.8.0
+  - apiVersion: v2
     appVersion: 3.15.0
     created: "2021-10-28T10:53:55.916909349Z"
     description: A Kubernetes logging stack based on Logging Operator
@@ -892,6 +921,33 @@ entries:
     - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.0.0/logging-operator-3.0.0.tgz
     version: 3.0.0
   monitoring:
+  - apiVersion: v2
+    appVersion: v0.55.1
+    created: "2022-04-08T12:55:15.315912021Z"
+    description: A Kubernetes monitoring stack based on Prometheus Operator
+    digest: 566d747d0a8184bf126c4398c6fd34c0b96bb83af92136d9117004e2aff29a4f
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/Documentation/logos/prometheus-operator-logo.png
+    keywords:
+    - operator
+    - prometheus
+    kubeVersion: '>= 1.20.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    name: monitoring
+    sources:
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/monitoring-1.3.0/monitoring-1.3.0.tgz
+    version: 1.3.0
   - apiVersion: v2
     appVersion: v0.53.1
     created: "2022-03-24T17:17:43.824597685Z"
@@ -1819,6 +1875,33 @@ entries:
     version: 0.1.0
   traefik-ingress:
   - apiVersion: v2
+    appVersion: 2.6.3
+    created: "2022-04-08T12:55:15.529061654Z"
+    description: A Kubernetes Ingress Controller based on Traefik
+    digest: f30f3ddc07906e0833e80f958ffcc4fc6f0994cd4b0a71f3fb982ba11b56fbed
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://docs.traefik.io/assets/img/traefik.logo.png
+    keywords:
+    - traefik
+    - ingress
+    kubeVersion: '>= 1.17.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    name: traefik-ingress
+    sources:
+    - https://github.com/containous/traefik
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-1.5.4/traefik-ingress-1.5.4.tgz
+    version: 1.5.4
+  - apiVersion: v2
     appVersion: 2.6.1
     created: "2022-03-31T13:27:45.646747312Z"
     description: A Kubernetes Ingress Controller based on Traefik
@@ -2616,4 +2699,4 @@ entries:
     urls:
     - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.8.0/traefik-ingress-0.8.0.tgz
     version: 0.8.0
-generated: "2022-03-31T13:27:45.647428312Z"
+generated: "2022-04-08T12:55:15.53006665Z"
