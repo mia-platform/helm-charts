@@ -9,7 +9,6 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 rules:
-rules:
   - apiGroups:
       - ""
     resources:
@@ -45,67 +44,51 @@ rules:
       - "ingressrouteudps"
       - "middlewares"
       - "middlewaretcps"
-      - "serverstransports"
       - "tlsoptions"
       - "tlsstores"
       - "traefikservices"
+      - "serverstransports"
     verbs:
       - "get"
       - "list"
       - "watch"
+# from here the crd changes
   - apiGroups:
-      - "networking.x-k8s.io"
+      - ""
+    resources:
+      - "namespaces"
+    verbs:
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "gateway.networking.k8s.io"
     resources:
       - "gatewayclasses"
-      - "gatewayclasses/status"
       - "gateways"
+      - "httproutes"
+      - "tcproutes"
+      - "tlsroutes"
     verbs:
       - "get"
       - "list"
       - "watch"
   - apiGroups:
-      - "networking.x-k8s.io"
+      - "gateway.networking.k8s.io"
     resources:
       - "gatewayclasses/status"
-    verbs:
-      - "get"
-      - "patch"
-      - "update"
-  - apiGroups:
-      - "networking.x-k8s.io"
-    resources:
       - "gateways/status"
-    verbs:
-      - "get"
-      - "patch"
-      - "update"
-  - apiGroups:
-      - "networking.x-k8s.io"
-    resources:
-      - "httproutes"
-    verbs:
-      - "create"
-      - "delete"
-      - "get"
-      - "list"
-      - "patch"
-      - "update"
-      - "watch"
-  - apiGroups:
-      - "networking.x-k8s.io"
-    resources:
       - "httproutes/status"
+      - "tcproutes/status"
+      - "tlsroutes/status"
     verbs:
-      - "get"
-      - "patch"
       - "update"
 {{- if .Values.podSecurityPolicyEnabled }}
   - apiGroups:
       - "policy"
     resources:
       - "podsecuritypolicies"
-    verbs:
-      - "use"
     resourceNames:
       - {{ include "mia-traefik-ingress.fullname" . }}
+    verbs:
+      - "use"
 {{- end }}

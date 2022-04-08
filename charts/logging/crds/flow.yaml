@@ -82,6 +82,8 @@ spec:
                       type: object
                     detectExceptions:
                       properties:
+                        force_line_breaks:
+                          type: boolean
                         languages:
                           items:
                             type: string
@@ -828,6 +830,8 @@ spec:
                       type: object
                     detectExceptions:
                       properties:
+                        force_line_breaks:
+                          type: boolean
                         languages:
                           items:
                             type: string

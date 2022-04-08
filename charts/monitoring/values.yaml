@@ -13,7 +13,7 @@ image:
   # Override the default Docker image name if you use a custom image or a repository mirror
   name: "quay.io/prometheus-operator/prometheus-operator"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-  # version: "v0.53.1"
+  # version: "v0.55.1"
 
 # Customize the deployment of the Prometheus Operator image
 deploy:
@@ -69,7 +69,7 @@ prometheus:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "quay.io/prometheus/prometheus"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v2.32.1"
+    version: "v2.33.5"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace
@@ -108,7 +108,7 @@ prometheus:
       # Override the default Docker image name if you use a custom image or a repository mirror
       name: "quay.io/prometheus-operator/prometheus-config-reloader"
       # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-      version: "v0.53.1"
+      version: "v0.55.1"
 
     resources:
       cpu: "100m"
@@ -120,7 +120,7 @@ alertmanager:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "quay.io/prometheus/alertmanager"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v0.23.0"
+    version: "v0.24.0"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace
@@ -182,7 +182,7 @@ kubeStateMetrics:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "k8s.gcr.io/kube-state-metrics/kube-state-metrics"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v2.3.0"
+    version: "v2.4.2"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace
