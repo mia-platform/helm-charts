@@ -1,8 +1,8 @@
 apiVersion: v2
 name: logging-operator
-version: 3.8.1
+version: 3.8.2
 kubeVersion: ">= 1.16.0-0"
-appVersion: 3.17.4
+appVersion: 3.17.6
 description: "A Kubernetes logging stack based on Logging Operator"
 type: application
 keywords:
@@ -22,5 +22,7 @@ maintainers:
     url: https://github.com/lterrac
   - name: "Daniele Della Rocca"
     url: https://github.com/ddellarocca
+  - name: "Giorgia Fiscaletti"
+    url: https://github.com/fiscafusca
 icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
 deprecated: false
