@@ -3,7 +3,6 @@
 Create the base for the TLSOption that is shared between spec.
 */}}
 {{- define "mia-traefik-ingress.baseTlsOptionSpec" -}}
-sniStrict: true
 curvePreferences:
   - "X25519"
   - "CurveP384"

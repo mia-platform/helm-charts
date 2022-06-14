@@ -25,6 +25,10 @@
       "type": "string",
       "enum": ["modern", "intermediate", "old"]
     },
+    "tlsStrictSni": {
+      "description": "Select if the default TLSOptions has strict sni enabled",
+      "type": "boolean"
+    },
     "podSecurityPolicyEnabled": {
       "description": "Enable the Pod Security Policy for allowing the execution of the traefik pods",
       "type": "boolean"
