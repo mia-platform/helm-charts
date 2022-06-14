@@ -6,6 +6,7 @@ metadata:
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
 spec:
+  strictSni: {{ .Values.tlsStrictSni }}
   {{- include "mia-traefik-ingress.defaultTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -15,6 +16,7 @@ metadata:
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
 spec:
+  strictSni: true
   {{- include "mia-traefik-ingress.oldTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -24,6 +26,7 @@ metadata:
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
 spec:
+  strictSni: true
   {{- include "mia-traefik-ingress.intermediateTlsOptionSpec" . | nindent 2 }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -33,5 +36,6 @@ metadata:
   labels:
     {{- include "mia-traefik-ingress.labels" . | nindent 4 }}
 spec:
+  strictSni: true
   {{- include "mia-traefik-ingress.modernTlsOptionSpec" . | nindent 2 }}
 {{- end -}}
