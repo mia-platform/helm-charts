@@ -25,8 +25,8 @@
       "type": "string",
       "enum": ["modern", "intermediate", "old"]
     },
-    "tlsStrictSni": {
-      "description": "Select if the default TLSOptions has strict sni enabled",
+    "tlsSniStrict": {
+      "description": "Select if the default TLSOptions has sniStrict enabled",
       "type": "boolean"
     },
     "podSecurityPolicyEnabled": {
