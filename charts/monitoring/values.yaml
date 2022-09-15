@@ -50,9 +50,9 @@ deploy:
   tlsGenerator:
     image:
       # Override the default Docker image name if you use a custom image or a repository mirror
-      name: "jettech/kube-webhook-certgen"
+      name: "registry.k8s.io/ingress-nginx/kube-webhook-certgen"
       # Use this value to override the tag of the image
-      version: "v1.5.2"
+      version: "v1.1.1"
 
 # Customize the service that expose the Prometheus Operator
 service:
