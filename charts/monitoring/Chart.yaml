@@ -23,5 +23,5 @@ maintainers:
   - name: "Giorgia Fiscaletti"
     url: https://github.com/fiscafusca
 icon: "https://raw.githubusercontent.com/prometheus-operator/prometheu\
-  s-operator/master/Documentation/logos/prometheus-operator-logo.png"
+       s-operator/master/Documentation/logos/prometheus-operator-logo.png"
 deprecated: false
