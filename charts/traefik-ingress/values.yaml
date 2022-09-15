@@ -52,7 +52,7 @@ deploy:
   #     memory: "100Mi"
 
   # If you have the necessity to run traefik only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that traefik will run fill
   # this variable
   tolerations: []

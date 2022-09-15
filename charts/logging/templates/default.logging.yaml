@@ -76,7 +76,7 @@ spec:
     affinity:
       {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.defaultLogging.fluentbit.nodeSelectors }}
+    {{- with .Values.defaultLogging.fluentbit.nodeSelector }}
     nodeSelector:
       {{- toYaml . | nindent 8 }}
     {{- end }}
@@ -139,7 +139,7 @@ spec:
     affinity:
       {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.defaultLogging.fluentd.nodeSelectors }}
+    {{- with .Values.defaultLogging.fluentd.nodeSelector }}
     nodeSelector:
       {{- toYaml . | nindent 8 }}
     {{- end }}

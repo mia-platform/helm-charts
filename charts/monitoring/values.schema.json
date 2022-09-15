@@ -62,7 +62,7 @@
           "description": "Pod affinity to add to the deployment",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deployment",
           "type": "object"
         },
@@ -143,7 +143,7 @@
           "description": "The resource block for the Prometheus container",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deployment",
           "type": "object"
         },
@@ -254,7 +254,7 @@
           "description": "The resource block for the Alertmanager container",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deployment",
           "type": "object"
         },
@@ -312,7 +312,7 @@
           "description": "Pod affinity to add to the deamonset",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deamonset",
           "type": "object"
         },
@@ -357,7 +357,7 @@
           "description": "Pod affinity to add to the deamonset",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deamonset",
           "type": "object"
         },

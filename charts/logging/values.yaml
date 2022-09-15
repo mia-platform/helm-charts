@@ -38,7 +38,7 @@ deploy:
   # If you wanto to add pod affinity rules for the logging operator pods fill this variable
   affinity: {}
   # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that logging operator will run fill
   # this variable
   tolerations: []
@@ -78,7 +78,7 @@ defaultLogging:
     # If you wanto to add pod affinity rules for the logging operator pods fill this variable
     affinity: {}
     # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
-    nodeSelectors: {}
+    nodeSelector: {}
     # If you have to ignore particular taints on nodes where you want that logging operator will run fill
     # this variable
     tolerations: []
@@ -105,7 +105,7 @@ defaultLogging:
     # If you wanto to add pod affinity rules for the logging operator pods fill this variable
     affinity: {}
     # If you have the necessity to run logging operator only on specific labeled nodes fill this variables
-    nodeSelectors: {}
+    nodeSelector: {}
     # If you have to ignore particular taints on nodes where you want that logging operator will run fill
     # this variable
     tolerations: []

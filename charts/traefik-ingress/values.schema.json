@@ -97,7 +97,7 @@
           "description": "Name of kuberntes secrets to use for repository authentication",
           "type": "array"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deployment",
           "type": "object"
         },

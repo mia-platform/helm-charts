@@ -78,7 +78,7 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.kubeStateMetrics.nodeSelectors }}
+      {{- with .Values.kubeStateMetrics.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}

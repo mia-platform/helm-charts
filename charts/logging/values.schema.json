@@ -57,7 +57,7 @@
           "description": "Pod affinity to add to the deployment",
           "type": "object"
         },
-        "nodeSelectors": {
+        "nodeSelector": {
           "description": "Node selectors to add to the deployment",
           "type": "object"
         },

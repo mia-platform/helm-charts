@@ -95,7 +95,7 @@ spec:
         fsGroup: 12000
       affinity:
         {{- include "mia-traefik-ingress.podAffinity" . | nindent 8 }}
-      {{- with .Values.deploy.nodeSelectors }}
+      {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
