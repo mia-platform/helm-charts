@@ -39,7 +39,7 @@ deploy:
   # If you wanto to add pod affinity rules for the prometheus operator pods fill this variable
   affinity: {}
   # If you have the necessity to run prometheus operator only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that prometheus operator will run fill
   # this variable
   tolerations: []
@@ -82,7 +82,7 @@ prometheus:
     #   memory: "200Mi"
 
   # If you have the necessity to run prometheus only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that prometheus will run fill
   # this variable
   tolerations: []
@@ -133,7 +133,7 @@ alertmanager:
     #   memory: "200Mi"
 
   # If you have the necessity to run alertmanager only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that alertmanager will run fill
   # this variable
   tolerations: []
@@ -169,7 +169,7 @@ nodeExporter:
   # If you wanto to add pod affinity rules for the node exporter pods fill this variable
   affinity: {}
   # If you have the necessity to run node exporter only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that node exporter will run fill
   # this variable
   tolerations:
@@ -197,7 +197,7 @@ kubeStateMetrics:
   # If you wanto to add pod affinity rules for the node exporter pods fill this variable
   affinity: {}
   # If you have the necessity to run node exporter only on specific labeled nodes fill this variables
-  nodeSelectors: {}
+  nodeSelector: {}
   # If you have to ignore particular taints on nodes where you want that node exporter will run fill
   # this variable
   tolerations: []
