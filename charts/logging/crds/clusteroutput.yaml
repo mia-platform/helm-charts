@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.5.0
+    controller-gen.kubebuilder.io/version: v0.6.0
   creationTimestamp: null
   name: clusteroutputs.logging.banzaicloud.io
 spec:
@@ -287,6 +287,10 @@ spec:
                     type: boolean
                   data_stream_ilm_name:
                     type: string
+                  data_stream_ilm_policy:
+                    type: string
+                  data_stream_ilm_policy_overwrite:
+                    type: boolean
                   data_stream_name:
                     type: string
                   data_stream_template_name:
@@ -536,6 +540,8 @@ spec:
                         type: string
                     type: object
                   exception_backup:
+                    type: boolean
+                  fail_on_detecting_es_version_retry_exceed:
                     type: boolean
                   fail_on_putting_template_retry_exceed:
                     type: boolean
@@ -1559,6 +1565,10 @@ spec:
                     type: boolean
                   data_stream_ilm_name:
                     type: string
+                  data_stream_ilm_policy:
+                    type: string
+                  data_stream_ilm_policy_overwrite:
+                    type: boolean
                   data_stream_name:
                     type: string
                   data_stream_template_name:
@@ -1570,6 +1580,8 @@ spec:
                   enable_ilm:
                     type: boolean
                   exception_backup:
+                    type: boolean
+                  fail_on_detecting_es_version_retry_exceed:
                     type: boolean
                   fail_on_putting_template_retry_exceed:
                     type: boolean
@@ -2901,6 +2913,39 @@ spec:
                     type: integer
                   kafka_agg_max_messages:
                     type: integer
+                  keytab:
+                    properties:
+                      mountFrom:
+                        properties:
+                          secretKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                        type: object
+                      value:
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                        type: object
+                    type: object
                   max_send_retries:
                     type: integer
                   message_key_key:
@@ -2942,6 +2987,8 @@ spec:
                             type: object
                         type: object
                     type: object
+                  principal:
+                    type: string
                   required_acks:
                     type: integer
                   sasl_over_ssl:
@@ -6093,6 +6140,10 @@ spec:
                     type: boolean
                   data_stream_ilm_name:
                     type: string
+                  data_stream_ilm_policy:
+                    type: string
+                  data_stream_ilm_policy_overwrite:
+                    type: boolean
                   data_stream_name:
                     type: string
                   data_stream_template_name:
@@ -6342,6 +6393,8 @@ spec:
                         type: string
                     type: object
                   exception_backup:
+                    type: boolean
+                  fail_on_detecting_es_version_retry_exceed:
                     type: boolean
                   fail_on_putting_template_retry_exceed:
                     type: boolean
@@ -7365,6 +7418,10 @@ spec:
                     type: boolean
                   data_stream_ilm_name:
                     type: string
+                  data_stream_ilm_policy:
+                    type: string
+                  data_stream_ilm_policy_overwrite:
+                    type: boolean
                   data_stream_name:
                     type: string
                   data_stream_template_name:
@@ -7376,6 +7433,8 @@ spec:
                   enable_ilm:
                     type: boolean
                   exception_backup:
+                    type: boolean
+                  fail_on_detecting_es_version_retry_exceed:
                     type: boolean
                   fail_on_putting_template_retry_exceed:
                     type: boolean
@@ -8707,6 +8766,39 @@ spec:
                     type: integer
                   kafka_agg_max_messages:
                     type: integer
+                  keytab:
+                    properties:
+                      mountFrom:
+                        properties:
+                          secretKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                        type: object
+                      value:
+                        type: string
+                      valueFrom:
+                        properties:
+                          secretKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                        type: object
+                    type: object
                   max_send_retries:
                     type: integer
                   message_key_key:
@@ -8748,6 +8840,8 @@ spec:
                             type: object
                         type: object
                     type: object
+                  principal:
+                    type: string
                   required_acks:
                     type: integer
                   sasl_over_ssl:
