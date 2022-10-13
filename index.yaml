@@ -460,6 +460,37 @@ entries:
     version: 0.5.0
   logging-operator:
   - apiVersion: v2
+    appVersion: 3.17.9
+    created: "2022-10-13T15:17:20.17317718Z"
+    description: A Kubernetes logging stack based on Logging Operator
+    digest: 9a3f0fb986aa148271a9a97e5362e4ba3493112cede9c33e7335e0842ece8219
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://github.com/banzaicloud/logging-operator/blob/master/docs/img/icon.png
+    keywords:
+    - logging
+    - logging-operator
+    - fluentd
+    - fluent-bit
+    kubeVersion: '>= 1.16.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    - name: Giorgia Fiscaletti
+      url: https://github.com/fiscafusca
+    name: logging-operator
+    sources:
+    - https://github.com/banzaicloud/logging-operator
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-4.0.1/logging-operator-4.0.1.tgz
+    version: 4.0.1
+  - apiVersion: v2
     appVersion: 3.17.6
     created: "2022-09-15T07:38:33.149265693Z"
     description: A Kubernetes logging stack based on Logging Operator
@@ -1012,6 +1043,35 @@ entries:
     - https://github.com/mia-platform/helm-charts/releases/download/logging-operator-3.0.0/logging-operator-3.0.0.tgz
     version: 3.0.0
   monitoring:
+  - apiVersion: v2
+    appVersion: v0.59.2
+    created: "2022-10-13T15:17:20.458740986Z"
+    description: A Kubernetes monitoring stack based on Prometheus Operator
+    digest: 0e15352fde684e2a596aaa876d6fda27eaa76536f05a6b56690298c94dd0a8a0
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/Documentation/logos/prometheus-operator-logo.png
+    keywords:
+    - operator
+    - prometheus
+    kubeVersion: '>= 1.20.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    - name: Giorgia Fiscaletti
+      url: https://github.com/fiscafusca
+    name: monitoring
+    sources:
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/monitoring-2.1.0/monitoring-2.1.0.tgz
+    version: 2.1.0
   - apiVersion: v2
     appVersion: v0.56.2
     created: "2022-09-15T07:38:33.455001877Z"
@@ -2053,6 +2113,35 @@ entries:
     version: 0.1.0
   traefik-ingress:
   - apiVersion: v2
+    appVersion: 2.9.1
+    created: "2022-10-13T15:17:20.765297794Z"
+    description: A Kubernetes Ingress Controller based on Traefik
+    digest: 69339c76e36f1f38076da6f6677fff7852a3d03081b51b91525f4934eaafc1c7
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://docs.traefik.io/assets/img/traefik.logo.png
+    keywords:
+    - traefik
+    - ingress
+    kubeVersion: '>= 1.17.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    - name: Giorgia Fiscaletti
+      url: https://github.com/fiscafusca
+    name: traefik-ingress
+    sources:
+    - https://github.com/containous/traefik
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-2.1.0/traefik-ingress-2.1.0.tgz
+    version: 2.1.0
+  - apiVersion: v2
     appVersion: 2.7.0
     created: "2022-09-15T07:38:33.728637934Z"
     description: A Kubernetes Ingress Controller based on Traefik
@@ -2993,4 +3082,4 @@ entries:
     urls:
     - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.8.0/traefik-ingress-0.8.0.tgz
     version: 0.8.0
-generated: "2022-09-15T07:38:33.729622331Z"
+generated: "2022-10-13T15:17:20.766175807Z"
