@@ -69,7 +69,7 @@ prometheus:
     # Override the default Docker image name if you use a custom image or a repository mirror
     name: "quay.io/prometheus/prometheus"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
-    version: "v2.39.0"
+    version: "v2.39.1"
 
   # You are encouraged to setup the resources that the application can use via this
   # property or at least via a LimitRange resource in the namespace
