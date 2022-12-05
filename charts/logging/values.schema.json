@@ -110,6 +110,14 @@
           "description": "Memory available to fluentbit",
           "type": "string"
         },
+        "refreshInterval": {
+          "description": "Refresh interval for fluentbit",
+          "type": "string"
+        },
+        "rotateWait": {
+          "description": "Rotate time wait for fluentbit",
+          "type": "string"
+        },
         "runAsRoot": {
           "description": "Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root",
           "type": "boolean"
