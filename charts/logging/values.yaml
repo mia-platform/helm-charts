@@ -62,6 +62,12 @@ defaultLogging:
       # version: 1.9.3
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
+    # Override this value to change the Mem_Buf_Limit value
+    memBufLimit: "10MB"
+    # Override this value to change the Refresh_Interval value
+    refreshInterval: "30"
+    # Override this value to change the Rotate_Wait value
+    rotateWait: "30"
     # Run the fluentbit pods as root user, enable it if the logs on the nodes are written by root
     runAsRoot: false
     # Use this variable to add custom annotations to the generated fluentbit pods

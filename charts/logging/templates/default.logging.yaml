@@ -36,9 +36,9 @@ spec:
       keepaliveMaxRecycle: 50
     inputTail:
       Path: {{ .Values.defaultLogging.fluentbit.logFilesPattern | quote }}
-      Mem_Buf_Limit: "10MB"
-      Refresh_Interval: "30"
-      Rotate_Wait: "30"
+      Mem_Buf_Limit: {{ .Values.defaultLogging.fluentbit.memBufLimit | quote }}
+      Refresh_Interval: {{ .Values.defaultLogging.fluentbit.refreshInterval | quote }}
+      Rotate_Wait: {{ .Values.defaultLogging.fluentbit.rotateWait | quote }}
     positiondb:
       hostPath:
         path: "/var/log/logging-operator"
