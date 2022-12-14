@@ -35,6 +35,12 @@ spec:
       targetPort: "websecure"
       protocol: "TCP"
     {{- end }}
+    {{- range .Values.service.additionalEntrypoints }}
+    - name: {{ .name | quote }}
+      port: {{ .port }}
+      targetPort: {{ .name | quote }}
+      protocol: {{ .protocol | quote }}
+    {{- end }}
 ---
 apiVersion: v1
 kind: Service

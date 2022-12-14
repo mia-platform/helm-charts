@@ -115,6 +115,10 @@
         "description": "Enable websecure entrypoint and default redirect to https",
         "type": "boolean"
       },
+      "additionalEntrypoints": {
+        "description": "Enable additional entrypoints",
+        "type": "array"
+      },
       "annotations": {
         "description": "Custom annotations to add to the public service",
         "type": "object"

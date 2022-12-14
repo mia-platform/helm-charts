@@ -23,6 +23,9 @@ Create the args passed to the Traefik pod.
 - "--entrypoints.websecure.transport.lifecycle.requestacceptgracetimeout=29"
 - "--entrypoints.websecure.http.tls=true"
 {{- end }}
+{{- range .Values.service.additionalEntrypoints }}
+- "--entryPoints.{{ .name }}.address=:{{ .port }}/{{ lower .protocol }}"
+{{- end }}
 - "--entryPoints.traefik.address=:9000/tcp"
 - "--entryPoints.traefik.transport.lifecycle.gracetimeout=1"
 - "--entrypoints.traefik.transport.lifecycle.requestacceptgracetimeout=0"

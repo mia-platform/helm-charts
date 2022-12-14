@@ -55,6 +55,11 @@ spec:
             - name: "traefik"
               containerPort: 9000
               protocol: "TCP"
+            {{- range .Values.service.additionalEntrypoints }}
+            - name: {{ .name | quote }}
+              containerPort: {{ .port }}
+              protocol: {{ .protocol | quote }}
+            {{- end }}
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
