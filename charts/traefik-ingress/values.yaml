@@ -61,6 +61,13 @@ deploy:
 service:
   # Enable websecure entrypoint and default redirect to https
   enableTLS: true
+  # Additional entrypoints to be configured
+  # Example:
+  # additionalEntrypoints:
+  # - name: mqtt
+  #   port: 1883
+  #   protocol: TCP
+  additionalEntrypoints: []
   # Use this variable to add custom annotations
   annotations: {}
   # Explicitly set the IP of the load balancer, if the cloud vendor support this
