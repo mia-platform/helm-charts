@@ -95,6 +95,9 @@ Create the name for the additional scraping config secret
         - "__tmp_hash"
       regex: "$(SHARD)"
       action: "keep"
+    {{- with .Values.prometheus.additionalRelabelConfigs }}
+    {{- toYaml . | nindent 4 -}}
+    {{ end -}}
 {{- if .Values.prometheus.additionalScrapeConfigs }}
 {{ .Values.prometheus.additionalScrapeConfigs }}
 {{- end -}}
