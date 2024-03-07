@@ -1,1 +1,4 @@
-* @JGiola @thobianchi @lterrac
+# All files
+* @JGiola @verdienansein
+# Actions must also be checked by security
+.github/workflows @mia-platform/sig-security
