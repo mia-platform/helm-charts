@@ -37,6 +37,7 @@ rules:
     verbs:
       - "update"
   - apiGroups:
+      - "traefik.io"
       - "traefik.containo.us"
     resources:
       - "ingressroutes"
