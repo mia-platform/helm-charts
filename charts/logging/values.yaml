@@ -11,7 +11,7 @@ enableServiceMonitor: false
 
 image:
   # Override the default Docker image name if you use a custom image or a repository mirror
-  name: "ghcr.io/banzaicloud/logging-operator"
+  name: "ghcr.io/kube-logging/logging-operator"
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
   # version: 3.17.6
 
