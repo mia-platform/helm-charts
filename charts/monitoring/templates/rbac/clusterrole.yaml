@@ -10,88 +10,107 @@ metadata:
   {{- end }}
 rules:
   - apiGroups:
-      - "monitoring.coreos.com"
+      - monitoring.coreos.com
     resources:
-      - "alertmanagers"
-      - "alertmanagers/finalizers"
-      - "alertmanagerconfigs"
-      - "prometheuses"
-      - "prometheuses/status"
-      - "prometheuses/finalizers"
-      - "thanosrulers"
-      - "thanosrulers/finalizers"
-      - "servicemonitors"
-      - "podmonitors"
-      - "probes"
-      - "prometheusrules"
+      - alertmanagers
+      - alertmanagers/finalizers
+      - alertmanagers/status
+      - alertmanagerconfigs
+      - prometheuses
+      - prometheuses/finalizers
+      - prometheuses/status
+      - prometheusagents
+      - prometheusagents/finalizers
+      - prometheusagents/status
+      - thanosrulers
+      - thanosrulers/finalizers
+      - thanosrulers/status
+      - scrapeconfigs
+      - servicemonitors
+      - podmonitors
+      - probes
+      - prometheusrules
     verbs:
-      - "*"
+      - '*'
   - apiGroups:
-      - "apps"
+      - apps
     resources:
-      - "statefulsets"
+      - statefulsets
     verbs:
-      - "*"
-  - apiGroups:
-      - ""
-    resources:
-      - "configmaps"
-      - "secrets"
-    verbs:
-      - "*"
-  - apiGroups:
-      - ""
-    resources:
-      - "pods"
-    verbs:
-      - "list"
-      - "delete"
+      - '*'
   - apiGroups:
       - ""
     resources:
-      - "services"
-      - "services/finalizers"
-      - "endpoints"
+      - configmaps
+      - secrets
     verbs:
-      - "get"
-      - "create"
-      - "update"
-      - "delete"
+      - '*'
   - apiGroups:
       - ""
     resources:
-      - "nodes"
+      - pods
     verbs:
-      - "list"
-      - "watch"
+      - list
+      - delete
   - apiGroups:
       - ""
     resources:
-      - "namespaces"
+      - services
+      - services/finalizers
+      - endpoints
     verbs:
-      - "get"
-      - "list"
-      - "watch"
+      - get
+      - create
+      - update
+      - delete
   - apiGroups:
-      - "networking.k8s.io"
+      - ""
     resources:
-      - "ingresses"
+      - nodes
     verbs:
-      - "get"
-      - "list"
-      - "watch"
+      - list
+      - watch
   - apiGroups:
-      - "authentication.k8s.io"
+      - ""
     resources:
-      - "tokenreviews"
+      - namespaces
     verbs:
-      - "create"
+      - get
+      - list
+      - watch
   - apiGroups:
-      - "authorization.k8s.io"
+      - ""
     resources:
-      - "subjectaccessreviews"
+      - events
     verbs:
-      - "create"
+      - patch
+      - create
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 {{- if .Values.podSecurityPolicyEnabled }}
   - apiGroups:
       - "policy"
