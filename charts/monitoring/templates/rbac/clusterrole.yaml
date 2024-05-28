@@ -10,7 +10,7 @@ metadata:
   {{- end }}
 rules:
   - apiGroups:
-      - "monitoring.coreos.com"
+      - monitoring.coreos.com
     resources:
       - alertmanagers
       - alertmanagers/finalizers
@@ -31,73 +31,86 @@ rules:
       - probes
       - prometheusrules
     verbs:
-      - "*"
+      - '*'
   - apiGroups:
-      - "apps"
+      - apps
     resources:
-      - "statefulsets"
+      - statefulsets
     verbs:
-      - "*"
-  - apiGroups:
-      - ""
-    resources:
-      - "configmaps"
-      - "secrets"
-    verbs:
-      - "*"
+      - '*'
   - apiGroups:
       - ""
     resources:
-      - "pods"
+      - configmaps
+      - secrets
     verbs:
-      - "list"
-      - "delete"
+      - '*'
   - apiGroups:
       - ""
     resources:
-      - "services"
-      - "services/finalizers"
-      - "endpoints"
+      - pods
     verbs:
-      - "get"
-      - "create"
-      - "update"
-      - "delete"
+      - list
+      - delete
   - apiGroups:
       - ""
     resources:
-      - "nodes"
+      - services
+      - services/finalizers
+      - endpoints
     verbs:
-      - "list"
-      - "watch"
+      - get
+      - create
+      - update
+      - delete
   - apiGroups:
       - ""
     resources:
-      - "namespaces"
+      - nodes
     verbs:
-      - "get"
-      - "list"
-      - "watch"
+      - list
+      - watch
   - apiGroups:
-      - "networking.k8s.io"
+      - ""
     resources:
-      - "ingresses"
+      - namespaces
     verbs:
-      - "get"
-      - "list"
-      - "watch"
+      - get
+      - list
+      - watch
   - apiGroups:
-      - "authentication.k8s.io"
+      - ""
     resources:
-      - "tokenreviews"
+      - events
     verbs:
-      - "create"
+      - patch
+      - create
   - apiGroups:
-      - "authorization.k8s.io"
+      - networking.k8s.io
     resources:
-      - "subjectaccessreviews"
+      - ingresses
     verbs:
-      - "create"
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 {{- if .Values.podSecurityPolicyEnabled }}
   - apiGroups:
       - "policy"
