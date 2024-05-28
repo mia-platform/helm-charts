@@ -12,25 +12,24 @@ rules:
   - apiGroups:
       - "monitoring.coreos.com"
     resources:
-      resources:
-        - alertmanagers
-        - alertmanagers/finalizers
-        - alertmanagers/status
-        - alertmanagerconfigs
-        - prometheuses
-        - prometheuses/finalizers
-        - prometheuses/status
-        - prometheusagents
-        - prometheusagents/finalizers
-        - prometheusagents/status
-        - thanosrulers
-        - thanosrulers/finalizers
-        - thanosrulers/status
-        - scrapeconfigs
-        - servicemonitors
-        - podmonitors
-        - probes
-        - prometheusrules
+      - alertmanagers
+      - alertmanagers/finalizers
+      - alertmanagers/status
+      - alertmanagerconfigs
+      - prometheuses
+      - prometheuses/finalizers
+      - prometheuses/status
+      - prometheusagents
+      - prometheusagents/finalizers
+      - prometheusagents/status
+      - thanosrulers
+      - thanosrulers/finalizers
+      - thanosrulers/status
+      - scrapeconfigs
+      - servicemonitors
+      - podmonitors
+      - probes
+      - prometheusrules
     verbs:
       - "*"
   - apiGroups:
