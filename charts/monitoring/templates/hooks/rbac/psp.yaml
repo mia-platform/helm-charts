@@ -6,8 +6,11 @@ metadata:
   labels:
     {{- include "mia-monitoring.hooks.labels" . | nindent 4 }}
   annotations:
+    argocd.argoproj.io/hook: PreSync,PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
     helm.sh/hook: "pre-install,pre-upgrade,post-install,post-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
+    helm.sh/hook-weight: "-5"
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "runtime/default"
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  "runtime/default"
 spec:

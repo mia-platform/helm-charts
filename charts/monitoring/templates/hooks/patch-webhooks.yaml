@@ -1,14 +1,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name:  {{ include "mia-monitoring.hooks.fullname" . | quote }}
+  name:  patch-webhooks
   annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
     helm.sh/hook: "post-install,post-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
+    helm.sh/hook-weight: "-1"
   labels:
     {{- include "mia-monitoring.hooks.labels" . | nindent 4 }}
 spec:
-  ttlSecondsAfterFinished: 0
+  ttlSecondsAfterFinished: 60
   template:
     metadata:
       name:  {{ include "mia-monitoring.hooks.fullname" . | quote }}
