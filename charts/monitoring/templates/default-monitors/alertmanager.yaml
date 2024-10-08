@@ -13,7 +13,17 @@ spec:
       - {{ .Release.Namespace | quote }}
   jobLabel: "app.kubernetes.io/name"
   podMetricsEndpoints:
-    - port: "web"
-      path: "/metrics"
-    - port: "reloader-web"
-      path: "/metrics"
+  - path: /metrics
+    port: web
+    metricRelabelings:
+    - action: keep
+      regex: alertmanager.*
+      sourceLabels:
+      - __name__
+  - path: /metrics
+    port: reloader-web
+    metricRelabelings:
+    - action: keep
+      regex: reloader.*
+      sourceLabels:
+      - __name__

@@ -14,7 +14,7 @@ metadata:
   {{- end }}
 spec:
   groups:
-    - name: "kube-scheduler.rules"
+    - name: kube-scheduler.rules
       rules:
         - expr: |
             histogram_quantile(0.99, sum(rate(scheduler_e2e_scheduling_duration_seconds_bucket{job="kube-scheduler"}[5m])) without(instance, pod))

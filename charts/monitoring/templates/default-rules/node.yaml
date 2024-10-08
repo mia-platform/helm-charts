@@ -2,6 +2,8 @@
 This rules are lifted from the 'node.rules' group from https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/main/manifests/kubernetes-prometheusRule.yaml
 We only divide the list in sub resources for better skimming through them
 */ -}}
+{{- $nodeExporterJob := printf "%s" (include "mia-monitoring.nodeExporter.name" .) }}
+{{- $kubeStateMetricsJob := printf "%s" (include "mia-monitoring.kubeStateMetrics.name" .) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -17,26 +19,38 @@ spec:
     - name: node.rules
       rules:
         - expr: |
-            topk by(namespace, pod) (1,
-              max by (node, namespace, pod) (
-                label_replace(kube_pod_info{job="kube-state-metrics",node!=""}, "pod", "$1", "pod", "(.*)")
+            topk by(cluster, namespace, pod) (1,
+              max by (cluster, node, namespace, pod) (
+                label_replace(kube_pod_info{job="{{ $kubeStateMetricsJob }}",node!=""}, "pod", "$1", "pod", "(.*)")
             ))
           record: 'node_namespace_pod:kube_pod_info:'
         - expr: |
-            count by (cluster, node) (sum by (node, cpu) (
-              node_cpu_seconds_total{job="node-exporter"}
-            * on (namespace, pod) group_left(node)
-              topk by(namespace, pod) (1, node_namespace_pod:kube_pod_info:)
-            ))
+            count by (cluster, node) (
+              node_cpu_seconds_total{mode="idle",job="{{ $nodeExporterJob }}"}
+              * on (cluster, namespace, pod) group_left(node)
+              topk by(cluster, namespace, pod) (1, node_namespace_pod:kube_pod_info:)
+            )
           record: node:node_num_cpu:sum
         - expr: |
             sum(
-              node_memory_MemAvailable_bytes{job="node-exporter"} or
+              node_memory_MemAvailable_bytes{job="{{ $nodeExporterJob }}"} or
               (
-                node_memory_Buffers_bytes{job="node-exporter"} +
-                node_memory_Cached_bytes{job="node-exporter"} +
-                node_memory_MemFree_bytes{job="node-exporter"} +
-                node_memory_Slab_bytes{job="node-exporter"}
+                node_memory_Buffers_bytes{job="{{ $nodeExporterJob }}"} +
+                node_memory_Cached_bytes{job="{{ $nodeExporterJob }}"} +
+                node_memory_MemFree_bytes{job="{{ $nodeExporterJob }}"} +
+                node_memory_Slab_bytes{job="{{ $nodeExporterJob }}"}
               )
             ) by (cluster)
           record: :node_memory_MemAvailable_bytes:sum
+        - expr: |
+            avg by (cluster, instance) (
+              sum without (mode) (
+                rate(node_cpu_seconds_total{mode!="idle",mode!="iowait",mode!="steal",job="{{ $nodeExporterJob }}"}[5m])
+              )
+            )
+          record: node:node_cpu_utilization:ratio_rate5m
+        - expr: |
+            avg by (cluster) (
+              node:node_cpu_utilization:ratio_rate5m
+            )
+          record: cluster:node_cpu:ratio_rate5m

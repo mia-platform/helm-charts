@@ -13,5 +13,17 @@ spec:
       - {{ .Release.Namespace | quote }}
   jobLabel: "app.kubernetes.io/name"
   podMetricsEndpoints:
-    - port: "metrics"
-      scrapeTimeout: "10s"
+  - path: /metrics
+    port: metrics
+    relabelings:
+    - action: replace
+      regex: (.*)
+      replacement: $1
+      sourceLabels:
+      - __meta_kubernetes_pod_node_name
+      targetLabel: instance
+    metricRelabelings:
+    - action: keep
+      regex: node.*
+      sourceLabels:
+      - __name__
