@@ -13,7 +13,27 @@ spec:
       - {{ .Release.Namespace | quote }}
   jobLabel: "app.kubernetes.io/name"
   podMetricsEndpoints:
-    - port: "web"
-      honorLabels: true
-    - port: "metrics"
-      honorLabels: true
+  - path: /metrics
+    port: self-metrics
+    honorLabels: true
+    interval: 30s
+    metricRelabelings:
+    - action: keep
+      regex: kube.*
+      sourceLabels:
+      - __name__
+  - path: /metrics
+    port: k8s-metrics
+    interval: 30s
+    relabelings:
+    - action: labeldrop
+      regex: (pod|service|endpoint|namespace)
+    metricRelabelings:
+    - action: drop
+      regex: (kube_endpoint_address_not_ready|kube_endpoint_address_available)
+      sourceLabels:
+      - __name__
+    - action: keep
+      regex: kube.*
+      sourceLabels:
+      - __name__

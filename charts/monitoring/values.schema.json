@@ -159,10 +159,6 @@
           "description": "Additional scrape job",
           "type": "string"
         },
-        "additionalRelabelConfigs": {
-          "description": "Additional relabel configs that will be appended to the default job",
-          "type": "array"
-        },
         "enableDNSMonitor": {
           "description": "Enabel the DNS service metrics monitor",
           "type": "boolean"

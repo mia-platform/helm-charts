@@ -60,7 +60,6 @@ Create the name for the cluster role and its binding
 {{- printf "helm:%s:%s" .Release.Name $name | trunc 63 | trimSuffix ":" -}}
 {{- end -}}
 
-
 {{/*
 Create the name for the additional scraping config secret
 */}}
@@ -70,34 +69,6 @@ Create the name for the additional scraping config secret
 {{- end -}}
 
 {{- define "mia-monitoring.prometheus.scrapeConfigs" -}}
-- job_name: "kubelet"
-  scheme: "https"
-  metrics_path: "/metrics/cadvisor"
-  tls_config:
-    ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-    insecure_skip_verify: true
-  bearer_token_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
-  kubernetes_sd_configs:
-    - role: "node"
-  relabel_configs:
-    - action: "labelmap"
-      regex: "__meta_kubernetes_node_label_(.+)"
-    - source_labels:
-        - "__address__"
-      target_label: "metrics_path"
-      replacement: "/metrics"
-    - source_labels:
-        - "__address__"
-      target_label: __tmp_hash
-      modulus: {{ .Values.prometheus.data.numberOfShards }}
-      action: hashmod
-    - source_labels:
-        - "__tmp_hash"
-      regex: "$(SHARD)"
-      action: "keep"
-    {{- with .Values.prometheus.additionalRelabelConfigs }}
-    {{- toYaml . | nindent 4 -}}
-    {{ end -}}
 {{- if .Values.prometheus.additionalScrapeConfigs }}
 {{ .Values.prometheus.additionalScrapeConfigs }}
 {{- end -}}

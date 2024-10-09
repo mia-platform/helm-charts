@@ -13,13 +13,18 @@ spec:
       - {{ .Release.Namespace | quote }}
   jobLabel: "app.kubernetes.io/name"
   endpoints:
-    - port: "websecure"
-      scheme: "https"
-      tlsConfig:
-        serverName: {{ include "mia-monitoring.fullname" . | quote }}
-        ca:
-          secret:
-            name: {{ include "mia-monitoring.tlsSecretName" . | quote }}
-            key: ca
-            optional: false
-      honorLabels: true
+  - port: websecure
+    path: /metrics
+    scheme: https
+    tlsConfig:
+      serverName: {{ include "mia-monitoring.fullname" . | quote }}
+      ca:
+        secret:
+          name: {{ include "mia-monitoring.tlsSecretName" . | quote }}
+          key: ca
+          optional: false
+    metricRelabelings:
+    - action: keep
+      regex: prometheus_operator.*
+      sourceLabels:
+      - __name__
