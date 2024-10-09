@@ -3,7 +3,6 @@ This rules are lifted from the 'kubernetes-system-kubelet' group from https://ra
 We only divide the list in sub resources for better skimming through them
 */ -}}
 {{- $kubeStateMetricsJob := printf "%s" (include "mia-monitoring.kubeStateMetrics.name" .) }}
-{{- $kubeletJob := printf "%s" (include "mia-monitoring.kubelet.fullname" .) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -80,7 +79,7 @@ spec:
             runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletpodstartuplatencyhigh/
             summary: Kubelet Pod startup latency is too high.
           expr: |
-            histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job="{{ $kubeletJob }}", metrics_path="/metrics"}[5m])) by (cluster, instance, le)) * on(cluster, instance) group_left(node) kubelet_node_name{job="{{ $kubeletJob }}", metrics_path="/metrics"} > 60
+            histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m])) by (cluster, instance, le)) * on(cluster, instance) group_left(node) kubelet_node_name{job="kubelet", metrics_path="/metrics"} > 60
           for: 15m
           labels:
             severity: warning
@@ -146,7 +145,7 @@ spec:
             runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletdown/
             summary: Target disappeared from Prometheus target discovery.
           expr: |
-            absent(up{job="{{ $kubeletJob }}", metrics_path="/metrics"} == 1)
+            absent(up{job="kubelet", metrics_path="/metrics"} == 1)
           for: 15m
           labels:
             severity: critical
