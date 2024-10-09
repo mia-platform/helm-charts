@@ -1106,6 +1106,35 @@ entries:
     version: 3.0.0
   monitoring:
   - apiVersion: v2
+    appVersion: v0.74.0
+    created: "2024-10-09T08:31:28.436376323Z"
+    description: A Kubernetes monitoring stack based on Prometheus Operator
+    digest: e81545532a9d63af12572ae73e718bcd394d3d1e980b1150d3ce25af7089b13d
+    home: https://github.com/mia-platform/helm-charts
+    icon: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/Documentation/logos/prometheus-operator-logo.png
+    keywords:
+    - operator
+    - prometheus
+    kubeVersion: '>= 1.20.0-0'
+    maintainers:
+    - name: Jacopo Andrea Giola
+      url: https://github.com/JGiola
+    - name: Thomas Bianchi
+      url: https://github.com/thobianchi
+    - name: Luca Terracciano
+      url: https://github.com/lterrac
+    - name: Daniele Della Rocca
+      url: https://github.com/ddellarocca
+    - name: Giorgia Fiscaletti
+      url: https://github.com/fiscafusca
+    name: monitoring
+    sources:
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/mia-platform/helm-charts/releases/download/monitoring-2.2.2/monitoring-2.2.2.tgz
+    version: 2.2.2
+  - apiVersion: v2
     appVersion: v0.73.2
     created: "2024-05-29T15:18:09.780267824Z"
     description: A Kubernetes monitoring stack based on Prometheus Operator
@@ -3376,4 +3405,4 @@ entries:
     urls:
     - https://github.com/mia-platform/helm-charts/releases/download/traefik-ingress-0.8.0/traefik-ingress-0.8.0.tgz
     version: 0.8.0
-generated: "2024-05-29T15:18:09.780723054Z"
+generated: "2024-10-09T08:31:28.43678701Z"
