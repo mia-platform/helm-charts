@@ -14,7 +14,7 @@ spec:
   jobLabel: "app.kubernetes.io/name"
   podMetricsEndpoints:
   - path: /metrics
-    port: self-metrics
+    port: metrics
     honorLabels: true
     interval: 30s
     metricRelabelings:
@@ -23,7 +23,7 @@ spec:
       sourceLabels:
       - __name__
   - path: /metrics
-    port: k8s-metrics
+    port: web
     interval: 30s
     relabelings:
     - action: labeldrop
