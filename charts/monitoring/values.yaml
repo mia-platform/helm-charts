@@ -180,7 +180,7 @@ kubeStateMetrics:
   replicas: 1
   image:
     # Override the default Docker image name if you use a custom image or a repository mirror
-    name: "k8s.gcr.io/kube-state-metrics/kube-state-metrics"
+    name: "registry.k8s.io/kube-state-metrics/kube-state-metrics"
     # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
     version: "v2.12.0"
 
