@@ -93,8 +93,6 @@ prometheus:
 
   additionalScrapeConfigs: ""
 
-  additionalRelabelConfigs: []
-
   # Enable the monitor for the DNS metrics
   enableDNSMonitor: true
 

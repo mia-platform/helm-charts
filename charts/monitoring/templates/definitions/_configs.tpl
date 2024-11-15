@@ -21,4 +21,5 @@ Create the args passed to the Prometheus Operator pod.
 - "--prometheus-instance-namespaces={{ .Release.Namespace }}"
 - "--alertmanager-instance-namespaces={{ .Release.Namespace }}"
 - "--thanos-ruler-instance-namespaces={{ .Release.Namespace }}"
+- "--kubelet-service=kube-system/kubelet"
 {{- end -}}

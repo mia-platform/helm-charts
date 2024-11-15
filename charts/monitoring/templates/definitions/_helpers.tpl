@@ -121,3 +121,11 @@ Create the name for cluster dns service monitor
 {{ $name := include "mia-monitoring.fullname" . }}
 {{- printf "%s-dns-service" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create the name for cluster kubelet service monitor
+*/}}
+{{- define "mia-monitoring.kubelet.fullname" -}}
+{{ $name := include "mia-monitoring.fullname" . }}
+{{- printf "%s-kubelet" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
