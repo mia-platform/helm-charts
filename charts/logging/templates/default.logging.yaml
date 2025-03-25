@@ -23,6 +23,10 @@ spec:
     image:
       repository: {{ include "mia-logging.fluentbitImageName" . | quote }}
       tag: {{ include "mia-logging.fluentbitImageVersion" . | quote }}
+      {{- with .Values.defaultLogging.fluentbit.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     filterKubernetes:
       Buffer_Size: "0"
       Merge_Log: "Off"

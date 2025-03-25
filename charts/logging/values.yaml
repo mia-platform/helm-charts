@@ -15,7 +15,7 @@ image:
   # Use this optional value to override the tag of the image to relase instead of relying on the Chart one
   # version: 3.17.6
 
-# Customize the deployment of the Logging Operator image
+  # Customize the deployment of the Logging Operator image
 deploy:
   # Override this value to choose how many replicas of the operator you want.
   replicas: 1
@@ -57,9 +57,10 @@ defaultLogging:
   enabled: true
 
   fluentbit:
-    # image:
+    image:
       # name: "fluent/fluent-bit"
       # version: 1.9.3
+      imagePullSecrets: []
     # Override this value to change where the logs are saved on the cluster nodes
     logFilesPattern: "/var/log/containers/*.log"
     # Override this value to change the Mem_Buf_Limit value
@@ -91,8 +92,8 @@ defaultLogging:
 
   fluentd:
     # image:
-      # name: "ghcr.io/banzaicloud/fluentd"
-      # version: 1.14.6-alpine-4
+    # name: "ghcr.io/banzaicloud/fluentd"
+    # version: 1.14.6-alpine-4
     # Override this value to choose how many replicas of fluentd you want.
     replicas: 1
     # Change this value to increase or decrease the volume dimension dedicated to the buffer
