@@ -58,6 +58,14 @@ spec:
     resources:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+    {{- with .Values.defaultLogging.fluentbit.readinessProbe }}
+    readinessProbe:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.defaultLogging.fluentbit.livenessProbe }}
+    livenessProbe:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
     security:
       roleBasedAccessControlCreate: true
       podSecurityPolicyCreate: {{ .Values.podSecurityPolicyEnabled }}
